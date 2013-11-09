@@ -87,7 +87,7 @@ public class QuizQuestionActivity extends FragmentActivity implements
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.quiz_question, menu);
+		getMenuInflater().inflate(R.menu.student_quiz, menu);
 		return true;
 	}
 

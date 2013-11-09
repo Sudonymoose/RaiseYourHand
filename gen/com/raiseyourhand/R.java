@@ -63,13 +63,13 @@ public final class R {
         public static final int ask=0x7f070000;
         public static final int attendance=0x7f070001;
         public static final int info=0x7f070002;
-        public static final int instructor_shared=0x7f070003;
-        public static final int lectures=0x7f070004;
-        public static final int login=0x7f070005;
-        public static final int questions=0x7f070006;
-        public static final int quiz=0x7f070007;
+        public static final int instructor_quiz=0x7f070003;
+        public static final int instructor_shared=0x7f070004;
+        public static final int lectures=0x7f070005;
+        public static final int login=0x7f070006;
+        public static final int questions=0x7f070007;
         public static final int quiz_answer=0x7f070008;
-        public static final int quiz_question=0x7f070009;
+        public static final int student_quiz=0x7f070009;
         public static final int student_shared=0x7f07000a;
         public static final int view_shared=0x7f07000b;
     }
