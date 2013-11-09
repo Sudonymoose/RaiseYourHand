@@ -1,5 +1,9 @@
 package com.dblayout;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
 /**
  * 
  * Code based off of http://developer.android.com/training/basics/data-storage/databases.html
@@ -10,7 +14,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "Reader.db";
 
     // Constructor
-    public FeedReaderDbHelper(Context context) {
+    public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
     

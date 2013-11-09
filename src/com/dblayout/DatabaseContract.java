@@ -1,5 +1,7 @@
 package com.dblayout;
 
+import android.provider.BaseColumns;
+
 /**
  * 
  * Code based off of http://developer.android.com/training/basics/data-storage/databases.html
@@ -27,10 +29,10 @@ public final class DatabaseContract {
 	    public static final String COLUMN_NAME_CAMPUS = "campus";
 	    
 	    // TODO: Create command for UserEntry
-	    public static final String SQL_CREATE_ENTRIES;
+	    //public static final String SQL_CREATE_ENTRIES;
 
 	    // TODO: Delete command for UserEntry
-	    public static final String SQL_DELETE_ENTRIES;
+	    //public static final String SQL_DELETE_ENTRIES;
 	}
 	 
 	 /* Inner class that defines the table contents for Roster Table */
@@ -41,10 +43,10 @@ public final class DatabaseContract {
 		public static final String COLUMN_NAME_INSTRUCTOR = "instructor?";
 		
 	    // TODO: Create command for RosterEntry
-	    public static final String SQL_CREATE_ENTRIES;
+	    //public static final String SQL_CREATE_ENTRIES;
 
 	    // TODO: Delete command for RosterEntry
-	    public static final String SQL_DELETE_ENTRIES;
+	    //public static final String SQL_DELETE_ENTRIES;
 	}
 	
 	/* Inner class that defines the table contents for Course Table */
@@ -61,10 +63,10 @@ public final class DatabaseContract {
 		public static final String COLUMN_NAME_ROOM = "room";
 		
 	    // TODO: Create command for CourseEntry
-	    public static final String SQL_CREATE_ENTRIES;
+	    //public static final String SQL_CREATE_ENTRIES;
 
 	    // TODO: Delete command for CourseEntry
-	    public static final String SQL_DELETE_ENTRIES;
+	    //public static final String SQL_DELETE_ENTRIES;
 	}
 	
 	/* Inner class that defines the table contents for Student Table */
@@ -74,9 +76,9 @@ public final class DatabaseContract {
 		public static final String COLUMN_NAME_YEAR = "year";
 		
 	    // TODO: Create command for StudentEntry
-	    public static final String SQL_CREATE_ENTRIES;
+	    //public static final String SQL_CREATE_ENTRIES;
 
 	    // TODO: Delete command for StudentEntry
-	    public static final String SQL_DELETE_ENTRIES;
+	    //public static final String SQL_DELETE_ENTRIES;
 	}
 }

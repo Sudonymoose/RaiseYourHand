@@ -32,9 +32,28 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.raiseyourhand.LoginActivity"
-            android:label="@string/title_activity_login"
-            android:windowSoftInputMode="adjustResize|stateVisible" >
+            android:name="com.raiseyourhand.instructor.LecturesActivity"
+            android:label="@string/title_activity_instructor_lectures"
+            android:parentActivityName="com.raiseyourhand.LoginActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.raiseyourhand.LoginActivity" />
+        </activity>
+        <activity
+            android:name="com.raiseyourhand.student.LecturesActivity"
+            android:label="@string/title_activity_student_lectures"
+            android:parentActivityName="com.raiseyourhand.LoginActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.raiseyourhand.LoginActivity" />
+        </activity>
+        <activity
+            android:name="com.raiseyourhand.student.InfoActivity"
+            android:label="@string/title_activity_info"
+            android:parentActivityName="com.raiseyourhand.student.LecturesActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.raiseyourhand.student.LecturesActivity" />
         </activity>
     </application>
 
