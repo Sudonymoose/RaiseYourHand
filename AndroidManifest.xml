@@ -23,7 +23,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.raiseyourhand.LoginActivity"
-            android:label="@string/title_activity_login"
+            android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize|stateVisible" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -54,6 +54,76 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.raiseyourhand.student.LecturesActivity" />
+        </activity>
+        <activity
+            android:name="com.raiseyourhand.instructor.InfoActivity"
+            android:label="@string/title_activity_info"
+            android:parentActivityName="com.raiseyourhand.instructor.LecturesActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.raiseyourhand.instructor.LecturesActivity" />
+        </activity>
+        <activity
+            android:name="com.raiseyourhand.instructor.QuestionsActivity"
+            android:label="@string/title_activity_questions"
+            android:parentActivityName="com.raiseyourhand.instructor.InfoActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.raiseyourhand.instructor.InfoActivity" />
+        </activity>
+        <activity
+            android:name="com.raiseyourhand.instructor.InstructorShared"
+            android:label="@string/title_activity_instructor_shared"
+            android:parentActivityName="com.raiseyourhand.instructor.InfoActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.raiseyourhand.instructor.InfoActivity" />
+        </activity>
+        <activity
+            android:name="com.raiseyourhand.instructor.StudentSharedActivity"
+            android:label="@string/title_activity_student_shared"
+            android:parentActivityName="com.raiseyourhand.instructor.InfoActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.raiseyourhand.instructor.InfoActivity" />
+        </activity>
+        <activity
+            android:name="com.raiseyourhand.instructor.AttendanceActivity"
+            android:label="@string/title_activity_attendance" />
+        <activity
+            android:name="com.raiseyourhand.instructor.QuizActivity"
+            android:label="@string/title_activity_quiz" />
+        <activity
+            android:name="com.raiseyourhand.ViewSharedActivity"
+            android:label="@string/title_activity_view_shared" >
+        </activity>
+        <activity
+            android:name="com.raiseyourhand.student.InstructorSharedActivity"
+            android:label="@string/title_activity_instructor_shared"
+            android:parentActivityName="com.raiseyourhand.student.InfoActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.raiseyourhand.student.InfoActivity" />
+        </activity>
+        <activity
+            android:name="com.raiseyourhand.student.StudentSharedActivity"
+            android:label="@string/title_activity_student_shared"
+            android:parentActivityName="com.raiseyourhand.student.InfoActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.raiseyourhand.student.InfoActivity" />
+        </activity>
+        <activity
+            android:name="com.raiseyourhand.student.AskActivity"
+            android:label="@string/title_activity_ask" >
+        </activity>
+        <activity
+            android:name="com.raiseyourhand.student.QuizQuestionActivity"
+            android:label="@string/title_activity_quiz_question" >
+        </activity>
+        <activity
+            android:name="com.raiseyourhand.student.QuizAnswerActivity"
+            android:label="@string/title_activity_quiz_answer" >
         </activity>
     </application>
 

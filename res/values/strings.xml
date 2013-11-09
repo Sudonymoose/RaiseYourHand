@@ -13,5 +13,12 @@
     <string name="title_activity_instructor_shared">In Progress</string>
     <string name="title_activity_instructor_lectures">Lectures</string>
     <string name="title_activity_student_lectures">Lectures</string>
+    <string name="title_activity_student_shared">Student Shared</string>
+    <string name="title_activity_attendance">Attendance</string>
+    <string name="title_activity_quiz">Quiz</string>
+    <string name="title_activity_view_shared">Shared Note</string>
+    <string name="title_activity_ask">Ask Your Question</string>
+    <string name="title_activity_quiz_question">Quiz</string>
+    <string name="title_activity_quiz_answer">Quiz</string>
 
 </resources>
