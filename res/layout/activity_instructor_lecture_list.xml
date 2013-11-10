@@ -1,28 +1,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:baselineAligned="false"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".InfoActivity" >
+    tools:context=".InstructorLecturesActivity" >
 
     <SearchView
-        android:id="@+id/instructir_search_roster"
+        android:id="@+id/searchView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
     </SearchView>
 
     <fragement
-        android:id="@+id/instrucor_fragment_roster"
-        android:name="com.raiseyourhand.fragment.RosterFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:id="@+id/instrucor_lectures_fragment"
+        android:name="com.raiseyourhand.fragment.LecturesFragment" >
     </fragement>
-
-   
 
 </LinearLayout>

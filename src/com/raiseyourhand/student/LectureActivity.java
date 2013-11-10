@@ -1,4 +1,4 @@
-package com.raiseyourhand.instructor;
+package com.raiseyourhand.student;
 
 import java.util.Locale;
 
@@ -25,7 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class InstructorSharedActivity extends FragmentActivity implements
+public class LectureActivity extends FragmentActivity implements
 		ActionBar.TabListener {
 
 	/**
@@ -46,7 +46,7 @@ public class InstructorSharedActivity extends FragmentActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_instuctor_instructor_shared);
+		setContentView(R.layout.activity_student_lecture);
 
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
@@ -89,7 +89,7 @@ public class InstructorSharedActivity extends FragmentActivity implements
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.instructor_shared, menu);
+		getMenuInflater().inflate(R.menu.student_lecture, menu);
 		return true;
 	}
 

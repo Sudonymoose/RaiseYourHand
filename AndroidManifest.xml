@@ -32,16 +32,56 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.raiseyourhand.instructor.LecturesActivity"
-            android:label="@string/title_activity_instructor_lectures"
+            android:name="com.raiseyourhand.instructor.LectureListActivity"
+            android:label="@string/title_activity_lecture_list"
             android:parentActivityName="com.raiseyourhand.LoginActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.raiseyourhand.LoginActivity" />
         </activity>
         <activity
-            android:name="com.raiseyourhand.student.LecturesActivity"
-            android:label="@string/title_activity_student_lectures"
+            android:name="com.raiseyourhand.instructor.InfoActivity"
+            android:label="@string/title_activity_info"
+            android:parentActivityName="com.raiseyourhand.instructor.LectureListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.raiseyourhand.instructor.LectureListActivity" />
+        </activity>
+        <activity
+            android:name="com.raiseyourhand.instructor.LectureActivity"
+            android:label="@string/title_activity_in_progress"
+            android:parentActivityName="com.raiseyourhand.instructor.InfoActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.raiseyourhand.instructor.InfoActivity" />
+        </activity>
+        <activity
+            android:name="com.raiseyourhand.instructor.ViewSharedActivity"
+            android:label="@string/title_activity_view_shared" 
+            android:parentActivityName="com.raiseyourhand.instructor.LectureActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.raiseyourhand.instructor.LectureActivity" />
+        </activity>
+        <activity
+            android:name="com.raiseyourhand.instructor.AttendanceActivity"
+            android:label="@string/title_activity_attendance" 
+            android:parentActivityName="com.raiseyourhand.instructor.LectureActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.raiseyourhand.instructor.LectureActivity" />
+        </activity>
+        <activity
+            android:name="com.raiseyourhand.instructor.QuizActivity"
+            android:label="@string/title_activity_quiz"
+            android:parentActivityName="com.raiseyourhand.instructor.LectureActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.raiseyourhand.instructor.LectureActivity" />
+        </activity>
+                <activity
+            android:name="com.raiseyourhand.student.LectureListActivity"
+            android:label="@string/title_activity_lecture_list"
             android:parentActivityName="com.raiseyourhand.LoginActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -50,80 +90,42 @@
         <activity
             android:name="com.raiseyourhand.student.InfoActivity"
             android:label="@string/title_activity_info"
-            android:parentActivityName="com.raiseyourhand.student.LecturesActivity" >
+            android:parentActivityName="com.raiseyourhand.student.LectureListActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.raiseyourhand.student.LecturesActivity" />
+                android:value="com.raiseyourhand.student.LectureListActivity" />
         </activity>
         <activity
-            android:name="com.raiseyourhand.instructor.InfoActivity"
-            android:label="@string/title_activity_info"
-            android:parentActivityName="com.raiseyourhand.instructor.LecturesActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.raiseyourhand.instructor.LecturesActivity" />
-        </activity>
-        <activity
-            android:name="com.raiseyourhand.instructor.QuestionsActivity"
-            android:label="@string/title_activity_questions"
-            android:parentActivityName="com.raiseyourhand.instructor.InfoActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.raiseyourhand.instructor.InfoActivity" />
-        </activity>
-        <activity
-            android:name="com.raiseyourhand.instructor.InstructorShared"
-            android:label="@string/title_activity_instructor_shared"
-            android:parentActivityName="com.raiseyourhand.instructor.InfoActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.raiseyourhand.instructor.InfoActivity" />
-        </activity>
-        <activity
-            android:name="com.raiseyourhand.instructor.StudentSharedActivity"
-            android:label="@string/title_activity_student_shared"
-            android:parentActivityName="com.raiseyourhand.instructor.InfoActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.raiseyourhand.instructor.InfoActivity" />
-        </activity>
-        <activity
-            android:name="com.raiseyourhand.instructor.AttendanceActivity"
-            android:label="@string/title_activity_attendance" />
-        <activity
-            android:name="com.raiseyourhand.instructor.QuizActivity"
-            android:label="@string/title_activity_quiz" />
-        <activity
-            android:name="com.raiseyourhand.ViewSharedActivity"
-            android:label="@string/title_activity_view_shared" >
-        </activity>
-        <activity
-            android:name="com.raiseyourhand.student.InstructorSharedActivity"
-            android:label="@string/title_activity_instructor_shared"
+            android:name="com.raiseyourhand.student.LectureActivity"
+            android:label="@string/title_activity_in_progress"
             android:parentActivityName="com.raiseyourhand.student.InfoActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.raiseyourhand.student.InfoActivity" />
         </activity>
         <activity
-            android:name="com.raiseyourhand.student.StudentSharedActivity"
-            android:label="@string/title_activity_student_shared"
-            android:parentActivityName="com.raiseyourhand.student.InfoActivity" >
+            android:name="com.raiseyourhand.student.ViewSharedActivity"
+            android:label="@string/title_activity_view_shared" 
+            android:parentActivityName="com.raiseyourhand.student.LectureActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.raiseyourhand.student.InfoActivity" />
+                android:value="com.raiseyourhand.student.LectureActivity" />
         </activity>
         <activity
             android:name="com.raiseyourhand.student.AskActivity"
-            android:label="@string/title_activity_ask" >
+            android:label="@string/title_activity_ask"
+            android:parentActivityName="com.raiseyourhand.student.LectureActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.raiseyourhand.student.LectureActivity" />
         </activity>
         <activity
-            android:name="com.raiseyourhand.student.QuizQuestionActivity"
-            android:label="@string/title_activity_quiz_question" >
-        </activity>
-        <activity
-            android:name="com.raiseyourhand.student.QuizAnswerActivity"
-            android:label="@string/title_activity_quiz_answer" >
+            android:name="com.raiseyourhand.student.QuizActivity"
+            android:label="@string/title_activity_quiz_question"
+            android:parentActivityName="com.raiseyourhand.student.LectureActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.raiseyourhand.student.LectureActivity" />
         </activity>
     </application>
 
