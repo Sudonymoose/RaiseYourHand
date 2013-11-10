@@ -1,9 +1,10 @@
 /**
  * 
  */
-package com.raiseyourhand.instructor.fragment;
+package com.raiseyourhand.fragment;
 
-import android.app.ListFragment;
+import android.support.v4.app.ListFragment;
+
 
 /**
  * @author arthurc

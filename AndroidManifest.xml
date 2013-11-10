@@ -25,11 +25,6 @@
             android:name="com.raiseyourhand.LoginActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize|stateVisible" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.raiseyourhand.instructor.LectureListActivity"
@@ -38,6 +33,12 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.raiseyourhand.LoginActivity" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="com.raiseyourhand.instructor.InfoActivity"
@@ -57,7 +58,7 @@
         </activity>
         <activity
             android:name="com.raiseyourhand.instructor.ViewSharedActivity"
-            android:label="@string/title_activity_view_shared" 
+            android:label="@string/title_activity_view_shared"
             android:parentActivityName="com.raiseyourhand.instructor.LectureActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -65,7 +66,7 @@
         </activity>
         <activity
             android:name="com.raiseyourhand.instructor.AttendanceActivity"
-            android:label="@string/title_activity_attendance" 
+            android:label="@string/title_activity_attendance"
             android:parentActivityName="com.raiseyourhand.instructor.LectureActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -79,7 +80,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.raiseyourhand.instructor.LectureActivity" />
         </activity>
-                <activity
+        <activity
             android:name="com.raiseyourhand.student.LectureListActivity"
             android:label="@string/title_activity_lecture_list"
             android:parentActivityName="com.raiseyourhand.LoginActivity" >
@@ -105,7 +106,7 @@
         </activity>
         <activity
             android:name="com.raiseyourhand.student.ViewSharedActivity"
-            android:label="@string/title_activity_view_shared" 
+            android:label="@string/title_activity_view_shared"
             android:parentActivityName="com.raiseyourhand.student.LectureActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -121,7 +122,7 @@
         </activity>
         <activity
             android:name="com.raiseyourhand.student.QuizActivity"
-            android:label="@string/title_activity_quiz_question"
+            android:label="@string/title_activity_quiz"
             android:parentActivityName="com.raiseyourhand.student.LectureActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

@@ -1,14 +1,12 @@
 package com.raiseyourhand.instructor;
 
-import com.raiseyourhand.R;
-import com.raiseyourhand.R.layout;
-import com.raiseyourhand.R.menu;
-
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.support.v4.app.NavUtils;
+
+import com.raiseyourhand.R;
 
 public class AttendanceActivity extends Activity {
 
@@ -32,7 +30,7 @@ public class AttendanceActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.attendance, menu);
+		getMenuInflater().inflate(R.menu.instructor_attendance, menu);
 		return true;
 	}
 
