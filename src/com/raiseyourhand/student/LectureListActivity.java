@@ -1,14 +1,18 @@
 package com.raiseyourhand.student;
 
-import android.app.Activity;
+import android.app.ListActivity;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.raiseyourhand.R;
-
-public class LectureListActivity extends Activity {
+import com.raiseyourhand.instructor.ViewLectureListener;
+public class LectureListActivity extends ListActivity {
+	private ListView lectureListView;
+	private ArrayAdapter<String> lectureAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +20,12 @@ public class LectureListActivity extends Activity {
 		setContentView(R.layout.activity_student_lecture_list);
 		// Show the Up button in the action bar.
 		setupActionBar();
+		lectureListView = (ListView)findViewById(R.id.student_lecture_list_listview);
+		lectureListView.setOnItemClickListener(new ViewLectureListener());      
+
+		lectureAdapter = new ArrayAdapter<String>(this, R.layout.lecture_item);
+		lectureListView.setAdapter(lectureAdapter);
+
 	}
 
 	/**

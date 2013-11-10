@@ -16,12 +16,12 @@
         android:hint="@string/instructor_info_search" >
     </SearchView>
 
-    <fragment
-        android:id="@+id/instructor_info_fragment"
-        android:name="com.raiseyourhand.fragment.RosterFragment"
+    <ListView 
+        android:id="@+id/instructor_info_listview"
         android:layout_width="match_parent"
-        android:layout_height="0dp" 
-        android:layout_weight="1" />
+        android:layout_height="0dp"
+        android:layout_weight="1">
+    </ListView>
     
     <Button
         android:id="@+id/instructor_info_button"

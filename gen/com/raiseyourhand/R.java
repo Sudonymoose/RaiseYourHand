@@ -24,19 +24,22 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_forgot_password=0x7f080017;
-        public static final int action_settings=0x7f080016;
-        public static final int instrucor_attendance_fragment=0x7f080001;
+        public static final int action_forgot_password=0x7f08001c;
+        public static final int action_settings=0x7f08001b;
         public static final int instructor_attendance_button=0x7f080002;
+        public static final int instructor_attendance_listview=0x7f080001;
         public static final int instructor_attendance_search=0x7f080000;
         public static final int instructor_info_button=0x7f080005;
-        public static final int instructor_info_fragment=0x7f080004;
+        public static final int instructor_info_listview=0x7f080004;
         public static final int instructor_info_search=0x7f080003;
         public static final int instructor_lecture_attendance_button=0x7f080007;
-        public static final int instructor_lecture_list_fragment=0x7f08000a;
+        public static final int instructor_lecture_list_listview=0x7f08000a;
         public static final int instructor_lecture_list_search=0x7f080009;
         public static final int instructor_lecture_pager=0x7f080006;
         public static final int instructor_lecture_quiz_button=0x7f080008;
+        public static final int instructor_question_item_textview=0x7f080016;
+        public static final int instructor_shared_item_textview=0x7f080017;
+        public static final int lecture_item_textview=0x7f080018;
         public static final int login=0x7f080010;
         public static final int login_form=0x7f08000d;
         public static final int login_status=0x7f08000b;
@@ -45,8 +48,10 @@ public final class R {
         public static final int password=0x7f08000f;
         public static final int section_label=0x7f080015;
         public static final int sign_in_button=0x7f080011;
-        public static final int student_lecture_list_fragment=0x7f080014;
+        public static final int student_item_textview=0x7f080019;
+        public static final int student_lecture_list_listview=0x7f080014;
         public static final int student_lecture_list_search=0x7f080013;
+        public static final int student_shared_item_textview=0x7f08001a;
         public static final int username=0x7f08000e;
     }
     public static final class layout {
@@ -62,14 +67,13 @@ public final class R {
         public static final int activity_student_lecture_list=0x7f030009;
         public static final int activity_student_quiz=0x7f03000a;
         public static final int activity_view_shared=0x7f03000b;
-        public static final int fragment_instructor_instructor_shared=0x7f03000c;
-        public static final int fragment_instructor_question=0x7f03000d;
-        public static final int fragment_instructor_student_shared=0x7f03000e;
-        public static final int fragment_student_instructor_shared=0x7f03000f;
-        public static final int fragment_student_lecture=0x7f030010;
-        public static final int fragment_student_quiz_answer=0x7f030011;
-        public static final int fragment_student_quiz_question=0x7f030012;
-        public static final int fragment_student_student_shared=0x7f030013;
+        public static final int fragment_student_quiz_answer=0x7f03000c;
+        public static final int fragment_student_quiz_question=0x7f03000d;
+        public static final int instructor_question_item=0x7f03000e;
+        public static final int instructor_shared_item=0x7f03000f;
+        public static final int lecture_item=0x7f030010;
+        public static final int student_item=0x7f030011;
+        public static final int student_shared_item=0x7f030012;
     }
     public static final class menu {
         public static final int info=0x7f070000;
