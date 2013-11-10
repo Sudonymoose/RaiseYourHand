@@ -1,12 +1,10 @@
 package com.raiseyourhand.student;
 
-import com.raiseyourhand.R;
-import com.raiseyourhand.R.layout;
-import com.raiseyourhand.R.menu;
-
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.Menu;
+
+import com.raiseyourhand.R;
 
 public class AskActivity extends Activity {
 
@@ -19,7 +17,7 @@ public class AskActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.ask, menu);
+		getMenuInflater().inflate(R.menu.student_ask, menu);
 		return true;
 	}
 

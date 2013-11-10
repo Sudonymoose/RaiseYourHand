@@ -2,12 +2,6 @@ package com.raiseyourhand.student;
 
 import java.util.Locale;
 
-import com.raiseyourhand.R;
-import com.raiseyourhand.R.id;
-import com.raiseyourhand.R.layout;
-import com.raiseyourhand.R.menu;
-import com.raiseyourhand.R.string;
-
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -15,15 +9,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.ListFragment;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
+import com.raiseyourhand.R;
 
 public class LectureActivity extends FragmentActivity implements
 		ActionBar.TabListener {
@@ -140,20 +135,22 @@ public class LectureActivity extends FragmentActivity implements
 
 		@Override
 		public Fragment getItem(int position) {
-			// getItem is called to instantiate the fragment for the given page.
-			// Return a DummySectionFragment (defined as a static inner class
-			// below) with the page number as its lone argument.
-			Fragment fragment = new DummySectionFragment();
-			Bundle args = new Bundle();
-			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
-			fragment.setArguments(args);
+			ListFragment fragment = null;
+			
+			switch (position) {
+			case 0:
+				fragment = new InstructorSharedFragment();
+			case 1:
+				fragment = new StudentSharedFragment();
+			}			
+
 			return fragment;
 		}
 
 		@Override
 		public int getCount() {
-			// Show 3 total pages.
-			return 3;
+			// Show 2 total pages.
+			return 2;
 		}
 
 		@Override
@@ -161,40 +158,43 @@ public class LectureActivity extends FragmentActivity implements
 			Locale l = Locale.getDefault();
 			switch (position) {
 			case 0:
-				return getString(R.string.title_section1).toUpperCase(l);
+				return getString(R.string.title_instructor_shared).toUpperCase(l);
 			case 1:
-				return getString(R.string.title_section2).toUpperCase(l);
-			case 2:
-				return getString(R.string.title_section3).toUpperCase(l);
+				return getString(R.string.title_student_shared).toUpperCase(l);
 			}
 			return null;
 		}
 	}
 
 	/**
-	 * A dummy fragment representing a section of the app, but that simply
-	 * displays dummy text.
+	 * A instructor shared fragment representing a section of the app, where
+	 * the notes shared by the instructor are listed.
 	 */
-	public static class DummySectionFragment extends Fragment {
-		/**
-		 * The fragment argument representing the section number for this
-		 * fragment.
-		 */
-		public static final String ARG_SECTION_NUMBER = "section_number";
-
-		public DummySectionFragment() {
+	public static class InstructorSharedFragment extends ListFragment {
+		public InstructorSharedFragment() {
 		}
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater
-					.inflate(R.layout.fragment_instructor_shared_dummy,
-							container, false);
-			TextView dummyTextView = (TextView) rootView
-					.findViewById(R.id.section_label);
-			dummyTextView.setText(Integer.toString(getArguments().getInt(
-					ARG_SECTION_NUMBER)));
+			View rootView = inflater.inflate(R.layout.fragment_student_instructor_shared,
+					container, false);
+			return rootView;
+		}
+	}
+	/**
+	 * A student shared fragment representing a section of the app, where
+	 * notes shared by students are listed.
+	 */
+	public static class StudentSharedFragment extends ListFragment {
+		public StudentSharedFragment() {
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View rootView = inflater.inflate(R.layout.fragment_student_student_shared,
+					container, false);
 			return rootView;
 		}
 	}

@@ -1,11 +1,7 @@
 package com.raiseyourhand;
 
-import com.raiseyourhand.R;
-import com.raiseyourhand.R.layout;
-import com.raiseyourhand.R.menu;
-
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.Menu;
 
 public class ViewSharedActivity extends Activity {

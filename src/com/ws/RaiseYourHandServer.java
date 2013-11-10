@@ -6,11 +6,11 @@ package com.ws;
  */
 public class RaiseYourHandServer implements ServerConstants, ServerMethods {
 
-	private boolean openConnection() {
-		
+	public boolean openConnection() {
+		return false;
 	}
 	
-	private void closeConnection() {
+	public void closeConnection() {
 		
 	}
 }

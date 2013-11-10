@@ -2,17 +2,29 @@
 <resources>
 
     <string name="app_name">Raise Your Hand</string>
+    <string name="action_settings">Settings</string>
     <string name="title_activity_lecture_list">Lectures</string>
     <string name="title_activity_info">Information</string>
     <string name="title_activity_in_progress">In Progress</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
     <string name="title_activity_attendance">Attendance</string>
     <string name="title_activity_quiz">Quiz</string>
     <string name="title_activity_view_shared">Shared Note</string>
     <string name="title_activity_ask">Ask Your Question</string>
-    <string name="button_quiz">Quiz</string>
-    <string name="button_attendance">Attendance</string>
-
+    <string name="instructor_lecture_quiz_button">Quiz</string>
+    <string name="instructor_lecture_attendance_button">Attendance</string>
+    <string name="instructor_info_button">Start Lecture</string>
+    <string name="instructor_info_search">Search Enrolled Students</string>
+    <string name="instructor_attendance_search">Search Students</string>
+    <string name="instructor_lecture_list_search">Search Lectures</string>
+    <string name="student_lecture_list_search">Search Lectures</string>
+	<string name="student_info_button">Attend Lecture</string>
+	<string name="student_lecture_ask_button">Question</string>
+	<string name="student_lecture_download_button">Download All</string>
+	<string name="student_quiz_button">Submit</string>
+	<string name="title_instructor_shared">Instructor Shared</string>
+	<string name="title_student_shared">Student Shared</string>
+	<string name="title_question_and_answer">Q/A</string>
+	<string name="title_quiz_question">Question</string>
+	<string name="title_quiz_answer">Answer</string>
+    
 </resources>
