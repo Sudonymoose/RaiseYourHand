@@ -26,5 +26,8 @@
 	<string name="title_question_and_answer">Q/A</string>
 	<string name="title_quiz_question">Question</string>
 	<string name="title_quiz_answer">Answer</string>
+	<string name="action_back">Back</string>
+	<string name="action_mic">Mic</string>
+	<string name="action_signout">Sign Out</string>
     
 </resources>

@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -88,10 +89,10 @@ public class LoginActivity extends Activity {
 						Intent loginIntent;
 						
 						// If student, set up intent for student's LectureListActivity
-						loginIntent = new Intent(this, com.raiseyourhand.student.LectureListActivity.class);
+						//loginIntent = new Intent(this, com.raiseyourhand.student.LectureListActivity.class);
 						
 						// If instructor, set up intent for instructor's LectureListActivity
-						loginIntent = new Intent(this, com.raiseyourhand.instructor.LectureListActivity.class);
+						//loginIntent = new Intent(this, com.raiseyourhand.instructor.LectureListActivity.class);
 						
 						// If administrator, set up intent for administrator stuff
 					}
