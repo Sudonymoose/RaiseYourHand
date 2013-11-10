@@ -27,11 +27,10 @@ public final class R {
         public static final int ic_launcher=0x7f020003;
     }
     public static final class id {
-        public static final int action_back=0x7f080016;
-        public static final int action_forgot_password=0x7f080019;
-        public static final int action_mic=0x7f080017;
-        public static final int action_signout=0x7f080018;
-        public static final int instrucor_attendance_fragment=0x7f080001;
+        public static final int action_back=0x7f080029;
+        public static final int action_forgot_password=0x7f08002c;
+        public static final int action_mic=0x7f08002a;
+        public static final int action_signout=0x7f08002b;
         public static final int instructor_attendance_button=0x7f080002;
         public static final int instructor_attendance_listview=0x7f080001;
         public static final int instructor_attendance_search=0x7f080000;
@@ -43,22 +42,36 @@ public final class R {
         public static final int instructor_lecture_list_search=0x7f080009;
         public static final int instructor_lecture_pager=0x7f080006;
         public static final int instructor_lecture_quiz_button=0x7f080008;
-        public static final int instructor_question_item_textview=0x7f080016;
-        public static final int instructor_shared_item_textview=0x7f080017;
-        public static final int lecture_item_textview=0x7f080018;
-        public static final int login=0x7f080010;
-        public static final int login_form=0x7f08000d;
-        public static final int login_status=0x7f08000b;
-        public static final int login_status_message=0x7f08000c;
-        public static final int pager=0x7f080012;
-        public static final int password=0x7f08000f;
-        public static final int section_label=0x7f080015;
-        public static final int sign_in_button=0x7f080011;
-        public static final int student_item_textview=0x7f080019;
-        public static final int student_lecture_list_listview=0x7f080014;
-        public static final int student_lecture_list_search=0x7f080013;
-        public static final int student_shared_item_textview=0x7f08001a;
-        public static final int username=0x7f08000e;
+        public static final int instructor_question_item_textview=0x7f080024;
+        public static final int instructor_quiz_button_begin=0x7f08000d;
+        public static final int instructor_quiz_button_upload=0x7f08000b;
+        public static final int instructor_quiz_imageView=0x7f08000c;
+        public static final int instructor_shared_item_textview=0x7f080025;
+        public static final int lecture_item_textview=0x7f080026;
+        public static final int login=0x7f080013;
+        public static final int login_form=0x7f080010;
+        public static final int login_status=0x7f08000e;
+        public static final int login_status_message=0x7f08000f;
+        public static final int pager=0x7f080020;
+        public static final int password=0x7f080012;
+        public static final int section_label=0x7f080023;
+        public static final int sign_in_button=0x7f080014;
+        public static final int student_info_button=0x7f08001f;
+        public static final int student_info_textview_1=0x7f080015;
+        public static final int student_info_textview_1b=0x7f080016;
+        public static final int student_info_textview_2=0x7f080017;
+        public static final int student_info_textview_2b=0x7f080018;
+        public static final int student_info_textview_3=0x7f080019;
+        public static final int student_info_textview_3b=0x7f08001a;
+        public static final int student_info_textview_4=0x7f08001b;
+        public static final int student_info_textview_4b=0x7f08001c;
+        public static final int student_info_textview_5=0x7f08001d;
+        public static final int student_info_textview_5b=0x7f08001e;
+        public static final int student_item_textview=0x7f080027;
+        public static final int student_lecture_list_listview=0x7f080022;
+        public static final int student_lecture_list_search=0x7f080021;
+        public static final int student_shared_item_textview=0x7f080028;
+        public static final int username=0x7f080011;
     }
     public static final class layout {
         public static final int activity_instructor_attendance=0x7f030000;
@@ -83,6 +96,11 @@ public final class R {
         public static final int fragment_student_quiz_answer=0x7f030013;
         public static final int fragment_student_quiz_question=0x7f030014;
         public static final int fragment_student_student_shared=0x7f030015;
+        public static final int instructor_question_item=0x7f030016;
+        public static final int instructor_shared_item=0x7f030017;
+        public static final int lecture_item=0x7f030018;
+        public static final int student_item=0x7f030019;
+        public static final int student_shared_item=0x7f03001a;
     }
     public static final class menu {
         public static final int info=0x7f070000;
@@ -97,48 +115,61 @@ public final class R {
         public static final int view_shared=0x7f070009;
     }
     public static final class string {
-        public static final int action_back=0x7f050019;
-        public static final int action_forgot_password=0x7f050022;
-        public static final int action_mic=0x7f05001a;
+        public static final int action_back=0x7f050026;
+        public static final int action_forgot_password=0x7f05002f;
+        public static final int action_mic=0x7f050027;
         public static final int action_settings=0x7f050001;
-        public static final int action_sign_in_register=0x7f050020;
-        public static final int action_sign_in_short=0x7f050021;
-        public static final int action_signout=0x7f05001b;
+        public static final int action_sign_in_register=0x7f05002d;
+        public static final int action_sign_in_short=0x7f05002e;
+        public static final int action_signout=0x7f050028;
         public static final int app_name=0x7f050000;
-        public static final int error_field_required=0x7f050027;
-        public static final int error_incorrect_password=0x7f050026;
-        public static final int error_invalid_email=0x7f050024;
-        public static final int error_invalid_password=0x7f050025;
+        public static final int error_field_required=0x7f050034;
+        public static final int error_incorrect_password=0x7f050033;
+        public static final int error_invalid_email=0x7f050031;
+        public static final int error_invalid_password=0x7f050032;
         public static final int instructor_attendance_search=0x7f05000d;
         public static final int instructor_info_button=0x7f05000b;
         public static final int instructor_info_search=0x7f05000c;
         public static final int instructor_lecture_attendance_button=0x7f05000a;
         public static final int instructor_lecture_list_search=0x7f05000e;
         public static final int instructor_lecture_quiz_button=0x7f050009;
-        public static final int login_progress_signing_in=0x7f050023;
+        public static final int instructor_quiz_begin_button=0x7f050011;
+        public static final int instructor_quiz_imageView=0x7f050010;
+        public static final int instructor_quiz_upload_button=0x7f05000f;
+        public static final int login_progress_signing_in=0x7f050030;
         /**  Strings related to login 
          */
-        public static final int prompt_email=0x7f05001d;
-        public static final int prompt_password=0x7f05001f;
-        public static final int prompt_username=0x7f05001e;
-        public static final int student_info_button=0x7f050010;
-        public static final int student_lecture_ask_button=0x7f050011;
-        public static final int student_lecture_download_button=0x7f050012;
-        public static final int student_lecture_list_search=0x7f05000f;
-        public static final int student_quiz_button=0x7f050013;
+        public static final int prompt_email=0x7f05002a;
+        public static final int prompt_password=0x7f05002c;
+        public static final int prompt_username=0x7f05002b;
+        public static final int student_info_button=0x7f050013;
+        public static final int student_info_textview_1=0x7f050017;
+        public static final int student_info_textview_1b=0x7f05001c;
+        public static final int student_info_textview_2=0x7f050018;
+        public static final int student_info_textview_2b=0x7f05001d;
+        public static final int student_info_textview_3=0x7f050019;
+        public static final int student_info_textview_3b=0x7f05001e;
+        public static final int student_info_textview_4=0x7f05001a;
+        public static final int student_info_textview_4b=0x7f05001f;
+        public static final int student_info_textview_5=0x7f05001b;
+        public static final int student_info_textview_5b=0x7f050020;
+        public static final int student_lecture_ask_button=0x7f050014;
+        public static final int student_lecture_download_button=0x7f050015;
+        public static final int student_lecture_list_search=0x7f050012;
+        public static final int student_quiz_button=0x7f050016;
         public static final int title_activity_ask=0x7f050008;
         public static final int title_activity_attendance=0x7f050005;
         public static final int title_activity_in_progress=0x7f050004;
         public static final int title_activity_info=0x7f050003;
         public static final int title_activity_lecture_list=0x7f050002;
-        public static final int title_activity_login=0x7f05001c;
+        public static final int title_activity_login=0x7f050029;
         public static final int title_activity_quiz=0x7f050006;
         public static final int title_activity_view_shared=0x7f050007;
-        public static final int title_instructor_shared=0x7f050014;
-        public static final int title_question_and_answer=0x7f050016;
-        public static final int title_quiz_answer=0x7f050018;
-        public static final int title_quiz_question=0x7f050017;
-        public static final int title_student_shared=0x7f050015;
+        public static final int title_instructor_shared=0x7f050021;
+        public static final int title_question_and_answer=0x7f050023;
+        public static final int title_quiz_answer=0x7f050025;
+        public static final int title_quiz_question=0x7f050024;
+        public static final int title_student_shared=0x7f050022;
     }
     public static final class style {
         /** 

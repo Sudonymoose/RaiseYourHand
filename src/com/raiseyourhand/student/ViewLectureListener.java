@@ -1,8 +1,8 @@
 package com.raiseyourhand.student;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 /**
  * Class to listen to when an object in the ListView of LectureListActivity

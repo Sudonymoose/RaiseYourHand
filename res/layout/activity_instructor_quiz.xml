@@ -1,11 +1,31 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".instructor.QuizActivity" >
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/instructor_quiz_button_upload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/instructor_quiz_upload_button" />
+
+    <ImageView
+        android:id="@+id/instructor_quiz_imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/instructor_quiz_imageView"
+        android:src="@drawable/ic_launcher" />
+    
+    <Button
+        android:id="@+id/instructor_quiz_button_begin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/instructor_quiz_begin_button" />
+
+</LinearLayout>
