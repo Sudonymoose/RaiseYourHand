@@ -175,19 +175,13 @@ public class LectureActivity extends FragmentActivity implements
 	 * the questions are listed
 	 */
 	public static class QuestionFragment extends ListFragment {
-		/**
-		 * The fragment argument representing the section number for this
-		 * fragment.
-		 */
-		public static final String ARG_SECTION_NUMBER = "0";
-
 		public QuestionFragment() {
 		}
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_instructor_question,
+			View rootView = inflater.inflate(R.layout.instructor_question_item,
 					container, false);
 			return rootView;
 		}
@@ -197,19 +191,13 @@ public class LectureActivity extends FragmentActivity implements
 	 * the notes shared by the instructor are listed.
 	 */
 	public static class InstructorSharedFragment extends ListFragment {
-		/**
-		 * The fragment argument representing the section number for this
-		 * fragment.
-		 */
-		public static final String ARG_SECTION_NUMBER = "1";
-
 		public InstructorSharedFragment() {
 		}
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_instructor_instructor_shared,
+			View rootView = inflater.inflate(R.layout.instructor_shared_item,
 					container, false);
 			return rootView;
 		}
@@ -219,19 +207,13 @@ public class LectureActivity extends FragmentActivity implements
 	 * notes shared by students are listed.
 	 */
 	public static class StudentSharedFragment extends ListFragment {
-		/**
-		 * The fragment argument representing the section number for this
-		 * fragment.
-		 */
-		public static final String ARG_SECTION_NUMBER = "0";
-
 		public StudentSharedFragment() {
 		}
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_instructor_student_shared,
+			View rootView = inflater.inflate(R.layout.student_shared_item,
 					container, false);
 			return rootView;
 		}

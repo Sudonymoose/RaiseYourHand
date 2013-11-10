@@ -33,15 +33,19 @@ public final class R {
         public static final int action_signout=0x7f080018;
         public static final int instrucor_attendance_fragment=0x7f080001;
         public static final int instructor_attendance_button=0x7f080002;
+        public static final int instructor_attendance_listview=0x7f080001;
         public static final int instructor_attendance_search=0x7f080000;
         public static final int instructor_info_button=0x7f080005;
-        public static final int instructor_info_fragment=0x7f080004;
+        public static final int instructor_info_listview=0x7f080004;
         public static final int instructor_info_search=0x7f080003;
         public static final int instructor_lecture_attendance_button=0x7f080007;
-        public static final int instructor_lecture_list_fragment=0x7f08000a;
+        public static final int instructor_lecture_list_listview=0x7f08000a;
         public static final int instructor_lecture_list_search=0x7f080009;
         public static final int instructor_lecture_pager=0x7f080006;
         public static final int instructor_lecture_quiz_button=0x7f080008;
+        public static final int instructor_question_item_textview=0x7f080016;
+        public static final int instructor_shared_item_textview=0x7f080017;
+        public static final int lecture_item_textview=0x7f080018;
         public static final int login=0x7f080010;
         public static final int login_form=0x7f08000d;
         public static final int login_status=0x7f08000b;
@@ -50,8 +54,10 @@ public final class R {
         public static final int password=0x7f08000f;
         public static final int section_label=0x7f080015;
         public static final int sign_in_button=0x7f080011;
-        public static final int student_lecture_list_fragment=0x7f080014;
+        public static final int student_item_textview=0x7f080019;
+        public static final int student_lecture_list_listview=0x7f080014;
         public static final int student_lecture_list_search=0x7f080013;
+        public static final int student_shared_item_textview=0x7f08001a;
         public static final int username=0x7f08000e;
     }
     public static final class layout {

@@ -5,10 +5,14 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.raiseyourhand.R;
 
 public class LectureListActivity extends Activity {
+	private ListView lectureListView;
+	private ArrayAdapter<String> lectureAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +20,11 @@ public class LectureListActivity extends Activity {
 		setContentView(R.layout.activity_instructor_lecture_list);
 		// Show the Up button in the action bar.
 		setupActionBar();
+		lectureListView = (ListView)findViewById(R.id.instructor_lecture_list_listview);
+		lectureListView.setOnItemClickListener(new ViewLectureListener());      
+
+		lectureAdapter = new ArrayAdapter<String>(this, R.layout.lecture_item);
+		lectureListView.setAdapter(lectureAdapter);
 	}
 
 	/**

@@ -177,7 +177,7 @@ public class LectureActivity extends FragmentActivity implements
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_student_instructor_shared,
+			View rootView = inflater.inflate(R.layout.instructor_shared_item,
 					container, false);
 			return rootView;
 		}
@@ -193,7 +193,7 @@ public class LectureActivity extends FragmentActivity implements
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_student_student_shared,
+			View rootView = inflater.inflate(R.layout.student_shared_item,
 					container, false);
 			return rootView;
 		}

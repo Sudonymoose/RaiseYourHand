@@ -11,17 +11,18 @@
 
     <SearchView
         android:id="@+id/instructor_attendance_search"
+        android:name="com.raiseyourhand.fragment.RosterFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/instructor_attendance_search" >
     </SearchView>
     
-    <fragment
-        android:id="@+id/instrucor_attendance_fragment"
-        android:name="com.raiseyourhand.fragment.AttendanceFragment"
+    <ListView 
+        android:id="@+id/instructor_attendance_listview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1">
+    </ListView>
     
     <Button
         android:id="@+id/instructor_attendance_button"
