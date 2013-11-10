@@ -81,6 +81,18 @@ public class LoginActivity extends Activity {
 					@Override
 					public void onClick(View view) {
 						attemptLogin();
+						
+						// Get the type of user login, assuming login was successful
+						
+						Intent loginIntent;
+						
+						// If student, set up intent for student's LectureListActivity
+						loginIntent = new Intent(this, com.raiseyourhand.student.LectureListActivity.class);
+						
+						// If instructor, set up intent for instructor's LectureListActivity
+						loginIntent = new Intent(this, com.raiseyourhand.instructor.LectureListActivity.class);
+						
+						// If administrator, set up intent for administrator stuff
 					}
 				});
 	}
