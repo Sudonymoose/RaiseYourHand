@@ -5,17 +5,24 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.raiseyourhand.R;
 
 public class AttendanceActivity extends Activity {
-
+	private ListView rosterListView;
+	private ArrayAdapter<String> rosterAdapter;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_instructor_attendance);
 		// Show the Up button in the action bar.
 		setupActionBar();
+		rosterListView = (ListView)findViewById(R.id.instructor_info_listview);     
+		rosterAdapter = new ArrayAdapter<String>(this, R.layout.student_item);
+		rosterListView.setAdapter(rosterAdapter);
 	}
 
 	/**
