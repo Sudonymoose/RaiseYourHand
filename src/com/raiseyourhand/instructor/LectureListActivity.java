@@ -1,10 +1,13 @@
 package com.raiseyourhand.instructor;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -21,7 +24,7 @@ public class LectureListActivity extends Activity {
 		// Show the Up button in the action bar.
 		setupActionBar();
 		lectureListView = (ListView)findViewById(R.id.instructor_lecture_list_listview);
-		lectureListView.setOnItemClickListener(new ViewLectureListener());      
+		lectureListView.setOnItemClickListener( new ViewLectureListener());      
 
 		lectureAdapter = new ArrayAdapter<String>(this, R.layout.lecture_item);
 		lectureListView.setAdapter(lectureAdapter);
@@ -60,4 +63,31 @@ public class LectureListActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+
+	class ViewLectureListener implements ListView.OnItemClickListener{
+
+		@Override
+		/**
+		 * Method called when an item in the ListView of student's Lecture List is clicked on
+		 * 
+		 * @param parent The AdapterView where the click happened.
+		 * @param view The view within the AdapterView that was clicked
+		 * @param position The position of the view in the adapter.
+		 * @param id The row id of the item that was clicked. 
+		 */
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+		{
+			// create an Intent to launch the ViewContact Activity
+			Intent lectureIntent = new Intent(com.raiseyourhand.instructor.LectureListActivity.this,
+					com.raiseyourhand.student.LectureActivity.class);
+
+			// pass the selected contact's row ID as an extra with the Intent..????
+			//viewContact.putExtra(ROW_ID, arg3);
+
+			// TODO: Get lecture information and pass it into the activity
+
+			startActivity(lectureIntent);
+		}
+
+	}
 }
