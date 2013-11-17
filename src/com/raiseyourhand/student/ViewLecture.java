@@ -1,49 +1,54 @@
 package com.raiseyourhand.student;
 
+import com.raiseyourhand.R;
+
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import com.raiseyourhand.R;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class ViewLecture extends Activity {
-  private Button joinButton;
-  private instructorView;
-  private dateView;
-  private timeView;
-  private buildingView;
-  private roomView;
+	private Button joinButton;
+	private TextView instructorView;
+	private TextView dateView;
+	private TextView timeView;
+	private TextView buildingView;
+	private TextView roomView;
 
-  // private LectureInfo info; 
+	// private LectureInfo info; 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.student_view_lecture);
+		setContentView(R.layout.activity_student_view_lecture);
 		// Show the Up button in the action bar.
 		setupActionBar();
 
-    // TODO: Check the user information
-    // Is the user logged in?
-      // Redirect to LOGIN
-    // If the user is logged in,
-      // Get lecture info 
+		// TODO: Check the user information
+		// Is the user logged in?
+		// Redirect to LOGIN
+		// If the user is logged in,
+		// Get lecture info 
 
 		// Show the Up button in the action bar.
 		setupActionBar();
 
-    // Get lecture info view
-    instructorView = (TextView)findViewById(R.id.student_view_lecture_instructor);
-    dateView = (TextView)findViewById(R.id.student_view_lecture_date);
-    timeView = (TextView)findViewById(R.id.student_view_lecture_time);
-    buildingView = (TextView)findViewById(R.id.student_view_lecture_building);
-    roomView = (TextView)findViewById(R.id.student_view_lecture_room);
+		// Get lecture info view
+		instructorView = (TextView)findViewById(R.id.student_view_lecture_instructor);
+		dateView = (TextView)findViewById(R.id.student_view_lecture_date);
+		timeView = (TextView)findViewById(R.id.student_view_lecture_time);
+		buildingView = (TextView)findViewById(R.id.student_view_lecture_building);
+		roomView = (TextView)findViewById(R.id.student_view_lecture_room);
 
-    // Set up Join button
-    joinButton = (Button)findViewById(R.id.student_view_lecture_button);
-    joinButton.setOnClickListener(new JoinLectureOnClickListener());
+		// Set up Join button
+		joinButton = (Button)findViewById(R.id.student_view_lecture_button);
+		joinButton.setOnClickListener(new JoinLectureOnClickListener());
 	}
 
 	/**
@@ -79,15 +84,15 @@ public class ViewLecture extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-  public class JoinLectureOnClickListener implements OnClickListener {
-      @Override
-      public void onClick(View v) {
-        // TODO: Check if lecture is currently started, and return if so.
+	public class JoinLectureOnClickListener implements OnClickListener {
+		@Override
+		public void onClick(View v) {
+			// TODO: Check if lecture is currently started, and return if so.
 
-        // create an Intent to launch the Lecture Activity
-        Intent lecture = new Intent(ViewLecture.this, Lecture.class);
-        startActivity(lecture);
-      }
-  }
+			// create an Intent to launch the Lecture Activity
+			Intent lecture = new Intent(ViewLecture.this, Lecture.class);
+			startActivity(lecture);
+		}
+	}
 
 }

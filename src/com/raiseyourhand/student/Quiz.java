@@ -9,16 +9,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.raiseyourhand.R;
+import com.raiseyourhand.fragment.QuizAnswerFragment;
+import com.raiseyourhand.fragment.QuizQuestionFragment;
 
-public class QuizActivity extends FragmentActivity implements
+public class Quiz extends FragmentActivity implements
 		ActionBar.TabListener {
 
 	/**
@@ -114,13 +112,13 @@ public class QuizActivity extends FragmentActivity implements
 
 		@Override
 		public Fragment getItem(int position) {
-			ListFragment fragment = null;
+			Fragment fragment = null;
 			
 			switch (position) {
 			case 0:
-				fragment = new QuizQuestionFragment();
+				fragment = (Fragment) new QuizQuestionFragment();
 			case 1:
-				fragment = new QuizAnswerFragment();
+				fragment = (Fragment) new QuizAnswerFragment();
 			}			
 
 			return fragment;
@@ -144,38 +142,4 @@ public class QuizActivity extends FragmentActivity implements
 			return null;
 		}
 	}
-
-	/**
-	 * A instructor shared fragment representing a section of the app, where
-	 * the notes shared by the instructor are listed.
-	 */
-	public static class QuizQuestionFragment extends ListFragment {
-		public QuizQuestionFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_student_quiz_question,
-					container, false);
-			return rootView;
-		}
-	}
-	/**
-	 * A student shared fragment representing a section of the app, where
-	 * notes shared by students are listed.
-	 */
-	public static class QuizAnswerFragment extends ListFragment {
-		public QuizAnswerFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_student_quiz_answer,
-					container, false);
-			return rootView;
-		}
-	}
-
 }

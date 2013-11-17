@@ -20,7 +20,7 @@ import android.widget.TextView;
  * Activity which displays a login screen to the user, offering registration as
  * well.
  */
-public class LoginActivity extends Activity {
+public class Login extends Activity {
 	/**
 	 * A dummy authentication store containing known user names and passwords.
 	 * TODO: remove after connecting to a real authentication system.
@@ -53,7 +53,7 @@ public class LoginActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.login);
+		setContentView(R.layout.activity_login);
 
 		// Set up the login form.
 		mUsername = getIntent().getStringExtra(EXTRA_EMAIL);
@@ -83,18 +83,6 @@ public class LoginActivity extends Activity {
 					@Override
 					public void onClick(View view) {
 						attemptLogin();
-
-						// Get the type of user login, assuming login was successful
-
-						Intent loginIntent;
-
-						// If student, set up intent for student's LectureListActivity
-						loginIntent = new Intent(LoginActivity.this, com.raiseyourhand.student.LectureListActivity.class);
-
-						// If instructor, set up intent for instructor's LectureListActivity
-						loginIntent = new Intent(LoginActivity.this, com.raiseyourhand.instructor.LectureListActivity.class);
-
-						// If administrator, set up intent for administrator stuff
 					}
 				});
 	}
@@ -238,12 +226,15 @@ public class LoginActivity extends Activity {
 			showProgress(false);
 
 			if (success) {
-				finish();
+				// Get the type of user login, assuming login was successful
+				Intent loginIntent = new Intent(Login.this, LectureList.class);
+				startActivity(loginIntent);
 			} else {
 				mPasswordView
 				.setError(getString(R.string.error_incorrect_password));
 				mPasswordView.requestFocus();
 			}
+			finish();
 		}
 
 		@Override

@@ -6,7 +6,7 @@ import android.view.Menu;
 
 import com.raiseyourhand.R;
 
-public class AskActivity extends Activity {
+public class Ask extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

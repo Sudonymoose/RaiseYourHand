@@ -4,44 +4,44 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.SearchView.OnQueryTextListener;
 
-import com.raiseyourhand.R;
-
-public class LectureList extends Activity implements SearchView, ListView {
-  private SearchView searchView;
+public class LectureList extends Activity {
+	private SearchView searchView;
 	private ListView lectureListView;
 	private ArrayAdapter<String> lectureAdapter;
-  private String[] lectures = new String[0];
-  private isStudent = true;
+	private String[] lectures = {"Class 1, Lecture 2"};//new String[0];
+	private boolean isStudent = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.lecture_list);
+		setContentView(R.layout.activity_lecture_list);
 
-    // TODO: Check the user information
-    // Is the user logged in?
-      // Redirect to LOGIN
-    // If the user is logged in,
-    // set isStudent = false if user is instructor.
-    // store lecture names in the "lectures" array.
-
+		// TODO: Check the user information
+		// Is the user logged in?
+		// Redirect to LOGIN
+		// If the user is logged in,
+		// set isStudent = false if user is instructor.
+		// store lecture names in the "lectures" array.
 
 		// Show the Up button in the action bar.
 		setupActionBar();
 
-    // Set up Search Bar
-    searchView = (SearchView)findViewById(R.id.lecture_list_search);
-    searchView.setOnQueryTextListener(new LectureListOnQueryListener());
+		// Set up Search Bar
+		searchView = (SearchView)findViewById(R.id.lecture_list_search);
+		searchView.setOnQueryTextListener(new LectureListOnQueryListener());
 
-    // Set up list of lectures
+		// Set up list of lectures
 		lectureListView = (ListView)findViewById(R.id.lecture_list_listview);
 		lectureListView.setOnItemClickListener(new ViewLectureOnClickListener());      
 		lectureAdapter = new ArrayAdapter<String>(this, R.layout.lecture_item, lectures);
@@ -75,52 +75,59 @@ public class LectureList extends Activity implements SearchView, ListView {
 			//
 			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
 			//
-      // TODO: Replace this with Logout Dialog. That logs out a user when confirmed.
+			// TODO: Replace this with Logout Dialog. That logs out a user when confirmed.
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
 
-  /**
-   * Class to listen to when an object in the ListView of LectureList
-   * is clicked on
-   */
-  public class ViewLectureOnClickListener implements OnItemClickListener {
-    public static final String LECTURE_ID = "lecture_id"; // Intent extra key
-    @Override
-    /**
-     * Method called when an item in the ListView of LectureList is clicked on
-     * 
-     * @param parent The AdapterView where the click happened.
-     * @param view The view within the AdapterView that was clicked
-     * @param position The position of the view in the adapter.
-     * @param id The row id of the item that was clicked. 
-     */
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-      Intent viewLecture;
+	/**
+	 * Class to listen to when an object in the ListView of LectureList
+	 * is clicked on
+	 */
+	public class ViewLectureOnClickListener implements OnItemClickListener {
+		public static final String LECTURE_ID = "lecture_id"; // Intent extra key
+		@Override
+		/**
+		 * Method called when an item in the ListView of LectureList is clicked on
+		 * 
+		 * @param parent The AdapterView where the click happened.
+		 * @param view The view within the AdapterView that was clicked
+		 * @param position The position of the view in the adapter.
+		 * @param id The row id of the item that was clicked. 
+		 */
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			Intent viewLecture;
 
-      // create an Intent to launch the ViewLecture Activity
-      if (isStudent) {
-        viewLecture = new Intent(LectureList.this, student.ViewLecture.class);
-      } else {
-        viewLecture = new Intent(LectureList.this, instructor.ViewLecture.class);
-      }
+			// create an Intent to launch the ViewLecture Activity
+			if (isStudent) {
+				// If student, set up intent for student's ViewLecture
+				viewLecture = new Intent(LectureList.this, com.raiseyourhand.student.ViewLecture.class);
+			} else {
+				// If instructor, set up intent for instructor's ViewLecture
+				viewLecture = new Intent(LectureList.this, com.raiseyourhand.instructor.ViewLecture.class);
+			}
 
-      // pass the selected lecture's row ID as an extra with the Intent.
-      viewLecture.putExtra(LECTURE_ID, id);
-      startActivity(viewLecture);
-    }
-  }
+			// pass the selected lecture's row ID as an extra with the Intent.
+			viewLecture.putExtra(LECTURE_ID, id);
+			startActivity(viewLecture);
+		}
+	}
 
-  public class LectureListOnQueryListener implements OnQueryTextListener {
-    public boolean onQueryTextChange(String newText) {
-      if (TextUtils.isEmpty(newText)) {
-        lectureAdapter.getFilter().filter("");
-      } else {
-        lectureAdapter.getFilter().filter(newText.toString());
-      }
-      return true;
-    }
-  }
+	public class LectureListOnQueryListener implements OnQueryTextListener {
+		public boolean onQueryTextChange(String newText) {
+			if (TextUtils.isEmpty(newText)) {
+				lectureAdapter.getFilter().filter("");
+			} else {
+				lectureAdapter.getFilter().filter(newText.toString());
+			}
+			return true;
+		}
+
+		@Override
+		public boolean onQueryTextSubmit(String arg0) {
+			return false;
+		}
+	}
 }

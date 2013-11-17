@@ -9,19 +9,19 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.ListFragment;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 import com.raiseyourhand.R;
+import com.raiseyourhand.fragment.InstructorSharedFragment;
+import com.raiseyourhand.fragment.StudentSharedFragment;
 
-public class LectureActivity extends FragmentActivity implements
-		ActionBar.TabListener {
+public class Lecture extends FragmentActivity implements ActionBar.TabListener {
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -37,6 +37,8 @@ public class LectureActivity extends FragmentActivity implements
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	ViewPager mViewPager;
+	Button downloadButton;
+	Button questionButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,25 +51,29 @@ public class LectureActivity extends FragmentActivity implements
 		// Show the Up button in the action bar.
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
+		// Setup buttons
+		downloadButton = (Button) findViewById(R.id.student_lecture_download_button);
+		downloadButton.setOnClickListener(new DownloadOnClickListener());
+		questionButton = (Button) findViewById(R.id.student_lecture_ask_button);
+		questionButton.setOnClickListener(new QuestionOnClickListener());
+		
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.
-		mSectionsPagerAdapter = new SectionsPagerAdapter(
-				getSupportFragmentManager());
+		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
 		// Set up the ViewPager with the sections adapter.
-		mViewPager = (ViewPager) findViewById(R.id.pager);
+		mViewPager = (ViewPager) findViewById(R.id.student_lecture_pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
 		// When swiping between different sections, select the corresponding
 		// tab. We can also use ActionBar.Tab#select() to do this if we have
 		// a reference to the Tab.
-		mViewPager
-				.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-					@Override
-					public void onPageSelected(int position) {
-						actionBar.setSelectedNavigationItem(position);
-					}
-				});
+		mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+			@Override
+			public void onPageSelected(int position) {
+				actionBar.setSelectedNavigationItem(position);
+			}
+		});
 
 		// For each of the sections in the app, add a tab to the action bar.
 		for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
@@ -135,13 +141,13 @@ public class LectureActivity extends FragmentActivity implements
 
 		@Override
 		public Fragment getItem(int position) {
-			ListFragment fragment = null;
-			
+			Fragment fragment = null;
+
 			switch (position) {
 			case 0:
-				fragment = new InstructorSharedFragment();
+				fragment = (Fragment)new InstructorSharedFragment();
 			case 1:
-				fragment = new StudentSharedFragment();
+				fragment = (Fragment)new StudentSharedFragment();
 			}			
 
 			return fragment;
@@ -165,38 +171,18 @@ public class LectureActivity extends FragmentActivity implements
 			return null;
 		}
 	}
-
-	/**
-	 * A instructor shared fragment representing a section of the app, where
-	 * the notes shared by the instructor are listed.
-	 */
-	public static class InstructorSharedFragment extends ListFragment {
-		public InstructorSharedFragment() {
-		}
-
+	
+	public class DownloadOnClickListener implements OnClickListener {
 		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.instructor_shared_item,
-					container, false);
-			return rootView;
+		public void onClick(View v) {
+			// TODO: DOWNLOAD DIALOG / CONTENT PROVIDER DOWNLOAD ETC.
 		}
 	}
-	/**
-	 * A student shared fragment representing a section of the app, where
-	 * notes shared by students are listed.
-	 */
-	public static class StudentSharedFragment extends ListFragment {
-		public StudentSharedFragment() {
-		}
-
+	
+	public class QuestionOnClickListener implements OnClickListener {
 		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.student_shared_item,
-					container, false);
-			return rootView;
+		public void onClick(View v) {
+			// TODO: HANDLE SHAKING PHONE. PERHAPS A DIALOG WHILE BEING HELD.
 		}
 	}
-
 }

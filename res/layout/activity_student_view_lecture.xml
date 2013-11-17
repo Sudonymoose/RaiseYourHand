@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".student.InfoActivity" >
+    tools:context=".student.ViewLecture" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,19 +15,18 @@
         android:orientation="horizontal" >
 
         <TextView
-            android:id="@+id/student_info_textview_1"
+            android:id="@+id/student_view_lecture_instructor_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:text="@string/student_info_textview_1" >
+            android:text="@string/student_view_lecture_instructor" >
         </TextView>
 
         <TextView
-            android:id="@+id/student_info_textview_1b"
+            android:id="@+id/student_view_lecture_instructor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/student_info_textview_1b" >
+            android:layout_weight="1" >
         </TextView>
     </LinearLayout>
 
@@ -37,19 +36,18 @@
         android:orientation="horizontal" >
 
         <TextView
-            android:id="@+id/student_info_textview_2"
+            android:id="@+id/student_view_lecture_date_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:text="@string/student_info_textview_2" >
+            android:text="@string/student_view_lecture_date" >
         </TextView>
 
         <TextView
-            android:id="@+id/student_info_textview_2b"
+            android:id="@+id/student_view_lecture_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/student_info_textview_2b" >
+            android:layout_weight="1" >
         </TextView>
     </LinearLayout>
 
@@ -59,19 +57,18 @@
         android:orientation="horizontal" >
 
         <TextView
-            android:id="@+id/student_info_textview_3"
+            android:id="@+id/student_view_lecture_time_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:text="@string/student_info_textview_3" >
+            android:text="@string/student_view_lecture_time" >
         </TextView>
 
         <TextView
-            android:id="@+id/student_info_textview_3b"
+            android:id="@+id/student_view_lecture_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/student_info_textview_3b" >
+            android:layout_weight="1" >
         </TextView>
     </LinearLayout>
 
@@ -81,19 +78,18 @@
         android:orientation="horizontal" >
 
         <TextView
-            android:id="@+id/student_info_textview_4"
+            android:id="@+id/student_view_lecture_building_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:text="@string/student_info_textview_4" >
+            android:text="@string/student_view_lecture_building" >
         </TextView>
 
         <TextView
-            android:id="@+id/student_info_textview_4b"
+            android:id="@+id/student_view_lecture_building"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/student_info_textview_4b" >
+            android:layout_weight="1" >
         </TextView>
     </LinearLayout>
 
@@ -103,26 +99,25 @@
         android:orientation="horizontal" >
 
         <TextView
-            android:id="@+id/student_info_textview_5"
+            android:id="@+id/student_view_lecture_room_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:text="@string/student_info_textview_5" >
+            android:text="@string/student_view_lecture_room" >
         </TextView>
 
         <TextView
-            android:id="@+id/student_info_textview_5b"
+            android:id="@+id/student_view_lecture_room"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/student_info_textview_5b" >
+            android:layout_weight="1" >
         </TextView>
     </LinearLayout>
 
     <Button
-        android:id="@+id/student_info_button"
+        android:id="@+id/student_view_lecture_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/student_info_button" />
+        android:text="@string/student_view_lecture_button" />
 
 </LinearLayout>

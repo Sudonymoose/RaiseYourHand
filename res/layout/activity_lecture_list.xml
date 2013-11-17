@@ -10,14 +10,14 @@
     tools:context=".instructor.LectureListActivity" >
 
     <SearchView
-        android:id="@+id/instructor_lecture_list_search"
+        android:id="@+id/lecture_list_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/instructor_lecture_list_search" >
+        android:hint="@string/lecture_list_search" >
     </SearchView>
 
     <ListView 
-        android:id="@+id/instructor_lecture_list_listview"
+        android:id="@+id/lecture_list_listview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">

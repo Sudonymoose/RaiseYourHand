@@ -4,12 +4,12 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 
-public class ViewSharedActivity extends Activity {
+public class ViewShared extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.view_shared);
+		setContentView(R.layout.activity_view_shared);
 	}
 
 	@Override

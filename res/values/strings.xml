@@ -3,19 +3,20 @@
 
     <string name="app_name">Raise Your Hand</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_lecture_list">Lectures</string>
-    <string name="title_activity_info">Information</string>
-    <string name="title_activity_in_progress">In Progress</string>
-    <string name="title_activity_attendance">Attendance</string>
-    <string name="title_activity_quiz">Quiz</string>
-    <string name="title_activity_view_shared">Shared Note</string>
-    <string name="title_activity_ask">Ask Your Question</string>
+    <string name="title_lecture_list">Lectures</string>
+    <string name="title_view_lecture">Information</string>
+    <string name="title_in_progress">In Progress</string>
+    <string name="title_attendance">Attendance</string>
+    <string name="title_quiz">Quiz</string>
+    <string name="title_view_shared">Shared Note</string>
+    <string name="title_ask">Ask Your Question</string>
+    <string name="lecture_list_search">Search Lectures</string>
+    <string name="share_button">Upload a note</string>
     <string name="instructor_lecture_quiz_button">Quiz</string>
     <string name="instructor_lecture_attendance_button">Attendance</string>
-    <string name="instructor_info_button">Start Lecture</string>
-    <string name="instructor_info_search">Search Enrolled Students</string>
+    <string name="instructor_view_lecture_button">Start Lecture</string>
+    <string name="instructor_view_lecture_search">Search Enrolled Students</string>
     <string name="instructor_attendance_search">Search Students</string>
-    <string name="instructor_lecture_list_search">Search Lectures</string>
     <string name="instructor_quiz_upload_button">Upload Quiz</string>
     <string name="instructor_quiz_imageView">Quiz Question</string>
     <string name="instructor_quiz_begin_button">Begin Quiz</string>
@@ -42,16 +43,12 @@
     <string name="student_dialog_submit_quiz">Submit Quiz?</string>
     <string name="student_dialog_share_item">Share with Class?</string>
     <string name="student_dialog_share_item_imageView">Share with Class</string>
-    <string name="student_info_textview_1">Instructor</string>
-    <string name="student_info_textview_2">Dates</string>
-    <string name="student_info_textview_3">Time</string>
-    <string name="student_info_textview_4">Building</string>
-    <string name="student_info_textview_5">Room</string>
-    <string name="student_info_textview_1b">A</string>
-    <string name="student_info_textview_2b">B</string>
-    <string name="student_info_textview_3b">C</string>
-    <string name="student_info_textview_4b">D</string>
-    <string name="student_info_textview_5b">E</string>
+    <string name="student_view_lecture_instructor">Instructor</string>
+    <string name="student_view_lecture_date">Dates</string>
+    <string name="student_view_lecture_time">Time</string>
+    <string name="student_view_lecture_building">Building</string>
+    <string name="student_view_lecture_room">Room</string>
+    <string name="student_view_lecture_button">Attend Lecture</string>
     <string name="title_instructor_shared">Instructor Shared</string>
     <string name="title_student_shared">Student Shared</string>
     <string name="title_question_and_answer">Q/A</string>
@@ -64,4 +61,3 @@
     <string name="no">No</string>
 
 </resources>
-
