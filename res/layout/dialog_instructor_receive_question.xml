@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#f0f0f0"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/instructor_receive_question_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:text="@string/instructor_dialog_receive_question"
+        android:textStyle="bold" >
+    </TextView>
+
+    <ImageView
+        android:id="@+id/instrucotr_receive_question_imageView"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:contentDescription="@string/instrucotr_receive_question_imageView"
+        android:src="@drawable/ic_launcher" />
+
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/instrucotr_receive_question_button"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#f0f0f0"
+            android:text="@string/instrucotr_dialog_revoke" />
+    </LinearLayout>
+
+</LinearLayout>

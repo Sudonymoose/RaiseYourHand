@@ -22,7 +22,7 @@ public class ViewLectureListener implements ListView.OnItemClickListener {
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 	{
 		// create an Intent to launch the ViewContact Activity
-        Intent lectureIntent = new Intent(this, com.raiseyourhand.student.LectureActivity.class);
+        Intent lectureIntent = new Intent(com.raiseyourhand.student.LectureListActivity.this, com.raiseyourhand.student.LectureActivity.class);
         
         // pass the selected contact's row ID as an extra with the Intent..????
         viewContact.putExtra(ROW_ID, arg3);
