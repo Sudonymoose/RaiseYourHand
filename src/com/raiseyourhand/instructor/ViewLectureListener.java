@@ -3,13 +3,14 @@ package com.raiseyourhand.instructor;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * Class to listen to when an object in the ListView of LectureListActivity
  * on the instructor's side is clicked on
  */
-public class ViewLectureListener implements ListView.OnItemClickListener {
-
+public class ViewLectureListener implements OnItemClickListener {
+	public static final String ROW_ID = "row_id";
 	@Override
 	/**
 	 * Method called when an item in the ListView of instructor's Lecture List is clicked on
@@ -21,15 +22,14 @@ public class ViewLectureListener implements ListView.OnItemClickListener {
 	 */
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 	{
-		// create an Intent to launch the ViewContact Activity
-        Intent lectureIntent = new Intent(com.raiseyourhand.instructor.LectureListActivity.this, 
-        		com.raiseyourhand.instructor.LectureActivity.class);
+		// create an Intent to launch the ViewLecture Activity
+        Intent lectureIntent = new Intent(parent.getContext(), com.raiseyourhand.instructor.LectureActivity.class);
         
         // pass the selected contact's row ID as an extra with the Intent..????
-        viewContact.putExtra(ROW_ID, arg3);
+        lectureIntent.putExtra(ROW_ID, id);
         
         // TODO: Get lecture information and pass it into the activity
         
-        startActivity(lectureIntent);
+        parent.getContext().startActivity(lectureIntent);
 	}
 }

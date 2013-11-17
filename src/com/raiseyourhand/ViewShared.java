@@ -9,7 +9,7 @@ public class ViewSharedActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_view_shared);
+		setContentView(R.layout.view_shared);
 	}
 
 	@Override
