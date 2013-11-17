@@ -5,7 +5,5 @@ package com.dblayout;
  * Contains common fields and code that all four databases will recycle.
  */
 public class AbstractDatabase {
-
-	
 	
 }
