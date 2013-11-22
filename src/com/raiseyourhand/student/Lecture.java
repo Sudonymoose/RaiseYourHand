@@ -20,7 +20,11 @@ import android.widget.Button;
 import com.raiseyourhand.R;
 import com.raiseyourhand.fragment.InstructorSharedFragment;
 import com.raiseyourhand.fragment.StudentSharedFragment;
-
+/**
+ * General Framework for Instructor Shared and Student Shared
+ * @author Hanrui Zhang
+ *
+ */
 public class Lecture extends FragmentActivity implements ActionBar.TabListener {
 
 	/**

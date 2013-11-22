@@ -1,5 +1,6 @@
 package com.raiseyourhand.fragment;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -13,6 +14,8 @@ import com.raiseyourhand.R;
  * the notes shared by the instructor are listed.
  */
 public class QuizQuestionFragment extends ListFragment {
+
+	
 	public QuizQuestionFragment() {
 	}
 
@@ -21,6 +24,9 @@ public class QuizQuestionFragment extends ListFragment {
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_student_quiz_question,
 				container, false);
+
+		
+		
 		return rootView;
 	}
 }

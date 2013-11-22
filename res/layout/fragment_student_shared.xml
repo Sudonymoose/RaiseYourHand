@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <!-- P93, 94 -->
+
     <ListView
         android:id="@+id/student_share_listview"
         android:layout_width="fill_parent"
@@ -11,12 +13,11 @@
         android:layout_weight="1"
         android:cacheColorHint="#f0f0f0" />
 
-
     <ImageButton
         android:id="@+id/student_share_button"
-        android:layout_gravity="center"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:contentDescription="@string/share_button"
         android:src="@android:drawable/ic_input_add" />
 

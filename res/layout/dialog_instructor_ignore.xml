@@ -5,6 +5,8 @@
     android:background="#f0f0f0"
     android:orientation="vertical" >
 
+    <!-- P44, 45 -->
+
     <TextView
         android:id="@+id/instructor_ignore_textview"
         android:layout_width="wrap_content"

@@ -5,7 +5,11 @@ import android.os.Bundle;
 import android.view.Menu;
 
 import com.raiseyourhand.R;
-
+/**
+ * P74, 75
+ * @author Hanrui Zhang
+ *
+ */
 public class Ask extends Activity {
 
 	@Override

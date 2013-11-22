@@ -6,11 +6,13 @@
 
     <uses-sdk
         android:minSdkVersion="11"
-        android:targetSdkVersion="18" />
+        android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <supports-screens
         android:anyDensity="true"
@@ -31,6 +33,7 @@
             android:windowSoftInputMode="adjustResize|stateVisible" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -46,7 +49,6 @@
             android:name="com.raiseyourhand.ViewShared"
             android:label="@string/title_view_shared" >
         </activity>
-
         <activity
             android:name="com.raiseyourhand.instructor.ViewLecture"
             android:label="@string/title_view_lecture"
@@ -79,7 +81,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.raiseyourhand.instructor.Lecture" />
         </activity>
-
         <activity
             android:name="com.raiseyourhand.student.ViewLecture"
             android:label="@string/title_view_lecture"

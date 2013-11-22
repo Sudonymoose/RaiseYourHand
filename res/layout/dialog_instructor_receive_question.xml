@@ -5,6 +5,8 @@
     android:background="#f0f0f0"
     android:orientation="vertical" >
 
+    <!-- P43 -->
+
     <TextView
         android:id="@+id/instructor_receive_question_textview"
         android:layout_width="wrap_content"

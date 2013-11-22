@@ -15,6 +15,11 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 
+/**
+ * P10, 11
+ * @author Hanrui Zhang
+ *
+ */
 public class LectureList extends Activity {
 	private SearchView searchView;
 	private ListView lectureListView;

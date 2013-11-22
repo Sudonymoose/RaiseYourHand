@@ -3,7 +3,11 @@ package com.raiseyourhand;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
-
+/**
+ * Not sure which page
+ * @author Hanrui Zhang
+ *
+ */
 public class ViewShared extends Activity {
 
 	@Override

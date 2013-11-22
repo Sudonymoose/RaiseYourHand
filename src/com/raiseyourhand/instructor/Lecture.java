@@ -23,6 +23,11 @@ import com.raiseyourhand.fragment.InstructorSharedFragment;
 import com.raiseyourhand.fragment.QuestionFragment;
 import com.raiseyourhand.fragment.StudentSharedFragment;
 
+/**
+ * General framework for Q&A, Instructor Shared, Student Shared
+ * @author Hanrui Zhang
+ *
+ */
 public class Lecture extends FragmentActivity implements
 ActionBar.TabListener {
 

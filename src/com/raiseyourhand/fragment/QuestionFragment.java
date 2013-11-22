@@ -8,6 +8,11 @@ import android.view.ViewGroup;
 
 import com.raiseyourhand.R;
 
+/**
+ * P40, 41
+ * @author Hanrui Zhang
+ * 
+ */
 public class QuestionFragment extends Fragment{
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,

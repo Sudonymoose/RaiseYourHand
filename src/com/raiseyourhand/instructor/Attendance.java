@@ -8,20 +8,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
+import android.widget.TimePicker;
 
 import com.raiseyourhand.R;
-import com.raiseyourhand.instructor.ViewLecture.StartLectureOnClickListener;
-import com.raiseyourhand.instructor.ViewLecture.ViewLectureOnQueryListener;
-
+/**
+ * Difference between Attendance/Attendance Activity
+ * @author Hanrui Zhang
+ *
+ */
 public class Attendance extends Activity {
 	private SearchView searchView;
-	private Button incButton;
-	private Button decButton;
+	private Chronometer chronometer;
+	private TimePicker timepicker;
 	private Button startButton;
-	private Button stopButton;
 	private ListView rosterListView;
 	private ArrayAdapter<String> rosterAdapter;
 	private String[] students = new String[0];
@@ -49,16 +52,12 @@ public class Attendance extends Activity {
 		rosterAdapter = new ArrayAdapter<String>(this, R.layout.roster_item, students);
 		rosterListView.setAdapter(rosterAdapter);
 		
-		// Setup Timer buttons
-	/*	incButton = (Button)findViewById(R.id.instructor_attendance_inc_button);
-		incButton.setOnClickListener(new IncrementTimerOnClickListener());
-
-		decButton = (Button)findViewById(R.id.instructor_attendance_dec_button);
-		decButton.setOnClickListener(new DecrementTimerOnClickListener());
-*/
+		chronometer = (Chronometer) findViewById(R.id.chronometer1);
+		
+		timepicker = (TimePicker) findViewById(R.id.timePicker1);
 		// Setup Start button
 		startButton = (Button)findViewById(R.id.instructor_attendance_button);
-	//	startButton.setOnClickListener(new StartAttendanceOnClickListener());
+		//startButton.setOnClickListener(new StartAttendanceOnClickListener());
 	}
 
 	/**

@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <!-- duplicate of P46, 47 -->
+
     <ListView
         android:id="@+id/instructor_share_listview"
         android:layout_width="fill_parent"
@@ -13,9 +15,9 @@
 
     <ImageButton
         android:id="@+id/instructor_share_button"
-        android:layout_gravity="center"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:contentDescription="@string/share_button"
         android:src="@android:drawable/ic_input_add" />
 

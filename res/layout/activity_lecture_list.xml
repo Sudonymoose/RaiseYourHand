@@ -9,6 +9,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".instructor.LectureListActivity" >
 
+    <!-- seems to be duplicate of P10,11 -->
+
     <SearchView
         android:id="@+id/lecture_list_search"
         android:layout_width="match_parent"
@@ -16,10 +18,11 @@
         android:hint="@string/lecture_list_search" >
     </SearchView>
 
-    <ListView 
+    <ListView
         android:id="@+id/lecture_list_listview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1" >
     </ListView>
+
 </LinearLayout>

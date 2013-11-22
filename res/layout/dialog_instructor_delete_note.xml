@@ -5,6 +5,8 @@
     android:background="#f0f0f0"
     android:orientation="vertical" >
 
+    <!-- P55, 56 Are we missing a delete button here or assume long click is marked for deletion -->
+
     <TextView
         android:id="@+id/instructor_delete_note_textview"
         android:layout_width="wrap_content"

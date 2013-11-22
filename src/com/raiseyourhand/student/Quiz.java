@@ -16,6 +16,11 @@ import com.raiseyourhand.R;
 import com.raiseyourhand.fragment.QuizAnswerFragment;
 import com.raiseyourhand.fragment.QuizQuestionFragment;
 
+/**
+ * General framwork for quiz
+ * @author Hanrui Zhang
+ *
+ */
 public class Quiz extends FragmentActivity implements
 		ActionBar.TabListener {
 

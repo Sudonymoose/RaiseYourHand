@@ -5,6 +5,8 @@
     android:background="#f0f0f0"
     android:orientation="vertical" >
 
+    <!-- P49, 50 -->
+
     <TextView
         android:id="@+id/instructor_share_item_textview"
         android:layout_width="wrap_content"

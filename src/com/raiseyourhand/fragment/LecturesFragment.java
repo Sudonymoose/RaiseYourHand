@@ -7,7 +7,7 @@ import android.app.ListFragment;
 
 /**
  * @author arthurc
- *
+ * Not sure this one?
  */
 public class LecturesFragment extends ListFragment {
 

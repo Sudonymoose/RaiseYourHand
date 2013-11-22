@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#f0f0f0"
+    android:orientation="vertical" >
+
+    <!-- P87 -->
+
+    <TextView
+        android:id="@+id/student_quiz_result_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:text="@string/student_dialog_quiz_result"
+        android:textStyle="bold" >
+    </TextView>
+
+    <ImageView
+        android:id="@+id/student_quiz_result_imageView"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:contentDescription="@string/student_dialog_quiz_result_imageView"
+        android:src="@drawable/ic_launcher" />
+
+</LinearLayout>
