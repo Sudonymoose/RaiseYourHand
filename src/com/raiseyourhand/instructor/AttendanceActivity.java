@@ -25,7 +25,7 @@ public class AttendanceActivity extends Activity {
 	private ArrayAdapter<String> rosterAdapter;
 	private boolean choose_bluetooth;
 	private boolean choose_builtin;
-	
+	private Button timer_button;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,9 @@ public class AttendanceActivity extends Activity {
 		rosterAdapter = new ArrayAdapter<String>(this, R.layout.student_item);
 		rosterListView.setAdapter(rosterAdapter);
 		
-		
+		// Set up the button, not sure if this is supposed to both start and end timer?
+		timer_button = (Button)findViewById(R.id.instructor_attendance_button);
+		timer_button.setOnClickListener(new AttendanceTimerOnClickListener());
 	}
 
 	/**
@@ -119,4 +121,16 @@ public class AttendanceActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	/**
+	 * Listener Class for when the timer attendance button is clicked
+	 */
+	private class AttendanceTimerOnClickListener implements OnClickListener {
+
+		@Override
+		public void onClick(View arg0) {
+			// TODO Make an intent for starting (and maybe ending?) the timer for taking attendance
+			
+		}
+	}
+	
 }

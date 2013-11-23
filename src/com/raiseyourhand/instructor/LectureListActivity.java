@@ -13,6 +13,7 @@ import android.widget.ListView;
 
 import com.raiseyourhand.R;
 /**
+ * Activity for list of lectures for instructor to select
  * 
  * @author Hanrui Zhang
  * Page 10 - 11

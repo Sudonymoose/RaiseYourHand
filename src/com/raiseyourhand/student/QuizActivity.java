@@ -19,6 +19,9 @@ import android.view.ViewGroup;
 import com.raiseyourhand.R;
 
 /**
+ * Activity for a student taking a quiz, from student's perspective
+ * P81-84
+ * 
  * Difference between Quiz and QuizActivity
  * @author Hanrui Zhang
  *

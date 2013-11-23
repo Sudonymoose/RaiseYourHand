@@ -32,4 +32,11 @@
         android:src="@drawable/ic_launcher" >
     </ImageView>
 
+    <Button 
+        android:id="@+id/student_ask_end_question_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/student_ask_end_question"
+        />
+    
 </LinearLayout>

@@ -13,7 +13,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.raiseyourhand.R;
+
+
 /**
+ * Activity for beginning a quiz on the instructor's side
  * 
  * @author Hanrui Zhang
  * Page 35- 38
@@ -33,36 +36,7 @@ public class QuizActivity extends Activity {
 		question = (ImageView) findViewById(R.id.instructor_quiz_ongoing_imageView);
 		//set image path from the server
 		end_quiz = (Button) findViewById(R.id.instructor_quiz_ongoing_button);
-		end_quiz.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-
-				end = new Dialog(com.raiseyourhand.instructor.QuizActivity.this);
-				end.setContentView(R.layout.dialog_instructor_end_quiz);
-				
-				Button yes = (Button) end.findViewById(R.id.instructor_end_quiz_btn_yes);
-				Button no = (Button) end.findViewById(R.id.instructor_end_quiz_btn_no);
-				
-				yes.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						//end the quiz
-					}
-
-				});
-
-				no.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						end.dismiss();
-					}
-
-				});
-				end.show();
-			}
-
-		});
-
+		end_quiz.setOnClickListener(new EndQuizOnClickListener());
 	}
 
 	/**
@@ -96,5 +70,42 @@ public class QuizActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	/**
+	 * OnClickListener class for when End Quiz button is clicked
+	 * 
+	 * When it is clicked, it brings up a dialog box that asks if the user is sure
+	 * he/she wants to end the quiz, with Yes/No option.
+	 */
+	private class EndQuizOnClickListener implements OnClickListener {
+
+		@Override
+		public void onClick(View v) {
+			end = new Dialog(com.raiseyourhand.instructor.QuizActivity.this);
+			end.setContentView(R.layout.dialog_instructor_end_quiz);
+			
+			Button yes = (Button) end.findViewById(R.id.instructor_end_quiz_btn_yes);
+			Button no = (Button) end.findViewById(R.id.instructor_end_quiz_btn_no);
+			
+			// Yes, end quiz
+			yes.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					//end the quiz
+				}
+
+			});
+
+			// No, do not end quiz
+			no.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					end.dismiss();
+				}
+
+			});
+			end.show();
+		}
 	}
 }

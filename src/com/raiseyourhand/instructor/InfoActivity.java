@@ -5,12 +5,15 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.raiseyourhand.R;
 /**
- * P12, 13? 
+ * P12, 13?
  * Or student Roster, kinda confused?
  * @author Hanrui Zhang
  *
@@ -18,16 +21,22 @@ import com.raiseyourhand.R;
 public class InfoActivity extends Activity {
 	private ListView rosterListView;
 	private ArrayAdapter<String> rosterAdapter;
+	private Button startLectureButton;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_instructor_info);
+		
 		// Show the Up button in the action bar.
 		setupActionBar();
 		rosterListView = (ListView)findViewById(R.id.instructor_info_listview);     
 		rosterAdapter = new ArrayAdapter<String>(this, R.layout.student_item);
 		rosterListView.setAdapter(rosterAdapter);
+		
+		// Set up start lecture button
+		startLectureButton = (Button) findViewById(R.id.instructor_info_button);
+		startLectureButton.setOnClickListener(new StartLectureOnClickListener());
 	}
 
 	/**
@@ -63,4 +72,16 @@ public class InfoActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	/**
+	 * Listener Class for when the start lecture button is clicked
+	 */
+	private class StartLectureOnClickListener implements OnClickListener {
+
+		@Override
+		public void onClick(View arg0) {
+			// TODO Make an intent for starting a lecture
+			
+		}
+	}
+	
 }

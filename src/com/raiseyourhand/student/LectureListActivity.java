@@ -13,9 +13,9 @@ import android.widget.ListView;
 
 import com.raiseyourhand.R;
 /**
- * P68
+ * Activity for selecting a lecture from a lecture list from the student's perspective
+ * P68,69
  * @author Hanrui Zhang
- *
  */
 public class LectureListActivity extends ListActivity {
 	private ListView lectureListView;

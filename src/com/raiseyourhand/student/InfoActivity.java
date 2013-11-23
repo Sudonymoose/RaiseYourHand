@@ -5,23 +5,32 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 import com.raiseyourhand.R;
 
 /**
- * Does student need this one?
- * Or maybe should changed to be lec info?
+ * p70-10
+ * 
+ * Does student need this one? Or maybe should changed to be lec info?
  * @author Hanrui Zhang
- *
  */
 public class InfoActivity extends Activity {
 
+	private Button attend_lecture_button;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_student_info);
 		// Show the Up button in the action bar.
 		setupActionBar();
+		
+		// Set up the attend_lecture_button
+		attend_lecture_button = (Button) findViewById(R.id.student_info_button);
+		attend_lecture_button.setOnClickListener(new AttendLectureOnClickListener());
 	}
 
 	/**
@@ -57,4 +66,13 @@ public class InfoActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	private class AttendLectureOnClickListener implements OnClickListener {
+
+		@Override
+		public void onClick(View v) {
+			// TODO Go into the lecture activity via Intent
+			
+		}
+	}
+	
 }

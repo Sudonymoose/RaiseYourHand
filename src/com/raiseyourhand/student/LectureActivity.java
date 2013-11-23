@@ -20,6 +20,8 @@ import android.view.ViewGroup;
 
 import com.raiseyourhand.R;
 /**
+ * 
+ * 
  * Difference between Lecture and LectureActivity
  * @author Hanrui Zhang
  *

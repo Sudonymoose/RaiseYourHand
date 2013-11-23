@@ -17,14 +17,23 @@
         android:contentDescription="@string/instructor_quiz_ongoing_imageView"
         android:src="@drawable/ic_launcher" />
 
+    <TextView 
+        android:id = "@+id/instructor_quiz_ongoing_timerTextView"
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"
+        android:layout_above = "@+id/instructor_quiz_ongoing_button"
+		android:layout_centerHorizontal="true"
+        android:text="HELLO WORLD"
+        />
+    
     <Button
         android:id="@+id/instructor_quiz_ongoing_button"
         style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/instructor_quiz_ongoing_imageView"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
         android:background="#003366"
+        android:layout_centerHorizontal="true"
         android:clickable="true"
         android:text="@string/instructor_quiz_end"
         android:textColor="#ffffff"

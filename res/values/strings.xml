@@ -21,7 +21,7 @@
     <string name="instructor_view_lecture_button">Start Lecture</string>
     <string name="instructor_view_lecture_search">Search Enrolled Students</string>
     <string name="instructor_attendance_search">Search Students</string>
-    <string name="instructor_quiz_upload_button">Upload Quiz</string>
+    <string name="instructor_quiz_upload_button">Upload Quiz Screenshot</string>
     <string name="instructor_quiz_imageView">Quiz Question</string>
     <string name="instructor_quiz_begin_button">Begin Quiz</string>
     <string name="instructor_quiz_ongoing_imageView"></string>
@@ -81,5 +81,9 @@
     <string name="bluetooth">Bluetooth</string>
     <string name="builtin">Built-in</string>
     <string name="set">Set</string>
+    <string name="title_activity_quiz_ongoing">QuizOngoingActivity</string>
+    <string name="title_activity_quiz_results">QuizResultsActivity</string>
+    <string name="instructor_lecture_add_notes_button">Add Notes Screenshot</string>
+    <string name="student_ask_end_question">End Question</string>
 
 </resources>

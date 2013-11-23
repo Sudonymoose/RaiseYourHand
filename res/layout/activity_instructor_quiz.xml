@@ -9,7 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".instructor.QuizActivity" >
 
-    <!--P34 -->
+    <!--P33-34 -->
 
     <Button
         android:id="@+id/instructor_quiz_button_upload"

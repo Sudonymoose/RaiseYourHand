@@ -113,6 +113,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.raiseyourhand.student.Lecture" />
         </activity>
+        <activity
+            android:name="com.raiseyourhand.QuizOngoingActivity"
+            android:label="@string/title_activity_quiz_ongoing" >
+        </activity>
+        <activity
+            android:name="com.raiseyourhand.QuizResultsActivity"
+            android:label="@string/title_activity_quiz_results" >
+        </activity>
     </application>
 
 </manifest>

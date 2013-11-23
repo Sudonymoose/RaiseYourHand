@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 /**
  * Login Interface for instructor and students
+ * 
  * P9, P67
  */
 public class LoginActivity extends Activity {
