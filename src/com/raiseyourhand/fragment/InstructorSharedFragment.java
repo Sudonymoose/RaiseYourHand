@@ -3,6 +3,7 @@ package com.raiseyourhand.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -30,10 +31,10 @@ public class InstructorSharedFragment extends Fragment{
 	private Dialog deletion;
 	private Dialog share_file;
 	private ArrayAdapter<String> itemAdapter;
-	private List<String> items = new ArrayList<String>();
+	private ArrayList<String> items = new ArrayList<String>();
 	private String selectedFromList;
 	private Button share_button;
-	
+
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_instructor_shared, container, false);
@@ -84,12 +85,18 @@ public class InstructorSharedFragment extends Fragment{
 
 			@Override
 			public void onClick(View v) {
+
+
+				//activity to take picture or upload files
+
+				//finish the file operations and share with the class
+
 				share_file = new Dialog(getActivity());
 				share_file.setContentView(R.layout.dialog_instructor_share_item);
-				
+
 				Button yes = (Button) share_file.findViewById(R.id.instructor_share_item_btn_yes);
 				Button no = (Button) share_file.findViewById(R.id.instructor_share_item_btn_no);
-				
+
 				yes.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
@@ -107,11 +114,22 @@ public class InstructorSharedFragment extends Fragment{
 				});
 				share_file.show();
 			}
-			
+
 		});
+		
+		//use this interface to send the names of the shared items back to the activity 
+		SharedItemSelectedListener passToActivity = (SharedItemSelectedListener) getActivity();
+		passToActivity.passData(items);
 
 		return rootView;
 	}
 
-
+	/**
+	 * An interface to pass data from the fragments to the activity
+	 * @author Hanrui Zhang
+	 *
+	 */
+	public interface SharedItemSelectedListener {
+		public void passData(ArrayList<String> all_items);
+	}  
 }
