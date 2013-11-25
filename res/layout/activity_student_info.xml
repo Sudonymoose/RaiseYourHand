@@ -17,19 +17,18 @@
         android:orientation="horizontal" >
 
         <TextView
-            android:id="@+id/student_info_textview_1"
+            android:id="@+id/student_info_textview_instructor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:text="@string/student_info_textview_1" >
+            android:text="@string/student_info_textview_instructor" >
         </TextView>
 
         <TextView
-            android:id="@+id/student_info_textview_1b"
+            android:id="@+id/student_info_textview_instructor_b"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/student_info_textview_1b" >
+            android:layout_weight="1">
         </TextView>
     </LinearLayout>
 
@@ -39,19 +38,18 @@
         android:orientation="horizontal" >
 
         <TextView
-            android:id="@+id/student_info_textview_2"
+            android:id="@+id/student_info_textview_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:text="@string/student_info_textview_2" >
+            android:text="@string/student_info_textview_date" >
         </TextView>
 
         <TextView
-            android:id="@+id/student_info_textview_2b"
+            android:id="@+id/student_info_textview_date_b"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/student_info_textview_2b" >
+            android:layout_weight="1" >
         </TextView>
     </LinearLayout>
 
@@ -61,19 +59,18 @@
         android:orientation="horizontal" >
 
         <TextView
-            android:id="@+id/student_info_textview_3"
+            android:id="@+id/student_info_textview_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:text="@string/student_info_textview_3" >
+            android:text="@string/student_info_textview_time" >
         </TextView>
 
         <TextView
-            android:id="@+id/student_info_textview_3b"
+            android:id="@+id/student_info_textview_time_b"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/student_info_textview_3b" >
+            android:layout_weight="1">
         </TextView>
     </LinearLayout>
 
@@ -83,19 +80,18 @@
         android:orientation="horizontal" >
 
         <TextView
-            android:id="@+id/student_info_textview_4"
+            android:id="@+id/student_info_textview_building"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:text="@string/student_info_textview_4" >
+            android:text="@string/student_info_textview_building" >
         </TextView>
 
         <TextView
-            android:id="@+id/student_info_textview_4b"
+            android:id="@+id/student_info_textview_building_b"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/student_info_textview_4b" >
+            android:layout_weight="1" >
         </TextView>
     </LinearLayout>
 
@@ -105,19 +101,18 @@
         android:orientation="horizontal" >
 
         <TextView
-            android:id="@+id/student_info_textview_5"
+            android:id="@+id/student_info_textview_room"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:text="@string/student_info_textview_5" >
+            android:text="@string/student_info_textview_room" >
         </TextView>
 
         <TextView
-            android:id="@+id/student_info_textview_5b"
+            android:id="@+id/student_info_textview_room_b"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/student_info_textview_5b" >
+            android:layout_weight="1" >
         </TextView>
     </LinearLayout>
 

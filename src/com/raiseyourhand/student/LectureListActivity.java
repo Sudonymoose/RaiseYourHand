@@ -32,7 +32,6 @@ public class LectureListActivity extends ListActivity {
 
 		lectureAdapter = new ArrayAdapter<String>(this, R.layout.lecture_item);
 		lectureListView.setAdapter(lectureAdapter);
-
 	}
 
 	/**
@@ -64,6 +63,10 @@ public class LectureListActivity extends ListActivity {
 			//
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
+		case R.id.action_signout:
+
+			//sign out here
+			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -80,18 +83,13 @@ public class LectureListActivity extends ListActivity {
 		 * @param position The position of the view in the adapter.
 		 * @param id The row id of the item that was clicked. 
 		 */
-		public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-		{
-			// create an Intent to launch the ViewContact Activity
-			Intent lectureIntent = new Intent(com.raiseyourhand.student.LectureListActivity.this, 
-					com.raiseyourhand.student.LectureActivity.class);
-
-			// pass the selected contact's row ID as an extra with the Intent..????
-			//viewContact.putExtra(ROW_ID, arg3);
-
-			// TODO: Get lecture information and pass it into the activity
-
-			startActivity(lectureIntent);
+		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
+			String lecture = (String) lectureListView.getItemAtPosition(arg2);
+			Intent lecture_info = new Intent(com.raiseyourhand.student.LectureListActivity.this, 
+					com.raiseyourhand.student.InfoActivity.class);
+			lecture_info.putExtra("Lecture Information",lecture);
+			startActivity(lecture_info);
 		}
 
 	}

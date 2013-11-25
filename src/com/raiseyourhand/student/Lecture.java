@@ -1,8 +1,10 @@
 package com.raiseyourhand.student;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,13 +21,14 @@ import android.widget.Button;
 
 import com.raiseyourhand.R;
 import com.raiseyourhand.fragment.InstructorSharedFragment;
+import com.raiseyourhand.fragment.InstructorSharedFragment.SharedItemSelectedListener;
 import com.raiseyourhand.fragment.StudentSharedFragment;
 /**
  * General Framework for Instructor Shared and Student Shared
  * @author Hanrui Zhang
  *
  */
-public class Lecture extends FragmentActivity implements ActionBar.TabListener {
+public class Lecture extends FragmentActivity implements ActionBar.TabListener, SharedItemSelectedListener {
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -43,6 +46,7 @@ public class Lecture extends FragmentActivity implements ActionBar.TabListener {
 	ViewPager mViewPager;
 	Button downloadButton;
 	Button questionButton;
+	private ArrayList<String> all_items;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +64,7 @@ public class Lecture extends FragmentActivity implements ActionBar.TabListener {
 		downloadButton.setOnClickListener(new DownloadOnClickListener());
 		questionButton = (Button) findViewById(R.id.student_lecture_ask_button);
 		questionButton.setOnClickListener(new QuestionOnClickListener());
-		
+
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.
 		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -110,6 +114,9 @@ public class Lecture extends FragmentActivity implements ActionBar.TabListener {
 			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
 			//
 			NavUtils.navigateUpFromSameTask(this);
+			return true;
+		case R.id.action_back:
+			super.onBackPressed();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -175,18 +182,28 @@ public class Lecture extends FragmentActivity implements ActionBar.TabListener {
 			return null;
 		}
 	}
-	
+
 	public class DownloadOnClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
 			// TODO: DOWNLOAD DIALOG / CONTENT PROVIDER DOWNLOAD ETC.
+			ArrayList<String> selected = all_items;
+			for(String s : selected){
+				//go search in the database and download
+			}
 		}
 	}
-	
+
 	public class QuestionOnClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
 			// TODO: HANDLE SHAKING PHONE. PERHAPS A DIALOG WHILE BEING HELD.
 		}
+	}
+
+	@Override
+	public void passData(ArrayList<String> all_items) {
+		// TODO Auto-generated method stub
+		this.all_items = all_items;
 	}
 }
