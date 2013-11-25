@@ -1,12 +1,15 @@
 package com.raiseyourhand.instructor;
 
 import android.content.Intent;
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 /**
  * Class to listen to when an object in the ListView of LectureListActivity
  * on the instructor's side is clicked on
+ * 
+ * TODO: Should this be deleted? It's already in LectureListActivity.java as an inner class...
  */
 public class ViewLectureListener implements ListView.OnItemClickListener {
 

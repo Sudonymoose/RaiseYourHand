@@ -83,6 +83,7 @@ public class AttendanceActivity extends Activity {
 			TextView bluetooth = (TextView) mic_setting.findViewById(R.id.instructor_set_mic_bluetooth_text);
 			TextView builtin = (TextView) mic_setting.findViewById(R.id.instructor_set_mic_builtin_text);
 
+			// Is this needed??
 			bluetooth.setOnClickListener(new OnClickListener(){
 				@Override
 				public void onClick(View v) {
@@ -128,7 +129,7 @@ public class AttendanceActivity extends Activity {
 
 		@Override
 		public void onClick(View arg0) {
-			// TODO Make an intent for starting (and maybe ending?) the timer for taking attendance
+			// TODO Starting (and maybe ending?) the timer for taking attendance
 			
 		}
 	}

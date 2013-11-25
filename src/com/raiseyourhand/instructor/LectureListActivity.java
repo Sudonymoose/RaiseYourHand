@@ -26,8 +26,11 @@ public class LectureListActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_instructor_lecture_list);
+		
 		// Show the Up button in the action bar.
 		setupActionBar();
+		
+		// 
 		lectureListView = (ListView)findViewById(R.id.instructor_lecture_list_listview);
 		lectureListView.setOnItemClickListener( new ViewLectureListener());      
 
@@ -71,12 +74,15 @@ public class LectureListActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-
-	class ViewLectureListener implements ListView.OnItemClickListener{
+	/**
+	 * Class to listen to when an object in the ListView of LectureListActivity
+	 * on the instructor's side is clicked on
+	 */
+	private class ViewLectureListener implements ListView.OnItemClickListener{
 
 		@Override
 		/**
-		 * Method called when an item in the ListView of student's Lecture List is clicked on
+		 * Called when an item in the ListView of student's Lecture List is clicked on
 		 * 
 		 * @param parent The AdapterView where the click happened.
 		 * @param view The view within the AdapterView that was clicked
@@ -85,16 +91,22 @@ public class LectureListActivity extends Activity {
 		 */
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 		{
-			// create an Intent to launch the ViewContact Activity
-			Intent lectureIntent = new Intent(com.raiseyourhand.instructor.LectureListActivity.this,
-					com.raiseyourhand.student.LectureActivity.class);
-
+			// create an Intent to launch the LectureActivity on the students end i think??
+			// shouldn't this go into InfoActivity on instructor's end?
+			//Intent lectureIntent = new Intent(com.raiseyourhand.instructor.LectureListActivity.this,
+			//		com.raiseyourhand.student.LectureActivity.class);
+			
+			// Create an Intent to load up the InfoActivity on the instructor's end
+			Intent infoIntent = new Intent(LectureListActivity.this, InfoActivity.class);
+			
 			// pass the selected contact's row ID as an extra with the Intent..????
 			//viewContact.putExtra(ROW_ID, arg3);
 
-			// TODO: Get lecture information and pass it into the activity
+			// TODO: Get lecture information from server here
+			
+			// TODO: Put lecture info into infoIntent to pass it on here
 
-			startActivity(lectureIntent);
+			startActivity(infoIntent);
 		}
 
 	}

@@ -1,6 +1,7 @@
 package com.raiseyourhand.instructor;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
@@ -79,8 +80,14 @@ public class InfoActivity extends Activity {
 
 		@Override
 		public void onClick(View arg0) {
-			// TODO Make an intent for starting a lecture
 			
+			// TODO Make an intent for starting a lecture
+			Intent startLectureIntent = new Intent(InfoActivity.this, LectureActivity.class);
+			
+			// TODO Pass lecture info that was passed to here from LectureListActivity and pass it to startLectureIntent
+			
+			
+			startActivity(startLectureIntent);
 		}
 	}
 	

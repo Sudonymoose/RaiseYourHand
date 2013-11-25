@@ -2,7 +2,6 @@ package com.raiseyourhand.instructor;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
@@ -92,7 +91,14 @@ public class QuizActivity extends Activity {
 			yes.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					//end the quiz
+					
+					// TODO: Tell all student devices that quiz is done.
+					
+					// TODO: Start up a dialogue box for the quiz results.
+					
+					
+					// Go back to LectureActivity
+					(QuizActivity.this).finish();
 				}
 
 			});

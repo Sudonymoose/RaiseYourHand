@@ -187,9 +187,12 @@ ActionBar.TabListener {
 	public class AttendanceOnClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
-			// create an Intent to launch the Attendance Activity
+			
+			// Create an Intent to launch the Attendance Activity
 			Intent lecture = new Intent(Lecture.this, Attendance.class);
 			startActivity(lecture);
+			
+			// TODO: Need a way to return here after attendance is done?
 		}
 	}
 	public class QuizOnClickListener implements OnClickListener {
@@ -198,6 +201,9 @@ ActionBar.TabListener {
 			// create an Intent to launch the Quiz Activity
 			Intent quiz = new Intent(Lecture.this, Quiz.class);
 			startActivity(quiz);
+			
+			// QuizActivity should return here automatically after it ends
+			
 		}
 	}
 }
