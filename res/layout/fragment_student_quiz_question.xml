@@ -4,14 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <!-- P82 -->
+    <!-- P81 -->
 
-    <ListView
-        android:id="@+id/student_lecture_listview_1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:cacheColorHint="#f0f0f0" />
+    <ImageView
+        android:id="@+id/student_quiz_imageView"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:contentDescription="@string/student_quiz_imageView"
+        android:src="@drawable/ic_launcher" />
 
     <LinearLayout
         style="?android:attr/buttonBarStyle"

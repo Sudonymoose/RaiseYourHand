@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import android.app.ActionBar;
-import android.app.Activity;
+import android.app.Dialog;
 import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -13,6 +18,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
+import android.util.FloatMath;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,15 +26,15 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.raiseyourhand.R;
-import com.raiseyourhand.fragment.InstructorSharedFragment;
-import com.raiseyourhand.fragment.InstructorSharedFragment.SharedItemSelectedListener;
-import com.raiseyourhand.fragment.StudentSharedFragment;
+import com.raiseyourhand.fragment.InstructorInstructorSharedFragment.SharedItemSelectedListener;
+import com.raiseyourhand.fragment.StudentInstructorSharedFragment;
+import com.raiseyourhand.fragment.StudentStudentSharedFragment;
 /**
  * General Framework for Instructor Shared and Student Shared
  * @author Hanrui Zhang
- *
+ * Everything from P68 - 80 is done, not backend stuff
  */
-public class Lecture extends FragmentActivity implements ActionBar.TabListener, SharedItemSelectedListener {
+public class Lecture extends FragmentActivity implements ActionBar.TabListener, SharedItemSelectedListener, SensorEventListener {
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -43,9 +49,17 @@ public class Lecture extends FragmentActivity implements ActionBar.TabListener, 
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
-	ViewPager mViewPager;
-	Button downloadButton;
-	Button questionButton;
+	private ViewPager mViewPager;
+	private Button downloadButton;
+	private Button questionButton;
+	private SensorManager sensorManager;
+	private Sensor accelerometer;
+
+	private float[] mGravity;
+	private float mAccel;
+	private float mAccelCurrent;
+	private float mAccelLast;
+	private boolean shaking;
 	private ArrayList<String> all_items;
 
 	@Override
@@ -93,6 +107,13 @@ public class Lecture extends FragmentActivity implements ActionBar.TabListener, 
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
+
+		//initializing the motion sensors
+		sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+		accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+		mAccel = 0.00f;
+		mAccelCurrent = SensorManager.GRAVITY_EARTH;
+		mAccelLast = SensorManager.GRAVITY_EARTH;
 	}
 
 	@Override
@@ -116,7 +137,26 @@ public class Lecture extends FragmentActivity implements ActionBar.TabListener, 
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
 		case R.id.action_back:
-			super.onBackPressed();
+			final Dialog leave = new Dialog(getBaseContext());
+			leave.setContentView(R.layout.dialog_student_end_lecture);
+			
+			Button yes = (Button) leave.findViewById(R.id.student_end_lecture_btn_yes);
+			Button no = (Button) leave.findViewById(R.id.student_end_lecture_btn_no);
+			
+			yes.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View arg0) {
+					finishActivity(0);
+				}
+			});
+			
+			no.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View arg0) {
+					leave.dismiss();
+				}
+			});
+			//super.onBackPressed();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -156,9 +196,9 @@ public class Lecture extends FragmentActivity implements ActionBar.TabListener, 
 
 			switch (position) {
 			case 0:
-				fragment = (Fragment)new InstructorSharedFragment();
+				fragment = (Fragment)new StudentInstructorSharedFragment();
 			case 1:
-				fragment = (Fragment)new StudentSharedFragment();
+				fragment = (Fragment)new StudentStudentSharedFragment();
 			}			
 
 			return fragment;
@@ -183,6 +223,55 @@ public class Lecture extends FragmentActivity implements ActionBar.TabListener, 
 		}
 	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		sensorManager.registerListener(this, accelerometer,
+				SensorManager.SENSOR_DELAY_UI);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		sensorManager.unregisterListener(this);
+	}
+
+
+	@Override
+	public void onAccuracyChanged(Sensor arg0, int arg1) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onSensorChanged(SensorEvent event) {
+		if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
+			mGravity = event.values.clone();
+			// Shake detection
+			float x = mGravity[0];
+			float y = mGravity[1];
+			float z = mGravity[2];
+			mAccelLast = mAccelCurrent;
+			mAccelCurrent = FloatMath.sqrt(x*x + y*y + z*z);
+			float delta = mAccelCurrent - mAccelLast;
+			mAccel = mAccel * 0.9f + delta;
+			//threshold
+			if(mAccel > 3){ 
+				shaking = true;
+			}else{
+				shaking = false;
+			}
+		}
+
+	}
+
+	
+	@Override
+	public void passData(ArrayList<String> all_items) {
+		// TODO: implemented method to get all items in shared fragments
+		this.all_items = all_items;
+	}
+	
 	public class DownloadOnClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
@@ -198,12 +287,15 @@ public class Lecture extends FragmentActivity implements ActionBar.TabListener, 
 		@Override
 		public void onClick(View v) {
 			// TODO: HANDLE SHAKING PHONE. PERHAPS A DIALOG WHILE BEING HELD.
+			if(shaking){
+				Intent ask_question = new Intent(com.raiseyourhand.student.Lecture.this, 
+						com.raiseyourhand.student.AskActivity.class);
+				startActivity(ask_question);
+			}
 		}
 	}
 
-	@Override
-	public void passData(ArrayList<String> all_items) {
-		// TODO Auto-generated method stub
-		this.all_items = all_items;
-	}
+	
+
+
 }

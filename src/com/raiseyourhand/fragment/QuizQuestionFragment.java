@@ -1,21 +1,23 @@
 package com.raiseyourhand.fragment;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.raiseyourhand.R;
+import com.ws.DownloadImageTask;
 
 /**
- * A instructor shared fragment representing a section of the app, where
- * the notes shared by the instructor are listed.
+ * This fragment just simply displayed the quiz image from the instructor
+ * 
+ * P81
  */
 public class QuizQuestionFragment extends ListFragment {
 
-	
+	private ImageView question_image;
 	public QuizQuestionFragment() {
 	}
 
@@ -24,9 +26,13 @@ public class QuizQuestionFragment extends ListFragment {
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_student_quiz_question,
 				container, false);
+		question_image = (ImageView) rootView.findViewById(R.id.student_quiz_imageView);
+		
+		//set quiz image here
+		String img_path = "";
+		new DownloadImageTask(question_image).execute(img_path);
 
-		
-		
 		return rootView;
 	}
+	
 }

@@ -78,6 +78,8 @@ public class Quiz extends FragmentActivity implements
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
+		
+		
 	}
 
 	@Override

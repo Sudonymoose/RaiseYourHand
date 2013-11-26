@@ -12,31 +12,36 @@
 
     <!-- P76 -->
 
-    <ImageView
-        android:id="@+id/student_ask_record"
+    <ImageButton
+        android:id="@+id/student_ask_record_button"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:contentDescription="@string/student_ask_record"
         android:scaleType="center"
         android:src="@drawable/ic_launcher" >
-    </ImageView>
+    </ImageButton>
 
-    <ImageView
-        android:id="@+id/student_ask_type"
+    <TextView
+        android:id="@+id/student_ask_type_question_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/student_ask_type" >
+    </TextView>
+
+    <EditText
+        android:id="@+id/student_ask_type_question"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:contentDescription="@string/student_ask_type"
-        android:scaleType="center"
-        android:src="@drawable/ic_launcher" >
-    </ImageView>
+        android:inputType="text"
+        android:scaleType="center" >
+    </EditText>
 
-    <Button 
+    <Button
         android:id="@+id/student_ask_end_question_button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/student_ask_end_question"
-        />
-    
+        android:text="@string/student_ask_end_question" />
+
 </LinearLayout>

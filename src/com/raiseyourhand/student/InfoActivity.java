@@ -1,6 +1,7 @@
 package com.raiseyourhand.student;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -22,15 +23,10 @@ import com.raiseyourhand.R;
 public class InfoActivity extends Activity {
 
 	private Button attend_lecture_button;
-	private TextView instructor_title;
 	private TextView instructor_info;
-	private TextView date_title;
 	private TextView date_info;
-	private TextView time_title;
 	private TextView time_info;
-	private TextView building_title;
 	private TextView building_info;
-	private TextView room_title;
 	private TextView room_info;
 
 	@Override
@@ -50,15 +46,10 @@ public class InfoActivity extends Activity {
 		setTitle(lecture);
 		//get a bunch of information from database based on the title.
 
-		instructor_title = (TextView) findViewById(R.id.student_info_textview_instructor);
 		instructor_info = (TextView) findViewById(R.id.student_info_textview_instructor_b);
-		time_title = (TextView) findViewById(R.id.student_info_textview_time);
 		time_info = (TextView) findViewById(R.id.student_info_textview_time_b);
-		date_title = (TextView) findViewById(R.id.student_info_textview_date);
 		date_info = (TextView) findViewById(R.id.student_info_textview_date_b);
-		building_title = (TextView) findViewById(R.id.student_info_textview_building);
 		building_info = (TextView) findViewById(R.id.student_info_textview_building_b);
-		room_title = (TextView) findViewById(R.id.student_info_textview_room);
 		room_info = (TextView) findViewById(R.id.student_info_textview_room_b);
 
 		//communicate with the background to get information
@@ -102,8 +93,26 @@ public class InfoActivity extends Activity {
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
 		case R.id.action_back:
-			//finishActivity();
-			super.onBackPressed();
+			final Dialog leave = new Dialog(getBaseContext());
+			leave.setContentView(R.layout.dialog_student_end_lecture);
+			
+			Button yes = (Button) leave.findViewById(R.id.student_end_lecture_btn_yes);
+			Button no = (Button) leave.findViewById(R.id.student_end_lecture_btn_no);
+			
+			yes.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View arg0) {
+					finishActivity(0);
+				}
+			});
+			
+			no.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View arg0) {
+					leave.dismiss();
+				}
+			});
+			//super.onBackPressed();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

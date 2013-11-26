@@ -27,6 +27,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="#f0f0f0"
             android:text="@string/student_lecture_download_button" />
 
         <Button
@@ -35,6 +36,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="#f0f0f0"
             android:text="@string/student_lecture_ask_button" />
     </LinearLayout>
 

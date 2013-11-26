@@ -4,16 +4,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <!-- P81 -->
+    <!-- P82 -->
 
-    <ImageView
-        android:id="@+id/student_quiz_imageView"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:contentDescription="@string/student_quiz_imageView"
-        android:src="@drawable/ic_launcher" />
+    <ListView
+        android:id="@+id/student_quiz_listview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/student_quiz_answer_linearLayout"
+        android:layout_alignParentTop="true"
+        android:cacheColorHint="#f0f0f0" />
 
     <LinearLayout
+        android:id="@+id/student_quiz_answer_linearLayout"
         style="?android:attr/buttonBarStyle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
