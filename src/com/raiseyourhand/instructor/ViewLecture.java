@@ -88,7 +88,7 @@ public class ViewLecture extends Activity {
 	public class StartLectureOnClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
-			// create an Intent to launch the Lecture Activity
+			// Create an Intent to launch the Lecture Activity
 			Intent lecture = new Intent(ViewLecture.this, Lecture.class);
 			startActivity(lecture);
 		}

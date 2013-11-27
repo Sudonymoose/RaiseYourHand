@@ -29,6 +29,13 @@ public class InfoActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_instructor_info);
 		
+		// Get the lecture string from the LectureListActivity that started this activity
+		Bundle extras = getIntent().getExtras();
+		String lecture = extras.getString("Lecture Information");
+		
+		// Change the activity title
+		setTitle(lecture);
+		
 		// Show the Up button in the action bar.
 		setupActionBar();
 		rosterListView = (ListView)findViewById(R.id.instructor_info_listview);     
@@ -38,6 +45,10 @@ public class InfoActivity extends Activity {
 		// Set up start lecture button
 		startLectureButton = (Button) findViewById(R.id.instructor_info_button);
 		startLectureButton.setOnClickListener(new StartLectureOnClickListener());
+		
+		// TODO: get a bunch of information from database based on the title.
+		
+		
 	}
 
 	/**

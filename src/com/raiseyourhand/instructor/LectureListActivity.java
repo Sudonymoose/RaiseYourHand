@@ -96,16 +96,17 @@ public class LectureListActivity extends Activity {
 			//Intent lectureIntent = new Intent(com.raiseyourhand.instructor.LectureListActivity.this,
 			//		com.raiseyourhand.student.LectureActivity.class);
 			
+			// Get lecture string from the selected item
+			String lecture = (String) lectureListView.getItemAtPosition(position);
+			
 			// Create an Intent to load up the InfoActivity on the instructor's end
 			Intent infoIntent = new Intent(LectureListActivity.this, InfoActivity.class);
 			
 			// pass the selected contact's row ID as an extra with the Intent..????
 			//viewContact.putExtra(ROW_ID, arg3);
-
-			// TODO: Get lecture information from server here
 			
-			// TODO: Put lecture info into infoIntent to pass it on here
-
+			// Put lecture string into infoIntent to pass it on
+			infoIntent.putExtra("Lecture Information", lecture);
 			startActivity(infoIntent);
 		}
 

@@ -83,11 +83,16 @@ public class LectureListActivity extends ListActivity {
 		 * @param position The position of the view in the adapter.
 		 * @param id The row id of the item that was clicked. 
 		 */
-		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-				long arg3) {
-			String lecture = (String) lectureListView.getItemAtPosition(arg2);
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			
+			// Get lecture string from the selected item
+			String lecture = (String) lectureListView.getItemAtPosition(position);
+			
+			// Create an Intent to load up the InfoActivity on the student's end
 			Intent lecture_info = new Intent(com.raiseyourhand.student.LectureListActivity.this, 
 					com.raiseyourhand.student.InfoActivity.class);
+			
+			// Put lecture string into infoIntent to pass it on
 			lecture_info.putExtra("Lecture Information",lecture);
 			startActivity(lecture_info);
 		}

@@ -30,11 +30,11 @@ public final class R {
         public static final int icon=0x7f020006;
     }
     public static final class id {
-        public static final int action_back=0x7f080085;
-        public static final int action_forgot_password=0x7f080089;
-        public static final int action_mic=0x7f080086;
-        public static final int action_settings=0x7f080087;
-        public static final int action_signout=0x7f080088;
+        public static final int action_back=0x7f080086;
+        public static final int action_forgot_password=0x7f08008a;
+        public static final int action_mic=0x7f080087;
+        public static final int action_settings=0x7f080088;
+        public static final int action_signout=0x7f080089;
         public static final int chronometer1=0x7f080002;
         public static final int fdrowimage=0x7f080045;
         public static final int fdrowtext=0x7f080046;
@@ -73,7 +73,7 @@ public final class R {
         public static final int instructor_lecture_quiz_button=0x7f08000a;
         public static final int instructor_lecture_quiz_button_2=0x7f080070;
         public static final int instructor_lecture_quiz_button_3=0x7f080076;
-        public static final int instructor_question_item_textview=0x7f08007f;
+        public static final int instructor_question_item_textview=0x7f080080;
         public static final int instructor_quiz_button_begin=0x7f08000f;
         public static final int instructor_quiz_button_upload=0x7f08000d;
         public static final int instructor_quiz_imageView=0x7f08000e;
@@ -90,11 +90,11 @@ public final class R {
         public static final int instructor_share_item_btn_yes=0x7f08005e;
         public static final int instructor_share_item_textview=0x7f08005d;
         public static final int instructor_share_listview=0x7f080072;
-        public static final int instructor_shared_item_textview=0x7f080080;
+        public static final int instructor_shared_item_textview=0x7f080081;
         public static final int instructor_view_lecture_button=0x7f080015;
         public static final int instructor_view_lecture_listview=0x7f080014;
         public static final int instructor_view_lecture_search=0x7f080013;
-        public static final int lecture_item_textview=0x7f080081;
+        public static final int lecture_item_textview=0x7f080082;
         public static final int lecture_list_listview=0x7f080017;
         public static final int lecture_list_search=0x7f080016;
         public static final int login=0x7f08001d;
@@ -105,7 +105,7 @@ public final class R {
         public static final int password=0x7f08001c;
         public static final int question_listview=0x7f080071;
         public static final int relativeLayout01=0x7f08003f;
-        public static final int roster_item_textview=0x7f080082;
+        public static final int roster_item_textview=0x7f080083;
         public static final int section_label=0x7f080078;
         public static final int share_file_cancel=0x7f080044;
         public static final int share_file_linearLayout=0x7f080042;
@@ -132,7 +132,7 @@ public final class R {
         public static final int student_info_textview_time=0x7f080027;
         public static final int student_info_textview_time_b=0x7f080028;
         public static final int student_instructor_shared_listview=0x7f080077;
-        public static final int student_item_textview=0x7f080083;
+        public static final int student_item_textview=0x7f080084;
         public static final int student_lecture_ask_button=0x7f080030;
         public static final int student_lecture_download_button=0x7f08002f;
         public static final int student_lecture_list_listview=0x7f080032;
@@ -150,8 +150,9 @@ public final class R {
         public static final int student_share_item_imageView=0x7f080066;
         public static final int student_share_item_preview=0x7f080069;
         public static final int student_share_item_textview=0x7f080065;
-        public static final int student_shared_item_textview=0x7f080084;
-        public static final int student_student_share_listview=0x7f08007d;
+        public static final int student_share_listview=0x7f08007d;
+        public static final int student_shared_item_textview=0x7f080085;
+        public static final int student_student_share_listview=0x7f08007f;
         public static final int student_submit_quiz_btn_no=0x7f08006c;
         public static final int student_submit_quiz_btn_yes=0x7f08006b;
         public static final int student_submit_quiz_textview=0x7f08006a;
@@ -212,13 +213,14 @@ public final class R {
         public static final int fragment_student_lecture=0x7f030027;
         public static final int fragment_student_quiz_answer=0x7f030028;
         public static final int fragment_student_quiz_question=0x7f030029;
-        public static final int fragment_student_student_shared=0x7f03002a;
-        public static final int instructor_question_item=0x7f03002b;
-        public static final int instructor_shared_item=0x7f03002c;
-        public static final int lecture_item=0x7f03002d;
-        public static final int roster_item=0x7f03002e;
-        public static final int student_item=0x7f03002f;
-        public static final int student_shared_item=0x7f030030;
+        public static final int fragment_student_shared=0x7f03002a;
+        public static final int fragment_student_student_shared=0x7f03002b;
+        public static final int instructor_question_item=0x7f03002c;
+        public static final int instructor_shared_item=0x7f03002d;
+        public static final int lecture_item=0x7f03002e;
+        public static final int roster_item=0x7f03002f;
+        public static final int student_item=0x7f030030;
+        public static final int student_shared_item=0x7f030031;
     }
     public static final class menu {
         public static final int attendance=0x7f070000;

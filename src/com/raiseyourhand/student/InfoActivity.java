@@ -33,6 +33,7 @@ public class InfoActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_student_info);
+		
 		// Show the Up button in the action bar.
 		setupActionBar();
 
@@ -42,17 +43,21 @@ public class InfoActivity extends Activity {
 
 		Bundle extras = getIntent().getExtras();
 		String lecture = extras.getString("Lecture Information");
-		//change the Activity Title
+		
+		// Change the Activity Title
 		setTitle(lecture);
-		//get a bunch of information from database based on the title.
+		
+		
+		// TODO: get a bunch of information from database based on the title.
 
+		// Set up TextViews
 		instructor_info = (TextView) findViewById(R.id.student_info_textview_instructor_b);
 		time_info = (TextView) findViewById(R.id.student_info_textview_time_b);
 		date_info = (TextView) findViewById(R.id.student_info_textview_date_b);
 		building_info = (TextView) findViewById(R.id.student_info_textview_building_b);
 		room_info = (TextView) findViewById(R.id.student_info_textview_room_b);
 
-		//communicate with the background to get information
+		// Communicate with the background to get information...?
 
 		//set text for the text fields
 		instructor_info.setText("");

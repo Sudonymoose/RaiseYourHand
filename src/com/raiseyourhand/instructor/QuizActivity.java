@@ -92,7 +92,7 @@ public class QuizActivity extends Activity {
 				@Override
 				public void onClick(View v) {
 					
-					// TODO: Tell all student devices that quiz is done.
+					// TODO: Send a message to all student devices that quiz is done.
 					
 					// TODO: Start up a dialogue box for the quiz results.
 					
