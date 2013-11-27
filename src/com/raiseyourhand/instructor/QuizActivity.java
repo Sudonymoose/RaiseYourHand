@@ -2,6 +2,8 @@ package com.raiseyourhand.instructor;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
@@ -32,8 +34,16 @@ public class QuizActivity extends Activity {
 		// Show the Up button in the action bar.
 		setupActionBar();
 		
+		// Get bundle from Quiz that passed stuff into this QuizActivity
+		Bundle extras = getIntent().getExtras();
+		
+		// Get byteArray, convert to bitmap, and set ImageView question's image accordingly
+		byte[] byteArray = extras.getByteArray("Quiz Image");
+		Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
 		question = (ImageView) findViewById(R.id.instructor_quiz_ongoing_imageView);
-		//set image path from the server
+		question.setImageBitmap(bmp);
+		
+		// Set image path from the server
 		end_quiz = (Button) findViewById(R.id.instructor_quiz_ongoing_button);
 		end_quiz.setOnClickListener(new EndQuizOnClickListener());
 	}
@@ -96,7 +106,6 @@ public class QuizActivity extends Activity {
 					
 					// TODO: Start up a dialogue box for the quiz results.
 					
-					
 					// Go back to LectureActivity
 					(QuizActivity.this).finish();
 				}
@@ -109,7 +118,6 @@ public class QuizActivity extends Activity {
 				public void onClick(View v) {
 					end.dismiss();
 				}
-
 			});
 			end.show();
 		}

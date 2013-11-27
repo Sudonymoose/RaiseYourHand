@@ -1,5 +1,7 @@
 package com.raiseyourhand.instructor;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,9 +22,17 @@ import com.raiseyourhand.R;
  *
  */
 public class InfoActivity extends Activity {
+	
+	private String lectureName;
 	private ListView rosterListView;
 	private ArrayAdapter<String> rosterAdapter;
 	private Button startLectureButton;
+	
+	/**
+	 * A dummy list of student names in the roster for this lectures
+	 * TODO: remove after connecting to server with roster info
+	 */
+	private static final String[] DUMMY_ROSTER = new String[] {"Alex", "Hanrui", "Arthur"};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,22 +41,29 @@ public class InfoActivity extends Activity {
 		
 		// Get the lecture string from the LectureListActivity that started this activity
 		Bundle extras = getIntent().getExtras();
-		String lecture = extras.getString("Lecture Information");
+		lectureName = extras.getString("Lecture Information");
 		
 		// Change the activity title
-		setTitle(lecture);
+		setTitle(lectureName);
 		
 		// Show the Up button in the action bar.
 		setupActionBar();
+		
+		// TODO: Change DUMMY_ROSTER when able to connect to server
+		// Set up the ListView with the roster
 		rosterListView = (ListView)findViewById(R.id.instructor_info_listview);     
-		rosterAdapter = new ArrayAdapter<String>(this, R.layout.student_item);
+		final ArrayList<String> rosterList = new ArrayList<String>();
+		for(int i = 0 ; i < DUMMY_ROSTER.length ; i++)
+			rosterList.add(DUMMY_ROSTER[i]);
+		rosterAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, rosterList);
+		// old code: rosterAdapter = new ArrayAdapter<String>(this, R.layout.student_item);
 		rosterListView.setAdapter(rosterAdapter);
 		
 		// Set up start lecture button
 		startLectureButton = (Button) findViewById(R.id.instructor_info_button);
 		startLectureButton.setOnClickListener(new StartLectureOnClickListener());
 		
-		// TODO: get a bunch of information from database based on the title.
+		// TODO: get a bunch of information from database based on the lecture title?
 		
 		
 	}
@@ -92,12 +109,11 @@ public class InfoActivity extends Activity {
 		@Override
 		public void onClick(View arg0) {
 			
-			// TODO Make an intent for starting a lecture
+			// TODO Make an intent for starting a lecture, is this correct?
 			Intent startLectureIntent = new Intent(InfoActivity.this, LectureActivity.class);
 			
-			// TODO Pass lecture info that was passed to here from LectureListActivity and pass it to startLectureIntent
-			
-			
+			// TODO Pass lecture title into startLectureIntent to pass onto LectureActivity
+			startLectureIntent.putExtra("Lecture Information", lectureName);
 			startActivity(startLectureIntent);
 		}
 	}

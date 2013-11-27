@@ -1,5 +1,7 @@
 package com.raiseyourhand.instructor;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +21,13 @@ import com.raiseyourhand.R;
  * Page 10 - 11
  */
 public class LectureListActivity extends Activity {
+	
+	/**
+	 * A dummy list of lecture names
+	 * TODO: remove after connecting to server with lecture info
+	 */
+	private static final String[] DUMMY_LECTURE_LIST = new String[] {"Lecture 1", "Lecture 2", "Lecture 3"};
+	
 	private ListView lectureListView;
 	private ArrayAdapter<String> lectureAdapter;
 
@@ -30,11 +39,17 @@ public class LectureListActivity extends Activity {
 		// Show the Up button in the action bar.
 		setupActionBar();
 		
-		// 
+		// List of lectures in a ListView
 		lectureListView = (ListView)findViewById(R.id.instructor_lecture_list_listview);
-		lectureListView.setOnItemClickListener( new ViewLectureListener());      
-
-		lectureAdapter = new ArrayAdapter<String>(this, R.layout.lecture_item);
+		lectureListView.setOnItemClickListener( new ViewLectureListener());
+		
+		// TODO: Change DUMMY_LECTURE_LIST when able to connect to server
+		// Set up the list and adapter for lectureListView
+		final ArrayList<String> lectureList = new ArrayList<String>();
+		for(int i = 0 ; i < DUMMY_LECTURE_LIST.length ; i++)
+			lectureList.add(DUMMY_LECTURE_LIST[i]);
+		lectureAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lectureList);
+		// old code: lectureAdapter = new ArrayAdapter<String>(this, R.layout.lecture_item);
 		lectureListView.setAdapter(lectureAdapter);
 	}
 

@@ -37,6 +37,8 @@ public class LectureActivity extends FragmentActivity implements
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	ViewPager mViewPager;
+	
+	private String lectureName;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +48,13 @@ public class LectureActivity extends FragmentActivity implements
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+		
 		// Show the Up button in the action bar.
 		actionBar.setDisplayHomeAsUpEnabled(true);
+		
+		// Get the lecture string from the InfoActivity that started this LectureActivity
+		Bundle extras = getIntent().getExtras();
+		lectureName = extras.getString("Lecture Information");
 
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.
