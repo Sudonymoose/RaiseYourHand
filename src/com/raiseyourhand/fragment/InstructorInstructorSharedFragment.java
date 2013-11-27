@@ -1,9 +1,6 @@
 package com.raiseyourhand.fragment;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -51,7 +48,7 @@ public class InstructorInstructorSharedFragment extends Fragment{
 				 * Right now looks like if you click the item it will just ask for deletion
 				 * What if u actually want to open it?
 				 */
-				deletion = new Dialog(getActivity().getBaseContext());
+				deletion = new Dialog(getActivity());
 				deletion.setContentView(R.layout.dialog_instructor_delete_note);
 
 				Button yes = (Button) deletion.findViewById(R.id.instructor_delete_note_btn_yes);

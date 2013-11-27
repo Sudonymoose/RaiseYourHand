@@ -52,7 +52,7 @@ public class StudentStudentSharedFragment extends Fragment {
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_student_student_shared, container, false);
 		// only when students submit the quiz answer, maybe use bundle
-		
+
 		shared_item = (ListView) rootView.findViewById(R.id.student_student_share_listview);
 		shared_item.setOnItemClickListener(new SharedItemSelectedListener());
 
@@ -60,10 +60,10 @@ public class StudentStudentSharedFragment extends Fragment {
 		add_note.setOnClickListener(new AddNoteListener());
 
 		//only if the previous activity is quiz
-		Dialog quiz_result = new Dialog(getActivity().getBaseContext());
+		/*Dialog quiz_result = new Dialog(getActivity().getBaseContext());
 		quiz_result.setContentView(R.layout.dialog_student_quiz_result);
 		//ImageView result = (ImageView) quiz_result.findViewById(R.id.student_quiz_result_imageView);
-		quiz_result.show();
+		quiz_result.show();*/
 
 		return rootView;
 	}
@@ -73,7 +73,7 @@ public class StudentStudentSharedFragment extends Fragment {
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
 			String item_name = (String) shared_item.getItemAtPosition(arg2);
-			final Dialog preview = new Dialog(getActivity().getBaseContext());
+			final Dialog preview = new Dialog(getActivity());
 			preview.setContentView(R.layout.dialog_student_share_preview);
 			ImageView item_preview = (ImageView) preview.findViewById(R.id.student_share_item_preview);
 			//loadImage from SDCard on preview using another thread
@@ -91,20 +91,27 @@ public class StudentStudentSharedFragment extends Fragment {
 			});
 
 		}
-
 	}
 
 
 	private class AddNoteListener implements OnClickListener{
+		private String selected; 
 		@Override
 		public void onClick(View arg0) {
-			AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity().getBaseContext());
+			AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity());
 			builderSingle.setIcon(R.drawable.ic_launcher);
 			builderSingle.setTitle("Select Method");
 			final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
 					getActivity(),android.R.layout.select_dialog_singlechoice);
 			arrayAdapter.add("Picture by Camera");
 			arrayAdapter.add("Upload from File");
+			builderSingle.setSingleChoiceItems(arrayAdapter, -1, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					selected = arrayAdapter.getItem(which);
+				}
+			});
+
 			builderSingle.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
@@ -115,10 +122,10 @@ public class StudentStudentSharedFragment extends Fragment {
 			builderSingle.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					String strName = arrayAdapter.getItem(which);
-					if(strName.equals("Picture by Camera")){
+
+					if(selected.equals("Picture by Camera")){
 						takePicture();
-					}else if(strName.equals("Upload from File")){
+					}else if(selected.equals("Upload from File")){
 						//still need to play around with this FileDialog
 						Intent choose = new Intent(getActivity().getBaseContext(), FileDialog.class);
 						choose.putExtra(FileDialog.START_PATH, Environment.getExternalStorageDirectory());
@@ -128,6 +135,8 @@ public class StudentStudentSharedFragment extends Fragment {
 						//intent.putExtra(FileDialog.FORMAT_FILTER, new String[] { "png" });
 						startActivityForResult(choose, REQUEST_SAVE);
 
+					}else{
+						dialog.dismiss();
 					}
 				}
 			});
@@ -159,7 +168,7 @@ public class StudentStudentSharedFragment extends Fragment {
 		if ( requestCode == SHARE_PICTURE_REQUEST) {
 			if ( resultCode == Activity.RESULT_OK) {
 				//If do not use background thread
-				final Dialog share_picture = new Dialog(getActivity().getBaseContext());
+				final Dialog share_picture = new Dialog(getActivity());
 				share_picture.setContentView(R.layout.dialog_student_share_item);
 				ImageView shared_pic = (ImageView) share_picture.findViewById(R.id.student_share_item_imageView);
 
@@ -254,7 +263,7 @@ public class StudentStudentSharedFragment extends Fragment {
 	//Load the image from background 
 	public class LoadImagesFromSDCard extends AsyncTask<String, Void, Void> {
 
-		final Dialog share_picture = new Dialog(getActivity().getBaseContext());
+		final Dialog share_picture = new Dialog(getActivity());
 		ImageView shared_pic;
 		Button yes;
 		Button no;
@@ -310,7 +319,7 @@ public class StudentStudentSharedFragment extends Fragment {
 
 
 	public class LoadPreviewFromSDCard extends AsyncTask<String, Void, Void> {
-		final Dialog preview_picture = new Dialog(getActivity().getBaseContext());
+		final Dialog preview_picture = new Dialog(getActivity());
 		ImageView preview_pic;
 		Bitmap mBitmap;
 

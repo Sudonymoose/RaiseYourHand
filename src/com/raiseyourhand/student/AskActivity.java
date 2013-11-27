@@ -98,6 +98,8 @@ public class AskActivity extends Activity {
 			}else if(option_flag == 1){
 				String questions = type_question.getText().toString();
 				//send the String to server
+				Toast.makeText(AskActivity.this, 
+						" Question asked: " + questions, Toast.LENGTH_SHORT).show();
 			}
 			record_question_button.setEnabled(true);
 			type_question.setEnabled(true);
@@ -139,6 +141,8 @@ public class AskActivity extends Activity {
 			recorder.reset();
 			recorder.release();
 			recorder = null;
+			Toast.makeText(AskActivity.this, 
+					" Question asked: ", Toast.LENGTH_SHORT).show();
 		}
 	}
 

@@ -20,17 +20,20 @@ import com.raiseyourhand.R;
 public class LectureListActivity extends ListActivity {
 	private ListView lectureListView;
 	private ArrayAdapter<String> lectureAdapter;
-
+	private String[] lectures;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_student_lecture_list);
 		// Show the Up button in the action bar.
 		setupActionBar();
-		lectureListView = (ListView)findViewById(R.id.student_lecture_list_listview);
+		
+		lectures = new String[]{"18641", "18603" };
+		
+		lectureListView = (ListView)findViewById(android.R.id.list);
 		lectureListView.setOnItemClickListener(new ViewLectureListener());      
 
-		lectureAdapter = new ArrayAdapter<String>(this, R.layout.lecture_item);
+		lectureAdapter = new ArrayAdapter<String>(this, R.layout.lecture_item, lectures);
 		lectureListView.setAdapter(lectureAdapter);
 	}
 

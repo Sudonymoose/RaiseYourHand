@@ -137,7 +137,7 @@ public class Lecture extends FragmentActivity implements ActionBar.TabListener, 
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
 		case R.id.action_back:
-			final Dialog leave = new Dialog(getBaseContext());
+			final Dialog leave = new Dialog(this);
 			leave.setContentView(R.layout.dialog_student_end_lecture);
 			
 			Button yes = (Button) leave.findViewById(R.id.student_end_lecture_btn_yes);
@@ -276,6 +276,7 @@ public class Lecture extends FragmentActivity implements ActionBar.TabListener, 
 		@Override
 		public void onClick(View v) {
 			// TODO: DOWNLOAD DIALOG / CONTENT PROVIDER DOWNLOAD ETC.
+			/*Get data from fragments*/
 			ArrayList<String> selected = all_items;
 			for(String s : selected){
 				//go search in the database and download

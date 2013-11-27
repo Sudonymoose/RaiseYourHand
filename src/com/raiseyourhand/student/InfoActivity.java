@@ -28,7 +28,7 @@ public class InfoActivity extends Activity {
 	private TextView time_info;
 	private TextView building_info;
 	private TextView room_info;
-
+	private String lecture;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -42,7 +42,7 @@ public class InfoActivity extends Activity {
 		attend_lecture_button.setOnClickListener(new AttendLectureOnClickListener());
 
 		Bundle extras = getIntent().getExtras();
-		String lecture = extras.getString("Lecture Information");
+		lecture = extras.getString("Lecture Information");
 		
 		// Change the Activity Title
 		setTitle(lecture);
@@ -128,7 +128,8 @@ public class InfoActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			Intent go_lecture = new Intent(com.raiseyourhand.student.InfoActivity.this, 
-					com.raiseyourhand.student.LectureActivity.class);
+					com.raiseyourhand.student.Lecture.class);
+			go_lecture.putExtra("Lecture",lecture);
 			startActivity(go_lecture);
 		}
 	}

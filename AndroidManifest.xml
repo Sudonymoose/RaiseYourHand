@@ -33,11 +33,6 @@
             android:name="com.raiseyourhand.Login"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize|stateVisible" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.raiseyourhand.LectureList"
@@ -92,12 +87,26 @@
                 android:value="com.raiseyourhand.LectureList" />
         </activity>
         <activity
-            android:name="com.raiseyourhand.student.Lecture"
-            android:label="@string/title_in_progress"
-            android:parentActivityName="com.raiseyourhand.student.ViewLecture" >
+            android:name="com.raiseyourhand.student.LectureListActivity"
+            android:label="@string/title_lecture_list" >
+           
+        </activity>
+        <activity
+            android:name="com.raiseyourhand.student.InfoActivity"
+            android:label="@string/title_view_lecture"
+            android:parentActivityName="com.raiseyourhand.student.LectureListActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.raiseyourhand.student.ViewLecture" />
+                android:value="com.raiseyourhand.student.LectureListActivity" />
+        </activity>
+        <activity
+            android:name="com.raiseyourhand.student.Lecture"
+            android:label="@string/title_in_progress" >
+             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="com.raiseyourhand.student.Ask"
@@ -114,14 +123,6 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.raiseyourhand.student.Lecture" />
-        </activity>
-        <activity
-            android:name="com.raiseyourhand.QuizOngoingActivity"
-            android:label="@string/title_activity_quiz_ongoing" >
-        </activity>
-        <activity
-            android:name="com.raiseyourhand.QuizResultsActivity"
-            android:label="@string/title_activity_quiz_results" >
         </activity>
     </application>
 
