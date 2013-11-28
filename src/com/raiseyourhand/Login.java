@@ -19,6 +19,10 @@ import android.widget.TextView;
 /**
  * Activity which displays a login screen to the user, offering registration as
  * well.
+ * 
+ * Login Interface for instructor and students
+ * 
+ * P9, P67
  */
 public class Login extends Activity {
 	/**
