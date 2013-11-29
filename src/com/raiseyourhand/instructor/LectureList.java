@@ -20,7 +20,7 @@ import com.raiseyourhand.R;
  * @author Hanrui Zhang
  * Page 10 - 11
  */
-public class LectureListActivity extends Activity {
+public class LectureList extends Activity {
 	
 	/**
 	 * A dummy list of lecture names
@@ -115,7 +115,7 @@ public class LectureListActivity extends Activity {
 			String lecture = (String) lectureListView.getItemAtPosition(position);
 			
 			// Create an Intent to load up the InfoActivity on the instructor's end
-			Intent infoIntent = new Intent(LectureListActivity.this, InfoActivity.class);
+			Intent infoIntent = new Intent(LectureList.this, Info.class);
 			
 			// pass the selected contact's row ID as an extra with the Intent..????
 			//viewContact.putExtra(ROW_ID, arg3);

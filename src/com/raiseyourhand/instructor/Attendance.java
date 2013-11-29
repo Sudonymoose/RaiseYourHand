@@ -1,26 +1,36 @@
 package com.raiseyourhand.instructor;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.bluetooth.BluetoothAdapter;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TimePicker;
 
 import com.raiseyourhand.R;
+
 /**
- * Difference between Attendance/Attendance Activity
  * @author Hanrui Zhang
- *
+ * Looks like P 20 - 22, but need different layout
  */
 public class Attendance extends Activity {
+	
+	private boolean choose_bluetooth;
+	private boolean choose_builtin;
+	private Button timer_button;
+	
 	private SearchView searchView;
 	private Chronometer chronometer;
 	private TimePicker timepicker;
@@ -89,6 +99,53 @@ public class Attendance extends Activity {
 			//
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
+
+		case R.id.action_back:
+			//finishActivity(0);
+			onBackPressed();
+			return true;
+		case R.id.action_mic:
+			final Dialog mic_setting = new Dialog(Attendance.this);
+			mic_setting.setContentView(R.layout.dialog_instructor_set_mic);
+			Button mic_set = (Button) mic_setting.findViewById(R.id.instructor_set_mic_btn);
+			TextView bluetooth = (TextView) mic_setting.findViewById(R.id.instructor_set_mic_bluetooth_text);
+			TextView builtin = (TextView) mic_setting.findViewById(R.id.instructor_set_mic_builtin_text);
+
+			// Is this needed??
+			bluetooth.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					choose_bluetooth = !choose_bluetooth;
+					choose_builtin = !choose_builtin;
+				}
+			});
+
+			builtin.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					choose_bluetooth = !choose_bluetooth;
+					choose_builtin = !choose_builtin;
+				}
+			});
+
+			mic_set.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					//set microphone
+					if(choose_bluetooth){
+						BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+						if (mBluetoothAdapter == null) {
+							//it's actually quite complicated to connect to the Bluetooth server
+						}
+					}else if(choose_builtin){
+						//looks like we need another dialog to record?
+					}
+					mic_setting.dismiss();
+				}
+
+			});
+			mic_setting.show();
+			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -106,6 +163,19 @@ public class Attendance extends Activity {
 		@Override
 		public boolean onQueryTextSubmit(String query) {
 			return false;
+		}
+	}
+	
+
+	/**
+	 * Listener Class for when the timer attendance button is clicked
+	 */
+	private class AttendanceTimerOnClickListener implements OnClickListener {
+
+		@Override
+		public void onClick(View arg0) {
+			// TODO Starting (and maybe ending?) the timer for taking attendance
+			
 		}
 	}
 }
