@@ -2,6 +2,9 @@
 
 <html>
 	<head>
+	
+		<title>Administrator Web Portal - Instructor Management</title>
+	
 		<script type="text/javascript">
 
 			function activateTab(pageId) {
@@ -19,7 +22,7 @@
 	</head>
 	<body>
 		
-		<! -- Table with basically the three tabs for course management	 >
+		<! -- Table with basically the two tabs for instructor management	 >
 		
 		<table width="100%" border="1" >
 			<tr>
@@ -34,17 +37,46 @@
 			
 			<div id="page1" style="display: block;">
 				<form>
-					Course Number <input type = "text" name = "course_number"><br>
+					First Name <input type = "text" name = "first_name"><br>
+					Last Name <input type = "text" name = "last_name"><br>
+					Department <input type = "text" name = "department"><br>
+					Title 
+					<select name = "Title">
+						<option value="freshman"> Teacher </option>
+						<option value="sophomore"> Instructor </option>
+						<option value="junior"> Doctor </option>
+						<option value="senior"> Professor </option>
+					</select>
+					<br>
+					Email <input type = "text" name = "email"><br>
+					Password <input type = "text" name = "password"><br>
+					Confirm Password <input type = "text" name = "confirm_password"><br>
+					Courses <! -- what? ><br>
 					
+					<input type = "reset" value = "Reset">
+					<input type = "submit" value = "Add Instructor">
 				</form>
 			</div>
+			
+			
+			
+			
+			
 			
 			<! -- Remove Instructor Tab >
 			
 			<div id="page2" style="display: none;">
-				Page 2
+				<select name="remove_instructor_list" multiple>
+					<option selected> Instructor 1
+					<option> Instructor 2
+					<option> Instructor 3
+				</select>
+				
+				<input type = "submit" value = "Remove">
 			</div>
-			
 		</div>
+		
+		<br><a href = "AdminMain.html">Back to Admin Main</a><br>
+		
 	</body>
 </html>
