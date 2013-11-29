@@ -19,16 +19,18 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.util.FloatMath;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.Button;
 
 import com.raiseyourhand.R;
-import com.raiseyourhand.fragment.InstructorInstructorSharedFragment.SharedItemSelectedListener;
-import com.raiseyourhand.fragment.StudentInstructorSharedFragment;
-import com.raiseyourhand.fragment.StudentStudentSharedFragment;
+import com.raiseyourhand.fragment.InstructorSharedFragment;
+import com.raiseyourhand.fragment.InstructorSharedFragment.SharedItemSelectedListener;
+import com.raiseyourhand.fragment.StudentSharedFragment;
 /**
  * General Framework for Instructor Shared and Student Shared
  * @author Hanrui Zhang
@@ -77,7 +79,8 @@ public class Lecture extends FragmentActivity implements ActionBar.TabListener, 
 		downloadButton = (Button) findViewById(R.id.student_lecture_download_button);
 		downloadButton.setOnClickListener(new DownloadOnClickListener());
 		questionButton = (Button) findViewById(R.id.student_lecture_ask_button);
-		questionButton.setOnClickListener(new QuestionOnClickListener());
+		questionButton.setOnLongClickListener(new QuestionOnClickListener());
+		questionButton.setEnabled(true);
 
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.
@@ -139,17 +142,17 @@ public class Lecture extends FragmentActivity implements ActionBar.TabListener, 
 		case R.id.action_back:
 			final Dialog leave = new Dialog(this);
 			leave.setContentView(R.layout.dialog_student_end_lecture);
-			
+
 			Button yes = (Button) leave.findViewById(R.id.student_end_lecture_btn_yes);
 			Button no = (Button) leave.findViewById(R.id.student_end_lecture_btn_no);
-			
+
 			yes.setOnClickListener(new OnClickListener(){
 				@Override
 				public void onClick(View arg0) {
 					finishActivity(0);
 				}
 			});
-			
+
 			no.setOnClickListener(new OnClickListener(){
 				@Override
 				public void onClick(View arg0) {
@@ -196,9 +199,9 @@ public class Lecture extends FragmentActivity implements ActionBar.TabListener, 
 
 			switch (position) {
 			case 0:
-				fragment = (Fragment)new StudentInstructorSharedFragment();
+				fragment = (Fragment)new InstructorSharedFragment();
 			case 1:
-				fragment = (Fragment)new StudentStudentSharedFragment();
+				fragment = (Fragment)new StudentSharedFragment();
 			}			
 
 			return fragment;
@@ -256,7 +259,7 @@ public class Lecture extends FragmentActivity implements ActionBar.TabListener, 
 			float delta = mAccelCurrent - mAccelLast;
 			mAccel = mAccel * 0.9f + delta;
 			//threshold
-			if(mAccel > 3){ 
+			if(mAccel > 0.1){ 
 				shaking = true;
 			}else{
 				shaking = false;
@@ -265,38 +268,42 @@ public class Lecture extends FragmentActivity implements ActionBar.TabListener, 
 
 	}
 
-	
+
 	@Override
 	public void passData(ArrayList<String> all_items) {
 		// TODO: implemented method to get all items in shared fragments
 		this.all_items = all_items;
 	}
-	
-	public class DownloadOnClickListener implements OnClickListener {
+
+	private class DownloadOnClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
 			// TODO: DOWNLOAD DIALOG / CONTENT PROVIDER DOWNLOAD ETC.
 			/*Get data from fragments*/
 			ArrayList<String> selected = all_items;
-			for(String s : selected){
-				//go search in the database and download
+			if(selected != null){
+				for(String s : selected){
+					//go search in the database and download
+				}
 			}
 		}
 	}
 
-	public class QuestionOnClickListener implements OnClickListener {
+	private class QuestionOnClickListener implements OnLongClickListener {
 		@Override
-		public void onClick(View v) {
+		public boolean onLongClick(View arg0) {
 			// TODO: HANDLE SHAKING PHONE. PERHAPS A DIALOG WHILE BEING HELD.
+			Log.i("Shaking", mAccelCurrent + ", " + mAccel );
 			if(shaking){
 				Intent ask_question = new Intent(com.raiseyourhand.student.Lecture.this, 
-						com.raiseyourhand.student.AskActivity.class);
+						Ask.class);
 				startActivity(ask_question);
 			}
+			return true;
 		}
 	}
 
-	
+
 
 
 }

@@ -3,6 +3,7 @@ package com.raiseyourhand.student;
 import com.raiseyourhand.R;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -46,6 +47,12 @@ public class ViewLecture extends Activity {
 		buildingView = (TextView)findViewById(R.id.student_view_lecture_building);
 		roomView = (TextView)findViewById(R.id.student_view_lecture_room);
 
+		instructorView.setText("");
+		dateView.setText("");
+		timeView.setText("");
+		buildingView.setText("");
+		roomView.setText("");
+		
 		// Set up Join button
 		joinButton = (Button)findViewById(R.id.student_view_lecture_button);
 		joinButton.setOnClickListener(new JoinLectureOnClickListener());
@@ -80,19 +87,40 @@ public class ViewLecture extends Activity {
 			//
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
+		case R.id.action_back:
+			final Dialog leave = new Dialog(getBaseContext());
+			leave.setContentView(R.layout.dialog_student_end_lecture);
 
-	public class JoinLectureOnClickListener implements OnClickListener {
-		@Override
-		public void onClick(View v) {
-			// TODO: Check if lecture is currently started, and return if so.
+			Button yes = (Button) leave.findViewById(R.id.student_end_lecture_btn_yes);
+			Button no = (Button) leave.findViewById(R.id.student_end_lecture_btn_no);
 
-			// create an Intent to launch the Lecture Activity
-			Intent lecture = new Intent(ViewLecture.this, Lecture.class);
-			startActivity(lecture);
+			yes.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View arg0) {
+					finishActivity(0);
+				}
+			});
+
+			no.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View arg0) {
+					leave.dismiss();
+				}
+			});
+			//super.onBackPressed();
+			return true;
 		}
+	return super.onOptionsItemSelected(item);
+}
+
+public class JoinLectureOnClickListener implements OnClickListener {
+	@Override
+	public void onClick(View v) {
+		// TODO: Check if lecture is currently started, and return if so.
+		// create an Intent to launch the Lecture Activity
+		Intent lecture = new Intent(ViewLecture.this, Lecture.class);
+		startActivity(lecture);
 	}
+}
 
 }
