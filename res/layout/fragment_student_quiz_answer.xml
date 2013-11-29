@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/student_quiz_answer_linearLayout"
         android:layout_alignParentTop="true"
-        android:cacheColorHint="#f0f0f0" />
+        android:cacheColorHint="#f0f0f0"
+        android:choiceMode="singleChoice" />
 
     <LinearLayout
         android:id="@+id/student_quiz_answer_linearLayout"

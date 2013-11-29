@@ -195,16 +195,14 @@ public class Lecture extends FragmentActivity implements ActionBar.TabListener, 
 
 		@Override
 		public Fragment getItem(int position) {
-			Fragment fragment = null;
-
 			switch (position) {
 			case 0:
-				fragment = (Fragment)new InstructorSharedFragment();
+				return new InstructorSharedFragment();
 			case 1:
-				fragment = (Fragment)new StudentSharedFragment();
+				return new StudentSharedFragment();
 			}			
 
-			return fragment;
+			return null;
 		}
 
 		@Override
