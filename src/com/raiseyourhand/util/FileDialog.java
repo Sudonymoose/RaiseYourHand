@@ -208,6 +208,7 @@ public class FileDialog extends ListActivity {
 				getDir(path.get(position));
 				if (canSelectDir) {
 					selectedFile = file;
+					//TO-DO: upload to server
 					v.setSelected(true);
 					selectButton.setEnabled(true);
 				}

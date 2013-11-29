@@ -7,6 +7,7 @@
     <string name="title_view_lecture">Information</string>
     <string name="title_in_progress">In Progress</string>
     <string name="title_attendance">Attendance</string>
+    <string name="title_file_dialog">Choose File from</string>
     <string name="title_quiz">Quiz</string>
     <string name="title_view_shared">Shared Note</string>
     <string name="title_ask">Ask Your Question</string>
@@ -88,5 +89,6 @@
     <string name="title_activity_quiz_results">QuizResultsActivity</string>
     <string name="instructor_lecture_add_notes_button">Add Notes Screenshot</string>
     <string name="student_ask_end_question">End Question</string>
+    <string name="title_activity_student_share_preview">Preview</string>
 
 </resources>
