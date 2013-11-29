@@ -1,7 +1,7 @@
 /**
  * 
  */
-package ws;
+package com.ws;
 
 import java.io.Serializable;
 

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package ws;
+package com.ws;
 
 /**
  * @author arthurc

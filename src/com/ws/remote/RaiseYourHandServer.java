@@ -1,4 +1,4 @@
-package ws.remote;
+package com.ws.remote;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -6,9 +6,9 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import ws.SocketInterface;
-import Exception.RaiseYourHandError;
-import Exception.RaiseYourHandException;
+import com.Exception.RaiseYourHandError;
+import com.Exception.RaiseYourHandException;
+import com.ws.SocketInterface;
 
 public class RaiseYourHandServer extends Thread implements SocketInterface {
 	private int port;

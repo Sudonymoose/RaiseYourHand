@@ -1,4 +1,4 @@
-package ws;
+package com.ws;
 
 public interface SocketInterface {
 	boolean openConnection();

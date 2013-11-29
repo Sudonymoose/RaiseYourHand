@@ -1,7 +1,7 @@
 /**
  * 
  */
-package ws.remote;
+package com.ws.remote;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -9,9 +9,9 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import ws.Request;
-import Exception.RaiseYourHandError;
-import Exception.RaiseYourHandException;
+import com.Exception.RaiseYourHandError;
+import com.Exception.RaiseYourHandException;
+import com.ws.Request;
 
 /**
  * @author arthurc
