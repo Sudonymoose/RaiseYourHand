@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.raiseyourhand.R;
 
@@ -208,7 +209,6 @@ public class FileDialog extends ListActivity {
 				getDir(path.get(position));
 				if (canSelectDir) {
 					selectedFile = file;
-					//TO-DO: upload to server
 					v.setSelected(true);
 					selectButton.setEnabled(true);
 				}

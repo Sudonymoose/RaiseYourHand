@@ -5,25 +5,27 @@ import java.util.Locale;
 import android.app.ActionBar;
 import android.app.Dialog;
 import android.app.FragmentTransaction;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.raiseyourhand.R;
-import com.ws.DownloadImageTask;
 
 /**
  * Activity for a student taking a quiz, from student's perspective
@@ -33,8 +35,7 @@ import com.ws.DownloadImageTask;
  * @author Hanrui Zhang
  *
  */
-public class Quiz extends FragmentActivity implements
-		ActionBar.TabListener {
+public class Quiz extends FragmentActivity implements ActionBar.TabListener {
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -54,7 +55,7 @@ public class Quiz extends FragmentActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-	//	setContentView(R.layout.activity_student_quiz);
+		setContentView(R.layout.activity_student_quiz);
 
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
@@ -66,19 +67,19 @@ public class Quiz extends FragmentActivity implements
 				getSupportFragmentManager());
 
 		// Set up the ViewPager with the sections adapter.
-		mViewPager = (ViewPager) findViewById(R.id.pager);
+		mViewPager = (ViewPager) findViewById(R.id.student_quiz_pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
 		// When swiping between different sections, select the corresponding
 		// tab. We can also use ActionBar.Tab#select() to do this if we have
 		// a reference to the Tab.
 		mViewPager
-				.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-					@Override
-					public void onPageSelected(int position) {
-						actionBar.setSelectedNavigationItem(position);
-					}
-				});
+		.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+			@Override
+			public void onPageSelected(int position) {
+				actionBar.setSelectedNavigationItem(position);
+			}
+		});
 
 		// For each of the sections in the app, add a tab to the action bar.
 		for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
@@ -129,13 +130,25 @@ public class Quiz extends FragmentActivity implements
 
 		@Override
 		public Fragment getItem(int position) {
-			ListFragment fragment = null;
-			
+			Fragment fragment = null;
+
 			switch (position) {
 			case 0:
 				fragment = new QuizQuestionFragment();
+				//TODO get Bundles from the server
+				Bundle questionBundle = new Bundle();
+				questionBundle.putString("imgPath", "/storage/sdcard0/Student_Share_1.jpg");
+				fragment.setArguments(questionBundle);
+				break;
 			case 1:
 				fragment = new QuizAnswerFragment();
+				Bundle answerBundle = new Bundle();
+				answerBundle.putInt("Option Size", 3);
+				answerBundle.putString("Option_1", "A");
+				answerBundle.putString("Option_2", "B");
+				answerBundle.putString("Option_3", "C");
+				fragment.setArguments(answerBundle);
+				break;
 			}			
 
 			return fragment;
@@ -164,9 +177,8 @@ public class Quiz extends FragmentActivity implements
 	 * A instructor shared fragment representing a section of the app, where
 	 * the notes shared by the instructor are listed.
 	 */
-	public static class QuizQuestionFragment extends ListFragment {
-		private ImageView question_image;
-		
+	public static class QuizQuestionFragment extends Fragment {
+
 		public QuizQuestionFragment() {
 		}
 
@@ -175,12 +187,19 @@ public class Quiz extends FragmentActivity implements
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_student_quiz_question,
 					container, false);
-			question_image = (ImageView) rootView.findViewById(R.id.student_quiz_imageView);
-			
+			ImageView question_image = (ImageView) rootView.findViewById(R.id.student_quiz_imageView);
+			String imgPath = getArguments().getString("imgPath");
+
 			//set quiz image here
-			String img_path = "";
-			new DownloadImageTask(question_image).execute(img_path);
-			
+
+			try{
+				question_image.setImageURI(Uri.parse(imgPath));
+			}catch(Exception e){
+				Toast.makeText(getActivity().getBaseContext(), "Cannot load picture",
+						Toast.LENGTH_SHORT).show();
+			}
+			//new DownloadImageTask(question_image).execute(img_path);
+
 			return rootView;
 		}
 	}
@@ -188,13 +207,13 @@ public class Quiz extends FragmentActivity implements
 	 * A student shared fragment representing a section of the app, where
 	 * notes shared by students are listed.
 	 */
-	public static class QuizAnswerFragment extends ListFragment {
-		
+	public static class QuizAnswerFragment extends Fragment {
+
 		private Dialog dialog_submit;
 		private Button button_submit;
 		private ListView quiz_listview;
 		private String selected;
-		
+
 		public QuizAnswerFragment() {
 		}
 
@@ -203,17 +222,25 @@ public class Quiz extends FragmentActivity implements
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_student_quiz_answer,
 					container, false);
-			
+
 			button_submit = (Button) rootView.findViewById(R.id.student_quiz_button_1);
 			quiz_listview = (ListView) rootView.findViewById(R.id.student_quiz_listview);
+			ArrayAdapter<String> optionAdapter = new ArrayAdapter<String>(getActivity(), R.layout.student_shared_item);
+			//hard-coded as to get options from the instructor
+			Bundle b = getArguments();
+			int option_size = b.getInt("Option Size");
+			for(int i = 1; i < option_size; i++)
+				optionAdapter.add(i + " : "+ b.getString("Option_" + i));
+
+			quiz_listview.setAdapter(optionAdapter);
 
 			button_submit.setOnClickListener(new SubmitAnswerListener());
 			quiz_listview.setOnItemClickListener(new QuizListItemListener());
 
 			return rootView;
 		}
-		
-		
+
+
 		private class QuizListItemListener implements ListView.OnItemClickListener{
 
 			@Override
@@ -227,23 +254,31 @@ public class Quiz extends FragmentActivity implements
 
 			@Override
 			public void onClick(View v) {
-				dialog_submit = new Dialog(getActivity().getBaseContext());
+				dialog_submit = new Dialog(getActivity());
 				dialog_submit.setContentView(R.layout.dialog_student_submit_quiz);
 
 				Button yes = (Button) dialog_submit.findViewById(R.id.student_submit_quiz_btn_yes);
 				Button no = (Button) dialog_submit.findViewById(R.id.student_submit_quiz_btn_no);
+				TextView confirmation = (TextView) dialog_submit.findViewById(R.id.student_submit_quiz_textview);
+
+				String text = confirmation.getText().toString() + " : " + selected;
+				confirmation.setText(text);
 
 				yes.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
 						if(selected != null){
 							//submit the answer to server
-							
+							dialog_submit.dismiss();
+							//go back to the previous activity
+							getActivity().onBackPressed();
+						}else{
+							Toast.makeText(getActivity().getBaseContext(), "Please select the answer",
+									Toast.LENGTH_SHORT).show();
+							dialog_submit.dismiss();
 						}
-						//go back to the previous activity
-						getActivity().onBackPressed();
-						//maybe use Bundle to pass a flag
-						dialog_submit.dismiss();
+						//TODO: indicate the instructor the student has finished quiz
+
 					}
 
 				});
@@ -261,6 +296,6 @@ public class Quiz extends FragmentActivity implements
 		}
 	}
 
-	
-	
+
+
 }

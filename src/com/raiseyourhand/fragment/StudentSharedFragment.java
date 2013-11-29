@@ -7,12 +7,10 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.provider.MediaStore.Images.Media;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,23 +42,29 @@ public class StudentSharedFragment extends Fragment {
 	protected static final int SHARE_PICTURE_REQUEST = 2;
 	private ArrayAdapter<String> itemAdapter;
 	private int count;
+
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_student_shared, container, false);
-
-		//count = savedInstanceState.getInt("Image#");
-
-		shared_item = (ListView) rootView.findViewById(R.id.student_student_share_listview);
-		shared_item.setOnItemClickListener(new SharedItemSelectedListener());
-
 		itemAdapter = new ArrayAdapter<String>(getActivity(), R.layout.student_shared_item);
+
+		if(savedInstanceState != null){
+			count = savedInstanceState.getInt("Image#");
+			int item_count = savedInstanceState.getInt("Item Size");
+			for (int i = 0; i < item_count; i++)
+				itemAdapter.add(savedInstanceState.getString("item_" + i));
+		}
+
+		shared_item = (ListView) rootView.findViewById(R.id.student_share_listview);
+		shared_item.setOnItemClickListener(new SharedItemSelectedListener());
 		itemAdapter.notifyDataSetChanged();
 		shared_item.setAdapter(itemAdapter);
 
 		add_note = (ImageButton) rootView.findViewById(R.id.student_share_button);
 		add_note.setOnClickListener(new AddNoteListener());
 
-		/* // only when students submit the quiz answer, maybe use bundle
+		/* 
+		// only when students submit the quiz answer, maybe use bundle
 		final Dialog quiz_result = new Dialog(getActivity());
 		quiz_result.setContentView(R.layout.dialog_student_quiz_result);
 
@@ -92,7 +96,7 @@ public class StudentSharedFragment extends Fragment {
 				@Override
 				public void onClick(View v) {
 					// TODO: send the picture to the server
-					Toast.makeText(getActivity().getBaseContext(), imageUri.toString(), Toast.LENGTH_LONG).show();
+
 					share_pic.dismiss();
 				}
 			});
@@ -104,16 +108,21 @@ public class StudentSharedFragment extends Fragment {
 				}
 			});
 
-			imageUri = Uri.parse(item_name);
-
-			try {
-				Bitmap picture = Media.getBitmap(getActivity().getContentResolver(), imageUri);
-				shared_pic.setImageBitmap(picture);
-			} catch (Exception e) {
-				Toast.makeText(getActivity().getBaseContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+			if(item_name.endsWith("jpg")||item_name.endsWith("jpeg")||item_name.endsWith("png")){
+				//hard-code to distinguish file selected or from camera
+				if(!item_name.contains("sdcard"))
+					imageUri = Uri.parse(Environment.getExternalStorageDirectory() + "/" + item_name);
+				else
+					imageUri = Uri.parse(item_name);
+				
+				try {
+					shared_pic.setImageURI(imageUri);
+				} catch (Exception e) {
+					Toast.makeText(getActivity().getBaseContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+				}
 			}
-
 			share_pic.show();
+
 			/*if we use another thread
 			String imageId = convertImageUriToFile(imageUri, getActivity());
 			new LoadImagesFromSDCard().execute("" + imageId);
@@ -204,38 +213,41 @@ public class StudentSharedFragment extends Fragment {
 				itemAdapter.notifyDataSetChanged();
 				shared_item.setAdapter(itemAdapter);
 				Toast.makeText(getActivity().getBaseContext(), 
-						"Picture Taken" + pic_Name + shared_item.getCount(), Toast.LENGTH_SHORT).show();
+						"Picture Taken", Toast.LENGTH_SHORT).show();
 			}else {
 				count--;
 				Toast.makeText(getActivity().getBaseContext(), 
 						" Picture was not taken ", Toast.LENGTH_SHORT).show();
 			}
-
-			//more file operations to be updated
-			if (requestCode == REQUEST_SAVE || requestCode == REQUEST_LOAD) {
-				if (resultCode == Activity.RESULT_OK) {
-					String filePath = data.getStringExtra(FileDialog.RESULT_PATH);
-
-				}
+		}
+		//more file operations to be updated
+		if (requestCode == REQUEST_SAVE || requestCode == REQUEST_LOAD) {
+			if (resultCode == Activity.RESULT_OK) {
+				String filePath = data.getStringExtra(FileDialog.RESULT_PATH);
+				Toast.makeText(getActivity().getBaseContext(), 
+						"File: " + filePath, Toast.LENGTH_SHORT).show();
+				itemAdapter.add(filePath);
+				itemAdapter.notifyDataSetChanged();
+				shared_item.setAdapter(itemAdapter);
 			}
 		}
+
 
 	}
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		if (imageUri != null) 
-			outState.putString("ImageURI", imageUri.toString());
 		if(count != 0)
 			outState.putInt("Image#", count);
+		if(!itemAdapter.isEmpty()){
+			int item_count = itemAdapter.getCount();
+			for (int i = 0; i < item_count; i++)
+				outState.putString("item_" + i, itemAdapter.getItem(i));
+			outState.putInt("Item Size", item_count);
+		}
 	}
 
-	@Override
-	public void onActivityCreated (Bundle savedInstanceState){
-		
-	}
-	
 	/*
 	public static String convertImageUriToFile ( Uri imageUri, FragmentActivity activity )  {
 

@@ -90,11 +90,6 @@
         <activity
             android:name="com.raiseyourhand.student.Lecture"
             android:label="@string/title_in_progress" >
-             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.raiseyourhand.student.Ask"
@@ -108,9 +103,19 @@
             android:name="com.raiseyourhand.student.Quiz"
             android:label="@string/title_quiz"
             android:parentActivityName="com.raiseyourhand.student.Lecture" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.raiseyourhand.student.Lecture" />
+        </activity>
+        <activity
+            android:name="com.raiseyourhand.util.FileDialog"
+            android:label="@string/title_file_dialog" >
         </activity>
     </application>
 
