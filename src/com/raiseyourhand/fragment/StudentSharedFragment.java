@@ -47,9 +47,9 @@ public class StudentSharedFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_student_shared, container, false);
-		// only when students submit the quiz answer, maybe use bundle
+
 		count = savedInstanceState.getInt("Image#");
-		
+
 		shared_item = (ListView) rootView.findViewById(R.id.student_student_share_listview);
 		shared_item.setOnItemClickListener(new SharedItemSelectedListener());
 
@@ -60,18 +60,18 @@ public class StudentSharedFragment extends Fragment {
 		add_note = (ImageButton) rootView.findViewById(R.id.student_share_button);
 		add_note.setOnClickListener(new AddNoteListener());
 
-		/*
+		/* // only when students submit the quiz answer, maybe use bundle
 		final Dialog quiz_result = new Dialog(getActivity());
 		quiz_result.setContentView(R.layout.dialog_student_quiz_result);
 
 		ImageView result = (ImageView) quiz_result.findViewById(R.id.student_quiz_result_imageView);
-		
+
 		//update path here
 		Bitmap bmImg = BitmapFactory.decodeFile("path of your img1");
 		result.setImageBitmap(bmImg);
-		
+
 		quiz_result.show();
-		*/
+		 */
 		return rootView;
 	}
 
@@ -105,7 +105,7 @@ public class StudentSharedFragment extends Fragment {
 			});
 
 			imageUri = Uri.parse(item_name);
-			
+
 			try {
 				Bitmap picture = Media.getBitmap(getActivity().getContentResolver(), imageUri);
 				shared_pic.setImageBitmap(picture);
@@ -197,7 +197,7 @@ public class StudentSharedFragment extends Fragment {
 			if (resultCode == Activity.RESULT_OK) {
 				//If do not use background thread
 				//pic_name = data.getExtras().get("data").toString();
-				
+
 				//hard-coded
 				String pic_Name = "Student_Share_" + count + ".jpg";
 				itemAdapter.add(pic_Name);
@@ -225,12 +225,12 @@ public class StudentSharedFragment extends Fragment {
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		if (imageUri != null) {
-			outState.putString("ImageUri", imageUri.toString());
-		}
-		outState.putInt("Image#", count);
+		if (imageUri != null) 
+			outState.putString("ImageURI", imageUri.toString());
+		if(count != 0)
+			outState.putInt("Image#", count);
 	}
-	
+
 	/*
 	public static String convertImageUriToFile ( Uri imageUri, FragmentActivity activity )  {
 
@@ -324,47 +324,7 @@ public class StudentSharedFragment extends Fragment {
 			}  
 		}
 	}
-
-
-	public class LoadPreviewFromSDCard extends AsyncTask<String, Void, Void> {
-		final Dialog preview_picture = new Dialog(getActivity());
-		ImageView preview_pic;
-		Bitmap mBitmap;
-
-		protected void onPreExecute() {
-			// Progress Dialog
-			preview_picture.setContentView(R.layout.dialog_student_share_preview);
-			preview_picture.show();
-			preview_pic = (ImageView) preview_picture.findViewById(R.id.student_share_item_preview);
-			preview_pic.setOnClickListener(new OnClickListener(){
-				@Override
-				public void onClick(View v) {
-					preview_picture.dismiss();
-				}
-			});
-		}
-
-		@Override
-		protected Void doInBackground(String... params) {
-			Uri uri = null; 
-			try {
-				uri = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "" + params[0]);
-				mBitmap = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(uri));		
-				preview_pic.setImageBitmap(mBitmap);
-			} catch (Exception e) {
-				cancel(true);
-				Toast.makeText(getActivity().getBaseContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-			}
-			return null;
-		}
-
-		protected void onPostExecute(Void unused) {
-			if(mBitmap != null){
-				// Set Image to ImageView  
-				preview_pic.setImageBitmap(mBitmap);
-			}  
-		}
-	}*/
+	 */
 
 
 }
