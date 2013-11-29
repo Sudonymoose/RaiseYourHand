@@ -1,0 +1,50 @@
+<! -- Tabbed view code taken from http://stackoverflow.com/questions/1027663/how-to-make-tabbed-view-in-html >
+
+<html>
+	<head>
+		<script type="text/javascript">
+
+			function activateTab(pageId) {
+				var tabCtrl = document.getElementById('tabCtrl');
+				var pageToActivate = document.getElementById(pageId);
+				for (var i = 0; i < tabCtrl.childNodes.length; i++) {
+					var node = tabCtrl.childNodes[i];
+					if (node.nodeType == 1) { /* Element */
+						node.style.display = (node == pageToActivate) ? 'block' : 'none';
+					}
+          		}
+			}
+
+		</script>
+	</head>
+	<body>
+		
+		<! -- Table with basically the three tabs for course management	 >
+		
+		<table width="100%" border="1" >
+			<tr>
+				<td><center><a href="javascript:activateTab('page1')">Add Instructor</a></center></td>
+				<td><center><a href="javascript:activateTab('page2')">Remove Instructor</a></center></td>
+			</tr>
+		</table>
+		
+		<div id="tabCtrl">
+			
+			<! -- Add Instructor Tab >
+			
+			<div id="page1" style="display: block;">
+				<form>
+					Course Number <input type = "text" name = "course_number"><br>
+					
+				</form>
+			</div>
+			
+			<! -- Remove Instructor Tab >
+			
+			<div id="page2" style="display: none;">
+				Page 2
+			</div>
+			
+		</div>
+	</body>
+</html>

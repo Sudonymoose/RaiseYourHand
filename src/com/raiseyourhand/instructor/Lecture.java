@@ -10,18 +10,23 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.ListFragment;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.raiseyourhand.R;
 import com.raiseyourhand.fragment.InstructorInstructorSharedFragment;
+import com.raiseyourhand.fragment.InstructorSharedFragment;
 import com.raiseyourhand.fragment.InstructorStudentSharedFragment;
 import com.raiseyourhand.fragment.QuestionFragment;
+import com.raiseyourhand.fragment.StudentSharedFragment;
 
 /**
  * General framework for Q&A, Instructor Shared, Student Shared
@@ -47,6 +52,8 @@ ActionBar.TabListener {
 	ViewPager mViewPager;
 	private Button attendanceButton;
 	private Button quizButton;
+	
+	private String lectureName;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +66,10 @@ ActionBar.TabListener {
 		// Show the Up button in the action bar.
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
+		// Get the lecture string from the InfoActivity that started this LectureActivity
+		Bundle extras = getIntent().getExtras();
+		lectureName = extras.getString("Lecture Information");
+		
 		// Setup buttons
 		attendanceButton = (Button) findViewById(R.id.instructor_lecture_attendance_button);
 		attendanceButton.setOnClickListener(new AttendanceOnClickListener());
@@ -155,9 +166,9 @@ ActionBar.TabListener {
 			case 0:
 				fragment = (Fragment) new QuestionFragment();
 			case 1:
-				fragment = (Fragment) new InstructorInstructorSharedFragment();
+				fragment = (Fragment) new InstructorSharedFragment();
 			case 2:
-				fragment = (Fragment) new InstructorStudentSharedFragment();
+				fragment = (Fragment) new StudentSharedFragment();
 			}			
 
 			return fragment;
@@ -199,11 +210,52 @@ ActionBar.TabListener {
 		@Override
 		public void onClick(View v) {
 			// create an Intent to launch the Quiz Activity
-			Intent quiz = new Intent(Lecture.this, Quiz.class);
+			Intent quiz = new Intent(Lecture.this, SetupQuiz.class);
 			startActivity(quiz);
 			
 			// QuizActivity should return here automatically after it ends
 			
 		}
 	}
+	
+	/**
+	 * Old code from Lecture Activity
+
+	public static class QuestionFragment extends ListFragment {
+		public QuestionFragment() {
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View rootView = inflater.inflate(R.layout.instructor_question_item,
+					container, false);
+			return rootView;
+		}
+	}
+	public static class InstructorSharedFragment extends ListFragment {
+		public InstructorSharedFragment() {
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View rootView = inflater.inflate(R.layout.instructor_shared_item,
+					container, false);
+			return rootView;
+		}
+	}
+	public static class StudentSharedFragment extends ListFragment {
+		public StudentSharedFragment() {
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View rootView = inflater.inflate(R.layout.student_shared_item,
+					container, false);
+			return rootView;
+		}
+	}
+	*/
 }

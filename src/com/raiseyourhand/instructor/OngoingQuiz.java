@@ -22,7 +22,7 @@ import com.raiseyourhand.R;
  * @author Hanrui Zhang
  * Page 35- 38
  */
-public class QuizActivity extends Activity {
+public class OngoingQuiz extends Activity {
 	private ImageView question;
 	private Button end_quiz;
 	private Dialog end;
@@ -91,7 +91,7 @@ public class QuizActivity extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			end = new Dialog(com.raiseyourhand.instructor.QuizActivity.this);
+			end = new Dialog(com.raiseyourhand.instructor.OngoingQuiz.this);
 			end.setContentView(R.layout.dialog_instructor_end_quiz);
 			
 			Button yes = (Button) end.findViewById(R.id.instructor_end_quiz_btn_yes);
@@ -107,7 +107,7 @@ public class QuizActivity extends Activity {
 					// TODO: Start up a dialogue box for the quiz results.
 					
 					// Go back to LectureActivity
-					(QuizActivity.this).finish();
+					(OngoingQuiz.this).finish();
 				}
 
 			});

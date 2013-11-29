@@ -21,7 +21,7 @@ import com.raiseyourhand.R;
  * @author Hanrui Zhang
  *
  */
-public class InfoActivity extends Activity {
+public class Info extends Activity {
 	
 	private String lectureName;
 	private ListView rosterListView;
@@ -110,7 +110,7 @@ public class InfoActivity extends Activity {
 		public void onClick(View arg0) {
 			
 			// TODO Make an intent for starting a lecture, is this correct?
-			Intent startLectureIntent = new Intent(InfoActivity.this, LectureActivity.class);
+			Intent startLectureIntent = new Intent(Info.this, LectureActivity.class);
 			
 			// TODO Pass lecture title into startLectureIntent to pass onto LectureActivity
 			startLectureIntent.putExtra("Lecture Information", lectureName);

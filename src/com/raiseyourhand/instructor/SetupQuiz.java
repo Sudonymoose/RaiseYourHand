@@ -1,45 +1,55 @@
 package com.raiseyourhand.instructor;
 
+import java.io.ByteArrayOutputStream;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.raiseyourhand.R;
 /**
- * 
+ * P33, 34
  * @author Hanrui Zhang
- * Looks like P 20 - 22, but need different layout
+ *
  */
-public class AttendanceActivity extends Activity {
-	private ListView rosterListView;
-	private ArrayAdapter<String> rosterAdapter;
+public class SetupQuiz extends Activity {
+	
 	private boolean choose_bluetooth;
 	private boolean choose_builtin;
-	private Button timer_button;
-	
+	private Button begin_quiz_button;
+	private Button upload_screenshot_button;
+	private ImageView quiz_image;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_instructor_attendance);
+		setContentView(R.layout.activity_instructor_quiz);
 		// Show the Up button in the action bar.
 		setupActionBar();
-		rosterListView = (ListView)findViewById(R.id.instructor_info_listview);     
-		rosterAdapter = new ArrayAdapter<String>(this, R.layout.student_item);
-		rosterListView.setAdapter(rosterAdapter);
+	
+		// Set up the start_quiz_button
+		begin_quiz_button = (Button) findViewById(R.id.instructor_quiz_button_begin);
+		begin_quiz_button.setOnClickListener(new BeginQuizOnClickListener());
 		
-		// Set up the button, not sure if this is supposed to both start and end timer?
-		timer_button = (Button)findViewById(R.id.instructor_attendance_button);
-		timer_button.setOnClickListener(new AttendanceTimerOnClickListener());
+		// Set up the take_screenshot_button
+		upload_screenshot_button = (Button) findViewById(R.id.instructor_quiz_button_upload);
+		upload_screenshot_button.setOnClickListener(new UploadScreenshotOnClickListener());
+		
+		// Set up the ImageView
+		quiz_image = (ImageView) findViewById(R.id.instructor_quiz_imageView);
+		
 	}
 
 	/**
@@ -54,7 +64,7 @@ public class AttendanceActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.instructor_attendance, menu);
+		getMenuInflater().inflate(R.menu.instructor_quiz, menu);
 		return true;
 	}
 
@@ -71,19 +81,19 @@ public class AttendanceActivity extends Activity {
 			//
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
-
 		case R.id.action_back:
 			//finishActivity(0);
 			onBackPressed();
 			return true;
 		case R.id.action_mic:
-			final Dialog mic_setting = new Dialog(AttendanceActivity.this);
+			final Dialog mic_setting = new Dialog(SetupQuiz.this);
 			mic_setting.setContentView(R.layout.dialog_instructor_set_mic);
 			Button mic_set = (Button) mic_setting.findViewById(R.id.instructor_set_mic_btn);
 			TextView bluetooth = (TextView) mic_setting.findViewById(R.id.instructor_set_mic_bluetooth_text);
 			TextView builtin = (TextView) mic_setting.findViewById(R.id.instructor_set_mic_builtin_text);
 
-			// Is this needed??
+
+
 			bluetooth.setOnClickListener(new OnClickListener(){
 				@Override
 				public void onClick(View v) {
@@ -121,17 +131,47 @@ public class AttendanceActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
+	
 	/**
-	 * Listener Class for when the timer attendance button is clicked
+	 * OnClickListener for when the begin quiz button is clicked
 	 */
-	private class AttendanceTimerOnClickListener implements OnClickListener {
+	private class BeginQuizOnClickListener implements OnClickListener
+	{
 
 		@Override
 		public void onClick(View arg0) {
-			// TODO Starting (and maybe ending?) the timer for taking attendance
 			
+			// Create an intent for calling QuizActivity (aka starting a quiz)
+			Intent beginQuizIntent = new Intent(SetupQuiz.this, OngoingQuiz.class);
+			
+			// Pass the quiz screenshot into the intent
+			// Used stackoverflow.com/questions/11519691/passing-image-from-one-activity-another-activity
+			Bitmap bitmap = ((BitmapDrawable)quiz_image.getDrawable()).getBitmap();
+			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+			bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+			byte[] byteArray = stream.toByteArray();
+			beginQuizIntent.putExtra("Quiz Image", byteArray);
+			
+			// TODO Send message to all student users to make them start the quiz; also needs to sent the byteArray somehow
+			
+			
+			startActivity(beginQuizIntent);
 		}
 	}
 	
+	/**
+	 * OnClickListener for when the upload screenshot button is clicked
+	 */
+	private class UploadScreenshotOnClickListener implements OnClickListener
+	{
+
+		@Override
+		public void onClick(View v) {
+			// TODO Go to an activity that chooses an image or use the camera?
+			
+			// TODO Change quiz_image to the screenshot taken, if it's been taken
+			
+		}
+		
+	}
 }
