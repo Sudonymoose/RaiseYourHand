@@ -19,9 +19,9 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.raiseyourhand.R;
-import com.raiseyourhand.fragment.InstructorInstructorSharedFragment;
-import com.raiseyourhand.fragment.InstructorStudentSharedFragment;
+import com.raiseyourhand.fragment.InstructorSharedFragment;
 import com.raiseyourhand.fragment.QuestionFragment;
+import com.raiseyourhand.fragment.StudentSharedFragment;
 
 /**
  * General framework for Q&A, Instructor Shared, Student Shared
@@ -155,9 +155,9 @@ ActionBar.TabListener {
 			case 0:
 				fragment = (Fragment) new QuestionFragment();
 			case 1:
-				fragment = (Fragment) new InstructorInstructorSharedFragment();
+				fragment = (Fragment) new InstructorSharedFragment();
 			case 2:
-				fragment = (Fragment) new InstructorStudentSharedFragment();
+				fragment = (Fragment) new StudentSharedFragment();
 			}			
 
 			return fragment;

@@ -48,7 +48,7 @@ public class StudentSharedFragment extends Fragment {
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_student_shared, container, false);
 
-		count = savedInstanceState.getInt("Image#");
+		//count = savedInstanceState.getInt("Image#");
 
 		shared_item = (ListView) rootView.findViewById(R.id.student_student_share_listview);
 		shared_item.setOnItemClickListener(new SharedItemSelectedListener());
@@ -231,6 +231,11 @@ public class StudentSharedFragment extends Fragment {
 			outState.putInt("Image#", count);
 	}
 
+	@Override
+	public void onActivityCreated (Bundle savedInstanceState){
+		
+	}
+	
 	/*
 	public static String convertImageUriToFile ( Uri imageUri, FragmentActivity activity )  {
 
