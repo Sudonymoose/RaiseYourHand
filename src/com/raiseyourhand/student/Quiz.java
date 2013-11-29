@@ -130,26 +130,28 @@ public class Quiz extends FragmentActivity implements ActionBar.TabListener {
 
 		@Override
 		public Fragment getItem(int position) {
+			Fragment fragment = null;
+
 			switch (position) {
 			case 0:
-				Fragment fragment_1 = new QuizQuestionFragment();
+				fragment = new QuizQuestionFragment();
 				//TODO get Bundles from the server
 				Bundle questionBundle = new Bundle();
 				questionBundle.putString("imgPath", "/storage/sdcard0/Student_Share_1.jpg");
-				fragment_1.setArguments(questionBundle);
-				return fragment_1;
+				fragment.setArguments(questionBundle);
+				break;
 			case 1:
-				Fragment fragment_2 = new QuizAnswerFragment();
+				fragment = new QuizAnswerFragment();
 				Bundle answerBundle = new Bundle();
 				answerBundle.putInt("Option Size", 3);
 				answerBundle.putString("Option_1", "A");
 				answerBundle.putString("Option_2", "B");
 				answerBundle.putString("Option_3", "C");
-				fragment_2.setArguments(answerBundle);
-				return fragment_2;
+				fragment.setArguments(answerBundle);
+				break;
 			}			
 
-			return null;
+			return fragment;
 		}
 
 		@Override
@@ -258,10 +260,10 @@ public class Quiz extends FragmentActivity implements ActionBar.TabListener {
 				Button yes = (Button) dialog_submit.findViewById(R.id.student_submit_quiz_btn_yes);
 				Button no = (Button) dialog_submit.findViewById(R.id.student_submit_quiz_btn_no);
 				TextView confirmation = (TextView) dialog_submit.findViewById(R.id.student_submit_quiz_textview);
-				
+
 				String text = confirmation.getText().toString() + " : " + selected;
 				confirmation.setText(text);
-				
+
 				yes.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
