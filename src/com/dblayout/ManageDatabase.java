@@ -2,11 +2,11 @@ package com.dblayout;
 
 import java.sql.ResultSet;
 
-import Exception.RaiseYourHandError;
-import Exception.RaiseYourHandException;
-import dblayout.DatabaseContract.CourseEntry;
-import dblayout.DatabaseContract.RosterEntry;
-import dblayout.DatabaseContract.UserEntry;
+import com.Exception.RaiseYourHandError;
+import com.Exception.RaiseYourHandException;
+import com.dblayout.DatabaseContract.CourseEntry;
+import com.dblayout.DatabaseContract.RosterEntry;
+import com.dblayout.DatabaseContract.UserEntry;
 
 /**
  * Primary class to manage the SQL database. Wrapper for everything else in this package?
