@@ -1,6 +1,9 @@
 package com.entities;
 
-public class Roster {
+import java.io.Serializable;
+
+public class Roster implements Serializable {
+	private static final long serialVersionUID = -2893127945420023717L;
 	private int rosterId;
 	private String username;
 	private int courseNum;

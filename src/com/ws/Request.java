@@ -16,12 +16,9 @@ import java.io.Serializable;
  *
  */
 public class Request implements Serializable{
-	/**
-	 * 
-	 */
+	private static final long serialVersionUID = 1503104687093153301L;
 	public static final String SUCCESS = "SUCCESS";
 	public static final String FAILURE = "FAILURE";
-	private static final long serialVersionUID = 193459061659991600L;
 	private RequestType type;
 	private Object[] args;
 	

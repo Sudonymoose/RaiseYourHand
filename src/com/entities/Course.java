@@ -1,7 +1,10 @@
 package com.entities;
 
+import java.io.Serializable;
 
-public class Course {
+
+public class Course implements Serializable {
+	private static final long serialVersionUID = 6231460163630133552L;
 	private int courseNum;
 	private int rosterCount;
 	private String instructor;
