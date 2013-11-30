@@ -19,6 +19,8 @@ public class Request implements Serializable{
 	/**
 	 * 
 	 */
+	public static final String SUCCESS = "SUCCESS";
+	public static final String FAILURE = "FAILURE";
 	private static final long serialVersionUID = 193459061659991600L;
 	private RequestType type;
 	private Object[] args;
