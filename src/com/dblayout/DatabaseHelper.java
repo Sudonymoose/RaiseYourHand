@@ -12,6 +12,7 @@ import com.dblayout.DatabaseContract.CourseEntry;
 import com.dblayout.DatabaseContract.RosterEntry;
 import com.dblayout.DatabaseContract.UserEntry;
 
+
 /**
  * DatabaseHelper class. This should be constructed and is used to start up the entire database.
  * 
