@@ -19,6 +19,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.raiseyourhand.R;
+import com.ws.Request;
+import com.ws.RequestType;
+import com.ws.local.SendRequest;
+import com.ws.local.ServerResponseListener;
 /**
  * P33, 34
  * @author Hanrui Zhang
@@ -141,7 +145,7 @@ public class SetupQuiz extends Activity {
 		@Override
 		public void onClick(View arg0) {
 			
-			// Create an intent for calling QuizActivity (aka starting a quiz)
+			// Create an intent for calling OngoingQuiz (aka starting a quiz)
 			Intent beginQuizIntent = new Intent(SetupQuiz.this, OngoingQuiz.class);
 			
 			// Pass the quiz screenshot into the intent
@@ -152,7 +156,11 @@ public class SetupQuiz extends Activity {
 			byte[] byteArray = stream.toByteArray();
 			beginQuizIntent.putExtra("Quiz Image", byteArray);
 			
-			// TODO Send message to all student users to make them start the quiz; also needs to sent the byteArray somehow
+			// Tell server that this quiz has started
+			Object[] args = new Object[1]; // TODO: probably lecture id?
+			SendStartQuizServerResponseListener listener = new SendStartQuizServerResponseListener();
+			SendRequest sendStartQuizRequest = new SendRequest(RequestType.SEND_START_QUIZ, listener, args);
+			sendStartQuizRequest.execute((Void)null);
 			
 			
 			startActivity(beginQuizIntent);
@@ -174,4 +182,17 @@ public class SetupQuiz extends Activity {
 		}
 		
 	}
+	
+	/**
+	 * Private sub-class to respond to server's response when telling server to start quiz
+	 */
+	private class SendStartQuizServerResponseListener implements ServerResponseListener {
+
+		@Override
+		public boolean onResponse(Request r) {
+			// TODO Make sure server got message correctly?
+			return false;
+		}
+	}
+
 }

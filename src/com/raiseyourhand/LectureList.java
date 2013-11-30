@@ -1,5 +1,12 @@
 package com.raiseyourhand;
 
+import java.util.ArrayList;
+
+import com.ws.Request;
+import com.ws.RequestType;
+import com.ws.local.SendRequest;
+import com.ws.local.ServerResponseListener;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,8 +31,9 @@ public class LectureList extends Activity {
 	private SearchView searchView;
 	private ListView lectureListView;
 	private ArrayAdapter<String> lectureAdapter;
-	private String[] lectures = {"Class 1, Lecture 2"};//new String[0];
+	private String[] lectures = null; // = {"Class 1, Lecture 2"};//new String[0];
 	private boolean isStudent = false;
+	private String username = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +54,18 @@ public class LectureList extends Activity {
 		searchView = (SearchView)findViewById(R.id.lecture_list_search);
 		searchView.setOnQueryTextListener(new LectureListOnQueryListener());
 
+		// Get the username from the Login Intent that called this?
+		Intent i = getIntent();
+		Bundle extras = i.getExtras();
+		username = extras.getString("Username");
+		
+		// Get list of lectures from server
+		Object[] args = new Object[1];
+		args[0] = username;
+		GetLectureServerResponseListener listener = new GetLectureServerResponseListener();
+		SendRequest GetLecturesRequest = new SendRequest(RequestType.GET_LECTURES, listener, args);
+		GetLecturesRequest.execute((Void)null);
+		
 		// Set up list of lectures
 		lectureListView = (ListView)findViewById(R.id.lecture_list_listview);
 		lectureListView.setOnItemClickListener(new ViewLectureOnClickListener());      
@@ -135,4 +155,40 @@ public class LectureList extends Activity {
 			return false;
 		}
 	}
+	
+	
+	/**
+	 * Private sub-class to respond to server's response when requesting for a list of lectures
+	 */
+	private class GetLectureServerResponseListener implements ServerResponseListener {
+
+		@Override
+		public boolean onResponse(Request r) {
+			
+			Object[] args = r.getArgs();
+			
+			try{
+				if(((String)args[0]).equals(Request.FAILURE))
+				{
+					return false;
+				}
+				else if(((String)args[0]).equals(Request.SUCCESS))
+				{
+					ArrayList<Integer> server_list = (ArrayList<Integer>)args[1];
+					
+					// Populate lectures list with what is returned from the server
+					lectures = new String[server_list.size()];
+					for(int i = 0 ; i < server_list.size() ; i++)
+					{
+						lectures[i] = String.valueOf((Integer)args[i]);
+					}
+					return true;
+				}
+			} catch(ClassCastException e) {
+				return false;
+			}
+			return false;
+		}
+	}
+	
 }

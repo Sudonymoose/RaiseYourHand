@@ -1,6 +1,13 @@
 package com.raiseyourhand.student;
 
+import java.util.ArrayList;
+
+import com.entities.Course;
 import com.raiseyourhand.R;
+import com.ws.Request;
+import com.ws.RequestType;
+import com.ws.local.SendRequest;
+import com.ws.local.ServerResponseListener;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -23,6 +30,7 @@ public class ViewLecture extends Activity {
 	private TextView roomView;
 
 	// private LectureInfo info; 
+	private long lecture_id;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +48,18 @@ public class ViewLecture extends Activity {
 		// Show the Up button in the action bar.
 		setupActionBar();
 
+		// Get lecture ID
+		Intent i = getIntent();
+		Bundle extras = i.getExtras();
+		lecture_id = extras.getLong("lecture_id");
+		
+		// Call to server to get roster
+		Object[] args = new Object[1];
+		args[0] = lecture_id;
+		GetLectureServerResponseListener listener = new GetLectureServerResponseListener();
+		SendRequest getLectureRequest = new SendRequest(RequestType.GET_LECTURE, listener, args);
+		getLectureRequest.execute((Void)null);
+		
 		// Get lecture info view
 		instructorView = (TextView)findViewById(R.id.student_view_lecture_instructor);
 		dateView = (TextView)findViewById(R.id.student_view_lecture_date);
@@ -116,10 +136,65 @@ public class ViewLecture extends Activity {
 public class JoinLectureOnClickListener implements OnClickListener {
 	@Override
 	public void onClick(View v) {
-		// TODO: Check if lecture is currently started, and return if so.
-		// create an Intent to launch the Lecture Activity
+		// TODO: Check if lecture is currently started
+		
+		// Tell server that this student is going to join the lecture
+		Object[] args = new Object[2];
+		// args[0] = username?
+		// args[1] = lecture_id?
+		SendJoinLectureServerResponseListener listener = new SendJoinLectureServerResponseListener();
+		SendRequest sendJoinLectureRequest = new SendRequest(RequestType.SEND_JOIN_LECTURE, listener, args);
+		sendJoinLectureRequest.execute((Void) null);
+		
+		// Create an Intent to launch the Lecture Activity
 		Intent lecture = new Intent(ViewLecture.this, Lecture.class);
 		startActivity(lecture);
+	}
+}
+
+/**
+ * Private sub-class to respond to server's response when requesting for the roster list for this lecture
+ */
+private class GetLectureServerResponseListener implements ServerResponseListener {
+
+	@Override
+	public boolean onResponse(Request r) {
+
+		Object[] args = r.getArgs();
+		
+		// Get the Course object returned by the server
+		try{
+			if(((String)args[0]).equals(Request.FAILURE))
+			{
+				return false;
+			}
+			else if(((String)args[0]).equals(Request.SUCCESS))
+			{
+				Course c = (Course)args[1];
+				
+				// TODO: Populate appropriate views with the course information
+				
+				
+				// TODO: refresh?
+				
+				return true;
+			}
+		} catch(ClassCastException e) {
+			return false;
+		}
+		return false;
+	}
+}
+
+/**
+ * Private sub-class to respond to server's response when telling server that this student is joining this lecture
+ */
+private class SendJoinLectureServerResponseListener implements ServerResponseListener {
+
+	@Override
+	public boolean onResponse(Request r) {
+		// TODO Know if message sending was successful
+		return false;
 	}
 }
 

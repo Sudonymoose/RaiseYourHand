@@ -35,7 +35,7 @@ public class UpdateRequest extends IntentService implements SocketInterface  {
     @Override
     protected void onHandleIntent(Intent workIntent) {
     	openConnection();
-    	handleSession()
+    	handleSession();
     	closeSession();
     }
 	
