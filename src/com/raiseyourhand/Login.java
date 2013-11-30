@@ -14,6 +14,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 
+import com.entities.User;
 import com.ws.Request;
 import com.ws.RequestType;
 import com.ws.local.SendRequest;
@@ -228,23 +229,17 @@ public class Login extends Activity {
 				return false;
 			}
 
-			
-			
-			// Encrypt the password
-			StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
-			String encryptedPassword = passwordEncryptor.encryptPassword(mPassword);
+
 			
 			Object[] args = new Object[2];
 			args[0] = mUsername;
-			args[1] = encryptedPassword;
-			
+			args[1] = mPassword;
 			
 			// TODO: Is this the correct RequestType?
 			LoginServerResponseListener listener = new LoginServerResponseListener();
 			SendRequest loginRequest = new SendRequest(RequestType.GET_LOGIN, listener, args);
-			loginRequest.execute(null);
+			loginRequest.execute((Void)null);
 			
-			// Send username & password to server via HttpPost
 			// Set up http post
 			/*
 			HttpClient http_client = new DefaultHttpClient();
@@ -280,8 +275,11 @@ public class Login extends Activity {
 			showProgress(false);
 
 			if (success) {
+				
 				// Get the type of user login, assuming login was successful
+				// Also send the username
 				Intent loginIntent = new Intent(Login.this, LectureList.class);
+				loginIntent.putExtra("Username", mUsername);
 				startActivity(loginIntent);
 			} else {
 				mPasswordView
@@ -305,6 +303,25 @@ public class Login extends Activity {
 			@Override
 			public boolean onResponse(Request r) {
 				// TODO Do stuff upon response from server for logging in?
+				// Server gives me a User object
+				
+				Object[] args = r.getArgs();
+				
+				try {
+					if(((String)args[0]).equals(Request.FAILURE))
+					{
+						return false;
+					}
+					else if(((String)args[0]).equals(Request.SUCCESS))
+					{
+						User user = (User)args[1];
+						// TODO: Make database or something like that?
+						return true;
+					}
+				} catch(ClassCastException e) {
+					return false;
+				}
+				
 				return false;
 			}
 			

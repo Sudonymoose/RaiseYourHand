@@ -1,4 +1,4 @@
-package com.ws.dblayout;
+package com.dblayout.backend;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,9 +8,9 @@ import java.sql.Statement;
 
 import com.Exception.RaiseYourHandError;
 import com.Exception.RaiseYourHandException;
-import com.foo.DatabaseContract.CourseEntry;
-import com.foo.DatabaseContract.RosterEntry;
-import com.foo.DatabaseContract.UserEntry;
+import com.dblayout.DatabaseContract.CourseEntry;
+import com.dblayout.DatabaseContract.RosterEntry;
+import com.dblayout.DatabaseContract.UserEntry;
 
 
 /**

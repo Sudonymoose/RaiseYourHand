@@ -16,6 +16,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.raiseyourhand.R;
+import com.ws.Request;
+import com.ws.local.ServerResponseListener;
 /**
  * Activity for a student asking a question, from the student's perspective
  * P76
@@ -77,7 +79,7 @@ public class Ask extends Activity {
 			option_flag = 0;
 			startRecording();
 
-			//disable other options during recording to avoid 
+			// Disable other options during recording to avoid 
 			record_question_button.setEnabled(false);
 			type_question.setEnabled(false);
 			end_question_button.setEnabled(true);
@@ -147,7 +149,7 @@ public class Ask extends Activity {
 		}
 	}
 
-	//signals the recoding error
+	// Signals the recoding error
 	private MediaRecorder.OnErrorListener errorListener = new MediaRecorder.OnErrorListener() {
 		@Override
 		public void onError(MediaRecorder mr, int what, int extra) {
@@ -156,7 +158,7 @@ public class Ask extends Activity {
 		}
 	};
 
-	//indicates the progress of the recording
+	// Indicates the progress of the recording
 	private MediaRecorder.OnInfoListener infoListener = new MediaRecorder.OnInfoListener() {
 		@Override
 		public void onInfo(MediaRecorder mr, int what, int extra) {
@@ -165,4 +167,18 @@ public class Ask extends Activity {
 		}
 	};
 
+	/**
+	 * Private sub-class to respond to server's response when sending the student's question to the server
+	 * 
+	 * TODO: Where do we put this?
+	 */
+	private class SendQuestionServerResponseListener implements ServerResponseListener {
+
+		@Override
+		public boolean onResponse(Request r) {
+			// TODO Know if message sending was successful?
+			return false;
+		}
+	}
+	
 }

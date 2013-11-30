@@ -14,6 +14,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.raiseyourhand.R;
+import com.ws.Request;
+import com.ws.RequestType;
+import com.ws.local.SendRequest;
+import com.ws.local.ServerResponseListener;
 
 
 /**
@@ -102,9 +106,13 @@ public class OngoingQuiz extends Activity {
 				@Override
 				public void onClick(View v) {
 					
-					// TODO: Send a message to all student devices that quiz is done.
+					// Tell server to end the quiz
+					Object[] args = new Object[1]; // TODO: PRobably lecture id?
+					SendEndQuizServerResponseListener listener = new SendEndQuizServerResponseListener();
+					SendRequest sendEndQuizRequest = new SendRequest(RequestType.SEND_END_QUIZ, listener, args);
+					sendEndQuizRequest.execute((Void) null);
 					
-					// TODO: Start up a dialogue box for the quiz results.
+					// TODO: Start up a dialogue box for the quiz results?
 					
 					// Go back to LectureActivity
 					(OngoingQuiz.this).finish();
@@ -120,6 +128,19 @@ public class OngoingQuiz extends Activity {
 				}
 			});
 			end.show();
+		}
+	}
+	
+	
+	/**
+	 * Private sub-class to respond to server's response when telling server to end quiz
+	 */
+	private class SendEndQuizServerResponseListener implements ServerResponseListener {
+
+		@Override
+		public boolean onResponse(Request r) {
+			// TODO Make sure server got message correctly?
+			return false;
 		}
 	}
 }

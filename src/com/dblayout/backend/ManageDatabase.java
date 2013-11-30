@@ -1,9 +1,10 @@
-package com.dblayout;
+package com.dblayout.backend;
 
 import java.sql.ResultSet;
 
 import com.Exception.RaiseYourHandError;
 import com.Exception.RaiseYourHandException;
+import com.dblayout.DatabaseContract;
 import com.dblayout.DatabaseContract.CourseEntry;
 import com.dblayout.DatabaseContract.RosterEntry;
 import com.dblayout.DatabaseContract.UserEntry;
@@ -55,7 +56,7 @@ public class ManageDatabase {
 	}
 
 	// Functions for managing RosterDatabase
-	public void addToRosterDB(String username, int courseNum, boolean isInstructor)	{
+	public void addToRosterDB(String username, int courseNum, String userType)	{
 		// Check that the student isn't already added to the roster.
 		if (exists(queryRosterDB(username,courseNum))) {
 			return;
@@ -73,7 +74,7 @@ public class ManageDatabase {
 		String sql = RosterEntry.SQL_INSERT_RECORD +
 				username + DatabaseContract.COMMA_SEP +
 				courseNum + DatabaseContract.COMMA_SEP +
-				isInstructor + " );";
+				userType + " );";
 		db.executeUpdate(sql);
 	}
 
@@ -105,7 +106,8 @@ public class ManageDatabase {
 
 	public ResultSet queryRosterDB(int courseNum) {
 		String sql = RosterEntry.SQL_SELECT_RECORD + " WHERE " + 
-				RosterEntry.COLUMN_NAME_COURSE_NUM + "=" + courseNum + ";";
+				RosterEntry.COLUMN_NAME_COURSE_NUM + "=" + courseNum + " AND " +
+				RosterEntry.COLUMN_NAME_USERTYPE + "=student;";
 		return db.executeQuery(sql);
 	}
 

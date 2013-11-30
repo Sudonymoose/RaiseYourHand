@@ -1,7 +1,5 @@
-package com.dblayout;
+package com.dblayout.android;
 
-
-import java.sql.ResultSet;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -29,17 +27,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		System.out.println("Opened database successfully");
 	}
 
-	protected void executeUpdate(String sql) {
-		stmt.executeUpdate(sql);
-	}
-
-	protected ResultSet executeQuery(String sql) {
-		ResultSet rs = null;
-		rs = stmt.executeQuery(sql);
-		return rs;
-	}
-
 	public void onClose() {
+		database.close();
 	}
 
 	@Override

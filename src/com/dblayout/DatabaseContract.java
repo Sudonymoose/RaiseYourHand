@@ -15,7 +15,6 @@ public final class DatabaseContract {
 	public static final String SELECT_RECORD = "SELECT * FROM ";
 	public static final String INTEGER_TYPE = " INTEGER";
 	public static final String TEXT_TYPE = " TEXT";
-	public static final String BIT_TYPE = " BIT";
 	public static final String COMMA_SEP = ",";
 
 	// To prevent someone from accidentally instantiating the contract class,
@@ -72,14 +71,14 @@ public final class DatabaseContract {
 		public static final String COLUMN_NAME_ROSTER_ID = "roster_id";
 		public static final String COLUMN_NAME_USERNAME = "username";
 		public static final String COLUMN_NAME_COURSE_NUM = "course_number";
-		public static final String COLUMN_NAME_INSTRUCTOR = "instructor?";
+		public static final String COLUMN_NAME_USERTYPE = "type";
 
 		// Create command for RosterEntry
 		public static final String SQL_CREATE_ENTRIES = CREATE_TABLE + RosterEntry.TABLE_NAME + " (" +
 				RosterEntry.COLUMN_NAME_ROSTER_ID + INTEGER_TYPE + " PRIMARY KEY AUTOINCREMENT," +
 				RosterEntry.COLUMN_NAME_USERNAME + TEXT_TYPE + COMMA_SEP +
 				RosterEntry.COLUMN_NAME_COURSE_NUM + INTEGER_TYPE + COMMA_SEP +
-				RosterEntry.COLUMN_NAME_INSTRUCTOR + BIT_TYPE +	" )";
+				RosterEntry.COLUMN_NAME_USERTYPE + TEXT_TYPE + " )";
 
 		// Delete command for RosterEntry
 		public static final String SQL_DELETE_ENTRIES = DROP_TABLE + RosterEntry.TABLE_NAME;
@@ -89,7 +88,7 @@ public final class DatabaseContract {
 				RosterEntry.COLUMN_NAME_ROSTER_ID + COMMA_SEP +
 				RosterEntry.COLUMN_NAME_USERNAME + COMMA_SEP + 
 				RosterEntry.COLUMN_NAME_COURSE_NUM + COMMA_SEP + 
-				RosterEntry.COLUMN_NAME_INSTRUCTOR + " ) VALUES ( ";
+				RosterEntry.COLUMN_NAME_USERTYPE + " ) VALUES ( ";
 		
 		// Remove command for RosterEntry
 		public static final String SQL_DELETE_RECORD = DELETE_RECORD + RosterEntry.TABLE_NAME;
