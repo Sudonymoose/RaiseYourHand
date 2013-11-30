@@ -20,6 +20,10 @@ import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
 
 import com.raiseyourhand.R;
+import com.ws.Request;
+import com.ws.RequestType;
+import com.ws.local.SendRequest;
+import com.ws.local.ServerResponseListener;
 
 /**
  * @author Hanrui Zhang
@@ -192,7 +196,7 @@ public class Attendance extends Activity {
 				set.setOnClickListener(new OnClickListener(){
 					@Override
 					public void onClick(View arg0) {
-						// TODO Auto-generated method stub
+
 						int set_min = minutes.getValue();
 						int set_sec = seconds.getValue();
 						time_left.setText(String.format("%02d", set_min) + ":" + String.format("%02d", set_sec));
@@ -201,6 +205,12 @@ public class Attendance extends Activity {
 							time_set = true;
 							startButton.setText(R.string.instructor_lecture_attendance_timer_end);
 
+							// TODO: is this the right place to tell the server to start attendance?
+							Object[] start_args = new Object[1]; // TODO: probably lecture id?
+							SendStartAttendanceServerResponseListener start_listener = new SendStartAttendanceServerResponseListener();
+							SendRequest sendStartAttendanceRequest = new SendRequest(RequestType.SEND_START_ATTENDANCE, start_listener, start_args);
+							sendStartAttendanceRequest.execute((Void)null);
+							
 							//the countdownTimer uses background thread
 							timer = new CountDownTimer(set_min * 1000 * 60 + set_sec * 1000, 1000){
 								public void onTick(long millisUntilFinished){
@@ -208,6 +218,12 @@ public class Attendance extends Activity {
 								}
 								public void onFinish(){
 									time_left.setText("Time's Up");
+									
+									// TODO: also is this the right place to tell the server to end attendance?
+									Object[] end_args = new Object[1]; // TODO: probably lecture id?
+									SendEndAttendanceServerResponseListener end_listener = new SendEndAttendanceServerResponseListener();
+									SendRequest sendEndAttendanceRequest = new SendRequest(RequestType.SEND_END_ATTENDANCE, end_listener, end_args);
+									sendEndAttendanceRequest.execute((Void)null);
 								}
 							};
 							timer.start();
@@ -234,6 +250,31 @@ public class Attendance extends Activity {
 				//TODO: Go back to Lecture
 				finish();
 			}
+		}
+	}
+
+	
+	/**
+	 * Private sub-class to respond to server's response when telling it to start attendance
+	 */
+	private class SendStartAttendanceServerResponseListener implements ServerResponseListener {
+
+		@Override
+		public boolean onResponse(Request r) {
+			// TODO USe confirmation that server received?
+			return false;
+		}
+	}
+	
+	/**
+	 * Private sub-class to respond to server's response when telling it to start attendance
+	 */
+	private class SendEndAttendanceServerResponseListener implements ServerResponseListener {
+
+		@Override
+		public boolean onResponse(Request r) {
+			// TODO USe confirmation that server received?
+			return false;
 		}
 	}
 }

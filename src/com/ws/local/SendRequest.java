@@ -13,6 +13,7 @@ import android.os.AsyncTask;
 import com.ws.Request;
 import com.ws.RequestType;
 import com.ws.SocketInterface;
+import com.ws.local.ServerResponseListener;
 
 /**
  * Uses Async, used for all requestTypes besides UPDATEINSTRUCTOR, UPDATESTUDENT, CLOSE.
@@ -36,6 +37,7 @@ public class SendRequest extends AsyncTask<Void, Void, Void> implements SocketIn
 	/**
 	 * Blank constructor is private, forces outside classes to use constructor with parameters 
 	 */
+	@SuppressWarnings("unused")
 	private SendRequest()
 	{
 	}
@@ -91,7 +93,7 @@ public class SendRequest extends AsyncTask<Void, Void, Void> implements SocketIn
 		int failCount = 0;
 		
 		Object[] args = getObjects();
-		Request request = new Request(_type, args);
+		Request request = new Request(_type, _raw_obj); // do we need to add anything more?
 		Request response = null;
 		
 		// Repeat attempts to send; if it succeeds, exit. If not, repeat until MAX_FAIL_COUNT.
@@ -130,9 +132,11 @@ public class SendRequest extends AsyncTask<Void, Void, Void> implements SocketIn
 	{
 		switch(_type) {
 		
+			// Username and encrypted password already passed in
 			case GET_LOGIN:
 			
 			break;
+			
 			
 			case GET_LECTURES:
 				

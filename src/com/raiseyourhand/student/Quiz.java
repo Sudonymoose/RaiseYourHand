@@ -26,6 +26,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.raiseyourhand.R;
+import com.ws.Request;
+import com.ws.RequestType;
+import com.ws.local.SendRequest;
+import com.ws.local.ServerResponseListener;
 
 /**
  * Activity for a student taking a quiz, from student's perspective
@@ -268,11 +272,19 @@ public class Quiz extends FragmentActivity implements ActionBar.TabListener {
 					@Override
 					public void onClick(View v) {
 						if(selected != null){
-							//submit the answer to server
+							// Submit the answer to server
+							Object args[] = new Object[2];
+							// args[0] = username?
+							// args[1] = quiz answer?
+							SendQuizAnswerServerResponseListener listener = new SendQuizAnswerServerResponseListener();
+							SendRequest sendQuizAnswerRequest = new SendRequest(RequestType.SEND_QUIZ_ANSWER, listener, args);
+							sendQuizAnswerRequest.execute((Void)null);
 							dialog_submit.dismiss();
-							//go back to the previous activity
+							
+							// Go back to the previous activity
 							getActivity().onBackPressed();
-						}else{
+						}
+						else {
 							Toast.makeText(getActivity().getBaseContext(), "Please select the answer",
 									Toast.LENGTH_SHORT).show();
 							dialog_submit.dismiss();
@@ -293,6 +305,19 @@ public class Quiz extends FragmentActivity implements ActionBar.TabListener {
 				dialog_submit.show();
 			}
 
+			/**
+			 * Private sub-class to respond to server's response when telling the server to start lecture 
+			 */
+			private class SendQuizAnswerServerResponseListener implements ServerResponseListener {
+
+				@Override
+				public boolean onResponse(Request r) {
+					// TODO MEssage that answer was received?
+					return false;
+				}
+				
+			}
+			
 		}
 	}
 
