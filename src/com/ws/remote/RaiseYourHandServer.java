@@ -8,14 +8,21 @@ import java.net.Socket;
 
 import com.Exception.RaiseYourHandError;
 import com.Exception.RaiseYourHandException;
+import com.dblayout.backend.ManageDatabase;
 import com.ws.SocketInterface;
 
 public class RaiseYourHandServer extends Thread implements SocketInterface {
 	private int port;
 	private ServerSocket servSock = null;
+	private ManageDatabase db;
 
-	public RaiseYourHandServer() {
+	public RaiseYourHandServer() throws RaiseYourHandException {
 		setPort(port);
+		try {
+			db = new ManageDatabase();
+		} catch (Exception e) {
+			throw new RaiseYourHandException(RaiseYourHandError.SQL_FAILURE, e.getMessage());
+		}
 	}
 
 	public void run() {
@@ -46,7 +53,7 @@ public class RaiseYourHandServer extends Thread implements SocketInterface {
 				out.flush();
 				ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
 
-				new ServiceThread(connection, in, out).start();
+				new ServiceThread(connection, in, out, db).start();
 			} catch (IOException e) {
 				new RaiseYourHandException(RaiseYourHandError.OTHER, e.getMessage());			
 			}

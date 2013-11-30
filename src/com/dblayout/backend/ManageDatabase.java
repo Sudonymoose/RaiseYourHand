@@ -1,9 +1,10 @@
-package com.dblayout;
+package com.dblayout.backend;
 
 import java.sql.ResultSet;
 
 import com.Exception.RaiseYourHandError;
 import com.Exception.RaiseYourHandException;
+import com.dblayout.DatabaseContract;
 import com.dblayout.DatabaseContract.CourseEntry;
 import com.dblayout.DatabaseContract.RosterEntry;
 import com.dblayout.DatabaseContract.UserEntry;
