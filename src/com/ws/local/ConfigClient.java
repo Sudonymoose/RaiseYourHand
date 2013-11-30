@@ -1,7 +1,7 @@
 /**
  * 
  */
-package Client;
+package com.ws.local;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,17 +10,35 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import Exception.AutoError;
-import Exception.AutoException;
-import Network.Request;
-import Network.RequestType;
-import Network.SocketInterface;
+import android.app.DownloadManager.Request;
+
+import com.ws.RequestType;
+import com.ws.SocketInterface;
 
 /**
  * @author arthurc
  *
  */
 public class ConfigClient extends Thread implements SocketInterface{
+
+	@Override
+	public boolean openConnection() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void handleSession() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void closeSession() {
+		// TODO Auto-generated method stub
+		
+	}
+	/*
 	private String host;
 	private int port;
 	private Socket sock;
@@ -169,5 +187,5 @@ public class ConfigClient extends Thread implements SocketInterface{
 	
 	public void setPort(int port) {
 		this.port = port;
-	}
+	}*/
 }

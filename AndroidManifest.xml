@@ -117,6 +117,10 @@
             android:name="com.raiseyourhand.util.FileDialog"
             android:label="@string/title_file_dialog" >
         </activity>
+        <activity
+            android:name="com.raiseyourhand.CountDown"
+            android:label="@string/title_activity_count_down" >
+        </activity>
     </application>
 
 </manifest>

@@ -1,68 +1,38 @@
-package com.raiseyourhand.instructor;
+package com.raiseyourhand;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.SearchView;
-import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
 
-import com.raiseyourhand.CountDown;
-import com.raiseyourhand.R;
+public class CountDown extends Activity {
 
-/**
- * @author Hanrui Zhang
- * Looks like P 20 - 22, but need different layout
- */
-public class Attendance extends Activity {
-	
 	private boolean choose_bluetooth;
 	private boolean choose_builtin;
-	
-	private SearchView searchView;
-	private Button startButton;
-	private ListView rosterListView;
-	private ArrayAdapter<String> rosterAdapter;
-	private String[] students = new String[0];
+	private Button start_timer;
+	private TextView time_left;
+	private boolean started;
 
-	private static final int START_ATTENDANCE = 1;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_instructor_attendance);
+		setContentView(R.layout.activity_count_down);
 
-		// TODO: Check the user information
-		// Is the user logged in?
-		// Redirect to LOGIN
-		// If the user is logged in,
-		// store student names in the "students" array.
-
-		// Show the Up button in the action bar.
 		setupActionBar();
 
-		// Set up Search Bar
-		searchView = (SearchView)findViewById(R.id.instructor_attendance_search);
-		searchView.setOnQueryTextListener(new AttendanceOnQueryListener());
+		start_timer = (Button) findViewById(R.id.instructor_attendance_start_button);
+		start_timer.setOnClickListener(new TimerOnClickListener());
 
-		// Set up lecture roster
-		rosterListView = (ListView)findViewById(R.id.instructor_attendance_listview);     
-		rosterAdapter = new ArrayAdapter<String>(this, R.layout.roster_item, students);
-		rosterListView.setAdapter(rosterAdapter);
-		
-		// Setup Start button
-		startButton = (Button)findViewById(R.id.instructor_attendance_button);
-		startButton.setOnClickListener(new StartAttendanceOnClickListener());
+		time_left = (TextView) findViewById(R.id.instructor_attendance_time);
+
+
 	}
 
 	/**
@@ -72,13 +42,6 @@ public class Attendance extends Activity {
 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.attendance, menu);
-		return true;
 	}
 
 	@Override
@@ -100,7 +63,7 @@ public class Attendance extends Activity {
 			onBackPressed();
 			return true;
 		case R.id.action_mic:
-			final Dialog mic_setting = new Dialog(Attendance.this);
+			final Dialog mic_setting = new Dialog(CountDown.this);
 			mic_setting.setContentView(R.layout.dialog_instructor_set_mic);
 			Button mic_set = (Button) mic_setting.findViewById(R.id.instructor_set_mic_btn);
 			TextView bluetooth = (TextView) mic_setting.findViewById(R.id.instructor_set_mic_bluetooth_text);
@@ -145,33 +108,37 @@ public class Attendance extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	public class AttendanceOnQueryListener implements OnQueryTextListener {
-		public boolean onQueryTextChange(String newText) {
-			if (TextUtils.isEmpty(newText)) {
-				rosterAdapter.getFilter().filter("");
-			} else {
-				rosterAdapter.getFilter().filter(newText.toString());
-			}
-			return true;
-		}
 
-		@Override
-		public boolean onQueryTextSubmit(String query) {
-			return false;
-		}
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.count_down, menu);
+		return true;
 	}
-	
 
-	/**
-	 * Listener Class for when the timer attendance button is clicked
-	 */
-	private class StartAttendanceOnClickListener implements OnClickListener {
+	private class TimerOnClickListener implements OnClickListener{
 
 		@Override
 		public void onClick(View arg0) {
-			// TODO Start the timer for taking attendance
-			Intent start_timer = new Intent(Attendance.this, CountDown.class);
-			startActivityForResult(start_timer, START_ATTENDANCE);
+			// TODO Auto-generated method stub
+			if(!started){
+				started = true;
+				start_timer.setText(R.string.instructor_lecture_attendance_timer_end);
+				final Dialog set_time = new Dialog(CountDown.this);
+				set_time.setContentView(R.layout.dialog_set_time);
+				
+				Button set = (Button) set_time.findViewById(R.id.set_time_button);
+				Button cancel = (Button) set_time.findViewById(R.id.cancel_time_button);
+				
+				set_time.show();
+			}else{
+				started = false;
+				start_timer.setText(R.string.instructor_lecture_attendance_timer_start);
+				//TODO: Go to the actual lecture
+			}
 		}
 	}
+
+
+
 }
