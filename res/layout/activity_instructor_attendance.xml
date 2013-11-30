@@ -26,10 +26,17 @@
         android:layout_weight="1" >
     </ListView>
 
+    <TextView
+        android:id="@+id/instructor_attendance_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/instructor_lecture_attendance_time" />
+    
     <Button
         android:id="@+id/instructor_attendance_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/instructor_lecture_attendance_button" />
+        android:text="@string/instructor_lecture_attendance_timer_start" />
 
 </LinearLayout>

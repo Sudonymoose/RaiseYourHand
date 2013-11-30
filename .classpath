@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="libs/jasypt-1.9.1.jar"/>
 	<classpathentry kind="lib" path="libs/json-lib-2.4-jdk15.jar"/>
 	<classpathentry kind="lib" path="libs/sqlite-jdbc-3.7.2.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
