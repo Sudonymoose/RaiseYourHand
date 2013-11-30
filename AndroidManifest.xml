@@ -59,6 +59,12 @@
             android:name="com.raiseyourhand.instructor.Lecture"
             android:label="@string/title_in_progress"
             android:parentActivityName="com.raiseyourhand.instructor.ViewLecture" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.raiseyourhand.instructor.ViewLecture" />
@@ -103,12 +109,6 @@
             android:name="com.raiseyourhand.student.Quiz"
             android:label="@string/title_quiz"
             android:parentActivityName="com.raiseyourhand.student.Lecture" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.raiseyourhand.student.Lecture" />
@@ -116,6 +116,10 @@
         <activity
             android:name="com.raiseyourhand.util.FileDialog"
             android:label="@string/title_file_dialog" >
+        </activity>
+        <activity
+            android:name="com.raiseyourhand.CountDown"
+            android:label="@string/title_activity_count_down" >
         </activity>
     </application>
 

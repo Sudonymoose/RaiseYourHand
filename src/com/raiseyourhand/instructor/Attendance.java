@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.NavUtils;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -12,12 +13,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Chronometer;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 import android.widget.SearchView;
-import android.widget.TextView;
 import android.widget.SearchView.OnQueryTextListener;
-import android.widget.TimePicker;
+import android.widget.TextView;
 
 import com.raiseyourhand.R;
 
@@ -26,19 +26,20 @@ import com.raiseyourhand.R;
  * Looks like P 20 - 22, but need different layout
  */
 public class Attendance extends Activity {
-	
+
 	private boolean choose_bluetooth;
 	private boolean choose_builtin;
-	private Button timer_button;
-	
+
 	private SearchView searchView;
-	private Chronometer chronometer;
-	private TimePicker timepicker;
 	private Button startButton;
 	private ListView rosterListView;
 	private ArrayAdapter<String> rosterAdapter;
 	private String[] students = new String[0];
 
+	private TextView time_left;
+	private boolean time_set;
+	private CountDownTimer timer;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -61,13 +62,12 @@ public class Attendance extends Activity {
 		rosterListView = (ListView)findViewById(R.id.instructor_attendance_listview);     
 		rosterAdapter = new ArrayAdapter<String>(this, R.layout.roster_item, students);
 		rosterListView.setAdapter(rosterAdapter);
-		
-		chronometer = (Chronometer) findViewById(R.id.chronometer1);
-		
-		timepicker = (TimePicker) findViewById(R.id.timePicker1);
+
 		// Setup Start button
 		startButton = (Button)findViewById(R.id.instructor_attendance_button);
-		//startButton.setOnClickListener(new StartAttendanceOnClickListener());
+		startButton.setOnClickListener(new StartAttendanceOnClickListener());
+		
+		time_left = (TextView) findViewById(R.id.instructor_attendance_time);
 	}
 
 	/**
@@ -165,17 +165,75 @@ public class Attendance extends Activity {
 			return false;
 		}
 	}
-	
+
 
 	/**
 	 * Listener Class for when the timer attendance button is clicked
 	 */
-	private class AttendanceTimerOnClickListener implements OnClickListener {
+	private class StartAttendanceOnClickListener implements OnClickListener {
 
 		@Override
 		public void onClick(View arg0) {
-			// TODO Starting (and maybe ending?) the timer for taking attendance
-			
+			if(!time_set){
+				final Dialog set_time = new Dialog(Attendance.this);
+				set_time.setContentView(R.layout.dialog_set_time);
+
+				Button set = (Button) set_time.findViewById(R.id.set_time_button);
+				Button cancel = (Button) set_time.findViewById(R.id.cancel_time_button);
+				final NumberPicker minutes = (NumberPicker) set_time.findViewById(R.id.NumberPicker_minute);
+				final NumberPicker seconds = (NumberPicker) set_time.findViewById(R.id.NumberPicker_second);
+
+				minutes.setMaxValue(60);
+				minutes.setMinValue(0);
+
+				seconds.setMaxValue(60);
+				seconds.setMinValue(0);
+
+				set.setOnClickListener(new OnClickListener(){
+					@Override
+					public void onClick(View arg0) {
+						// TODO Auto-generated method stub
+						int set_min = minutes.getValue();
+						int set_sec = seconds.getValue();
+						time_left.setText(String.format("%02d", set_min) + ":" + String.format("%02d", set_sec));
+						set_time.dismiss();
+						if(set_min != 0 && set_sec != 0){
+							time_set = true;
+							startButton.setText(R.string.instructor_lecture_attendance_timer_end);
+
+							//the countdownTimer uses background thread
+							timer = new CountDownTimer(set_min * 1000 * 60 + set_sec * 1000, 1000){
+								public void onTick(long millisUntilFinished){
+									time_left.setText("seconds remaining: " + millisUntilFinished / 1000);
+								}
+								public void onFinish(){
+									time_left.setText("Time's Up");
+								}
+							};
+							timer.start();
+						}
+					}
+
+				});
+
+				cancel.setOnClickListener(new OnClickListener(){
+					@Override
+					public void onClick(View arg0) {
+						// TODO Auto-generated method stub
+						set_time.dismiss();
+						time_set = false;
+					}
+
+				});
+				set_time.show();
+			}else{
+				if(timer != null)
+					timer.onFinish();
+				time_set = false;
+				startButton.setText(R.string.instructor_lecture_attendance_timer_start);
+				//TODO: Go back to Lecture
+				finish();
+			}
 		}
 	}
 }

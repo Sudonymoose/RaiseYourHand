@@ -17,8 +17,12 @@
     <string name="instructor_lecture_list_search">Search Lecture</string>
     <string name="instructor_info_search">Search</string>
     <string name="instructor_info_button">Start Lecture</string>
-    <string name="instructor_lecture_chronometer">Time</string>
     <string name="instructor_lecture_attendance_button">Attendance</string>
+    <string name="instructor_lecture_attendance_timer_start">Start Timer</string>
+    <string name="instructor_lecture_attendance_timer_end">End Timer</string>
+    <string name="instructor_lecture_attendance_minute">Min</string>
+    <string name="instructor_lecture_attendance_second">Sec</string>
+    <string name="instructor_lecture_attendance_time">00:00</string>
     <string name="instructor_view_lecture_button">Start Lecture</string>
     <string name="instructor_view_lecture_search">Search Enrolled Students</string>
     <string name="instructor_attendance_search">Search Students</string>
@@ -71,6 +75,8 @@
     <string name="student_info_textview_room_b">E</string>
     <string name="share_file_select">Select</string>
     <string name="share_file_cancel">Cancel</string>
+    <string name="set_timer">Set</string>
+    <string name="cancel_timer">Cancel</string>
     <string name="title_instructor_shared">Instructor Shared</string>
     <string name="title_student_shared">Student Shared</string>
     <string name="title_question_and_answer">Q/A</string>
@@ -85,10 +91,9 @@
     <string name="bluetooth">Bluetooth</string>
     <string name="builtin">Built-in</string>
     <string name="set">Set</string>
-    <string name="title_activity_quiz_ongoing">QuizOngoingActivity</string>
-    <string name="title_activity_quiz_results">QuizResultsActivity</string>
     <string name="instructor_lecture_add_notes_button">Add Notes Screenshot</string>
     <string name="student_ask_end_question">End Question</string>
     <string name="title_activity_student_share_preview">Preview</string>
+    <string name="title_activity_count_down">Attendance</string>
 
 </resources>
