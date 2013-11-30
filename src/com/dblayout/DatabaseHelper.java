@@ -1,39 +1,89 @@
 package com.dblayout;
 
-import com.dblayout.DatabaseContract.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+import Exception.RaiseYourHandError;
+import Exception.RaiseYourHandException;
+import dblayout.DatabaseContract.CourseEntry;
+import dblayout.DatabaseContract.RosterEntry;
+import dblayout.DatabaseContract.UserEntry;
 
 /**
  * DatabaseHelper class. This should be constructed and is used to start up the entire database.
  * 
  * Code based off of http://developer.android.com/training/basics/data-storage/databases.html
  */
-public class DatabaseHelper extends SQLiteOpenHelper {
-	
-    public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "Reader.db";
+public class DatabaseHelper {
 
-    // Constructor
-    public DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-    }
-    
-    // Creating the tables in the database
-    public void onCreate(SQLiteDatabase db) {
-    	db.execSQL(UserEntry.SQL_CREATE_ENTRIES);
-    	db.execSQL(RosterEntry.SQL_CREATE_ENTRIES);
-    	db.execSQL(CourseEntry.SQL_CREATE_ENTRIES);
-    	db.execSQL(StudentEntry.SQL_CREATE_ENTRIES);
-    }
-    
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(UserEntry.SQL_DELETE_ENTRIES);
-        db.execSQL(RosterEntry.SQL_DELETE_ENTRIES);
-        db.execSQL(CourseEntry.SQL_DELETE_ENTRIES);
-        db.execSQL(StudentEntry.SQL_DELETE_ENTRIES);
-        onCreate(db);
-    }
+	private static final String DATABASE_NAME = "Reader.db";
+	private Connection c = null;
+	private Statement stmt = null;
+
+	// Constructor
+	public DatabaseHelper() throws RaiseYourHandException {
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:" + DATABASE_NAME);
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+		} catch ( Exception e ) {
+			throw new RaiseYourHandException(RaiseYourHandError.SQL_FAILURE, e.getMessage());
+		}
+		System.out.println("Opened database successfully");
+	}
+
+	// Creating the tables in the database
+	public void onCreate() {
+		try {
+			stmt.executeUpdate(UserEntry.SQL_CREATE_ENTRIES);
+			stmt.executeUpdate(RosterEntry.SQL_CREATE_ENTRIES);
+			stmt.executeUpdate(CourseEntry.SQL_CREATE_ENTRIES);
+		} catch (SQLException e) {
+			new RaiseYourHandException(RaiseYourHandError.SQL_FAILURE, e.getMessage());
+		}
+	}
+
+	public void onUpgrade() {
+		try {
+			stmt.executeUpdate(UserEntry.SQL_DELETE_ENTRIES);
+			stmt.executeUpdate(RosterEntry.SQL_DELETE_ENTRIES);
+			stmt.executeUpdate(CourseEntry.SQL_DELETE_ENTRIES);
+		} catch (SQLException e) {
+			new RaiseYourHandException(RaiseYourHandError.SQL_FAILURE, e.getMessage());
+		}
+		onCreate();
+	}
+
+	protected void executeUpdate(String sql) {
+		try {
+			stmt.executeUpdate(sql);
+			c.commit();
+		} catch (SQLException e) {
+			new RaiseYourHandException(RaiseYourHandError.SQL_FAILURE, e.getMessage());
+		}
+	}
+	
+	protected ResultSet executeQuery(String sql) {
+		ResultSet rs = null;
+		try {
+			rs = stmt.executeQuery(sql);
+		} catch (SQLException e) {
+			new RaiseYourHandException(RaiseYourHandError.SQL_FAILURE, e.getMessage());
+		}
+		return rs;
+	}
+
+	public void onClose() {
+		try {
+			stmt.close();
+			c.close();
+			System.out.println("Closed database successfully");
+		} catch ( Exception e ) {
+			new RaiseYourHandException(RaiseYourHandError.SQL_FAILURE, e.getMessage());
+		}
+	}
 }

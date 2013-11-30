@@ -8,6 +8,7 @@ package com.ws;
  *
  */
 public enum RequestType {
+	GET_LOGIN,
 	GET_LECTURES,
 
 	GET_ROSTER,

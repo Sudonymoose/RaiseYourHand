@@ -46,6 +46,9 @@ public class ServiceThread extends Thread {
 				/*Do stuff related to the request type*/
 				switch(request.getType()){
 				// Universal Requests
+				case GET_LOGIN:
+					args = request.getArgs();
+					break;
 				case GET_LECTURES:
 					args = request.getArgs();
 					break;
