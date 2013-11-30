@@ -62,9 +62,9 @@ public class ManageDatabase {
 		return db.query(UserEntry.TABLE_NAME, null, null, null, null,
 				null, UserEntry.COLUMN_NAME_USERNAME);
 	}
-	
+
 	// Functions for managing RosterDatabase
-	public void addToRosterDB(String username, int courseNum, boolean isInstructor)	{
+	public void addToRosterDB(String username, int courseNum, String userType)	{
 		// Check that the student isn't already added to the roster.
 		if (exists(queryRosterDB(username,courseNum))) {
 			return;
@@ -82,7 +82,7 @@ public class ManageDatabase {
 		ContentValues cv = new ContentValues();
 		cv.put(RosterEntry.COLUMN_NAME_USERNAME, username);
 		cv.put(RosterEntry.COLUMN_NAME_COURSE_NUM, courseNum);
-		cv.put(RosterEntry.COLUMN_NAME_INSTRUCTOR, isInstructor);
+		cv.put(RosterEntry.COLUMN_NAME_USERTYPE, userType);
 		db.insert(RosterEntry.TABLE_NAME, null, cv);
 	}
 
@@ -111,7 +111,8 @@ public class ManageDatabase {
 	}
 
 	public Cursor queryRosterDB(int courseNum) {
-		String where = RosterEntry.COLUMN_NAME_COURSE_NUM + "=" + courseNum;
+		String where = RosterEntry.COLUMN_NAME_COURSE_NUM + "=" + courseNum + " AND " +
+				RosterEntry.COLUMN_NAME_USERTYPE + "=student;";
 		return db.query(RosterEntry.TABLE_NAME, null, where, null, null,
 				null, null);
 	}

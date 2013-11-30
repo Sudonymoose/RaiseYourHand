@@ -8,15 +8,18 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.jasypt.util.password.StrongPasswordEncryptor;
 
 import com.Exception.RaiseYourHandError;
 import com.Exception.RaiseYourHandException;
+import com.dblayout.DatabaseContract.CourseEntry;
+import com.dblayout.DatabaseContract.RosterEntry;
 import com.dblayout.DatabaseContract.UserEntry;
 import com.dblayout.backend.ManageDatabase;
+import com.entities.Course;
+import com.entities.Roster;
 import com.entities.User;
 import com.ws.Request;
 import com.ws.RequestType;
@@ -30,14 +33,16 @@ public class ServiceThread extends Thread {
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
 	private ManageDatabase db;
-	// Warning, the BuildRaiseYourHand will be shared with other threads and the master server
-	ArrayList<String> models = new ArrayList<String>();
+	private Request failure;
+	private StrongPasswordEncryptor passwordEncryptor;
 
 	public ServiceThread(Socket conn, ObjectInputStream in, ObjectOutputStream out, ManageDatabase db) {
 		this.conn = conn;
 		this.in = in;
 		this.out = out;
 		this.db = db;
+		this.failure = new Request(RequestType.SEND_RESPONSE,new Object[] {Request.FAILURE});
+		this.passwordEncryptor = new StrongPasswordEncryptor();
 	}
 
 	public void run() {
@@ -49,6 +54,9 @@ public class ServiceThread extends Thread {
 		Object[] args;
 		Request request;
 		Request response = null;
+		String username;
+		int courseNum;
+		ResultSet rs;
 		boolean runLoop = true;
 
 		try {
@@ -60,21 +68,21 @@ public class ServiceThread extends Thread {
 				case GET_LOGIN:
 					args = request.getArgs();
 					if (args.length != 2 ||
-							args[0] instanceof String ||
-							args[1] instanceof String) {
-						response = new Request(RequestType.SEND_RESPONSE,new Object[] {"ERROR"});
+							!(args[0] instanceof String) ||
+							!(args[1] instanceof String)) {
+						response = failure;
 						break;
 					}
-					String username = (String)args[0];
+					username = (String)args[0];
 					String password = (String)args[1];
-					ResultSet rs = db.queryUserDB(username);
+					rs = db.queryUserDB(username);
 					try {
 						if (rs == null || !rs.next()) {
-							response = new Request(RequestType.SEND_RESPONSE,new Object[] {"ERROR"});
+							response = failure;
 							break;
 						}
-						String encryptedPassword = rs.getString(UserEntry.COLUMN_NAME_PASSWORD);
-						StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+						String encryptedPassword =
+								rs.getString(UserEntry.COLUMN_NAME_PASSWORD);
 						if (passwordEncryptor.checkPassword(password, encryptedPassword)) {
 							User u = new User(rs.getString(UserEntry.COLUMN_NAME_USERNAME),
 									rs.getString(UserEntry.COLUMN_NAME_FIRSTNAME),
@@ -84,21 +92,65 @@ public class ServiceThread extends Thread {
 									rs.getString(UserEntry.COLUMN_NAME_EMAIL),
 									rs.getString(UserEntry.COLUMN_NAME_DEPARTMENT),
 									rs.getString(UserEntry.COLUMN_NAME_CAMPUS));
-							response = new Request(RequestType.SEND_RESPONSE,new Object[] {u});
+							response = new Request(RequestType.SEND_RESPONSE,new Object[] {Request.SUCCESS,u});
 						} else {
-							response = new Request(RequestType.SEND_RESPONSE,new Object[] {"ERROR"});
+							response = failure;
 						}
-					} catch (SQLException e) {
-						response = new Request(RequestType.SEND_RESPONSE,new Object[] {"ERROR"});
+					} catch (Exception e) {
+						response = failure;
 					}
 					break;
 				case GET_LECTURES:
 					args = request.getArgs();
+					if (args.length != 1 || !(args[0] instanceof String)) {
+						response = failure;
+						break;
+					}
+					username = (String)args[0];
+					rs = db.queryRosterDB(username);
+					try {
+						if (rs == null) {
+							response = failure;
+							break;
+						}
+						ArrayList<Integer> list = new ArrayList<Integer>();
+						while(rs.next()) {
+							list.add(rs.getInt(RosterEntry.COLUMN_NAME_COURSE_NUM));
+						}
+						response = new Request(RequestType.SEND_RESPONSE, 
+								new Object[] {Request.SUCCESS, list});
+					} catch (Exception e) {
+						response = failure;
+					}
 					break;
 
 					// Instructor Requests
 				case GET_ROSTER:
 					args = request.getArgs();
+					if (args.length != 1 || !(args[0] instanceof Integer)) {
+						response = failure;
+						break;
+					}
+					courseNum = ((Integer)args[0]).intValue();
+					rs = db.queryRosterDB(courseNum);
+					try {
+						if (rs == null) {
+							response = failure;
+							break;
+						}
+						ArrayList<Roster> list = new ArrayList<Roster>();
+						while(rs.next()) {
+							Roster roster = new Roster(rs.getInt(RosterEntry.COLUMN_NAME_ROSTER_ID),
+									rs.getString(RosterEntry.COLUMN_NAME_USERNAME),
+									rs.getInt(RosterEntry.COLUMN_NAME_COURSE_NUM),
+									rs.getString(RosterEntry.COLUMN_NAME_USERTYPE));
+							list.add(roster);
+						}
+						response = new Request(RequestType.SEND_RESPONSE, 
+								new Object[] {Request.SUCCESS, list});
+					} catch (Exception e) {
+						response = failure;
+					}
 					break;
 				case SEND_START_LECTURE:
 					args = request.getArgs();
@@ -134,6 +186,30 @@ public class ServiceThread extends Thread {
 					// Student Requests
 				case GET_LECTURE:
 					args = request.getArgs();
+					if (args.length != 1 || !(args[0] instanceof Integer)) {
+						response = failure;
+						break;
+					}
+					courseNum = ((Integer)args[0]).intValue();
+					rs = db.queryCourseDB(courseNum);
+					try {
+						if (rs == null || !rs.next()) {
+							response = failure;
+							break;
+						}
+						Course c = new Course(rs.getInt(CourseEntry.COLUMN_NAME_COURSE_NUM),
+								rs.getInt(CourseEntry.COLUMN_NAME_ROSTER_COUNT),
+								rs.getString(CourseEntry.COLUMN_NAME_INSTRUCTOR),
+								rs.getString(CourseEntry.COLUMN_NAME_DEPARTMENT),
+								rs.getString(CourseEntry.COLUMN_NAME_EMAIL),
+								rs.getString(CourseEntry.COLUMN_NAME_DATES),
+								rs.getString(CourseEntry.COLUMN_NAME_TIMES),
+								rs.getString(CourseEntry.COLUMN_NAME_BUILDING),
+								rs.getString(CourseEntry.COLUMN_NAME_ROOM));
+						response = new Request(RequestType.SEND_RESPONSE,new Object[] {Request.SUCCESS,c});
+					} catch (Exception e) {
+						response = failure;
+					}
 					break;
 				case SEND_JOIN_LECTURE:
 					args = request.getArgs();
@@ -156,7 +232,7 @@ public class ServiceThread extends Thread {
 
 					// Utility Request
 				case SEND_RESPONSE:
-					response = new Request(RequestType.SEND_RESPONSE,new Object[] {"ACK"});
+					response = new Request(RequestType.SEND_RESPONSE,new Object[] {Request.SUCCESS,"ACK"});
 					break;
 				case CLOSE:
 					runLoop = false;
