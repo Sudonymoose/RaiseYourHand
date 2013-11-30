@@ -1,5 +1,24 @@
 package com.raiseyourhand;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.jasypt.util.password.StrongPasswordEncryptor;
+
+import com.ws.Request;
+import com.ws.RequestType;
+import com.ws.local.SendRequest;
+import com.ws.local.ServerResponseListener;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -25,17 +44,14 @@ import android.widget.TextView;
  * P9, P67
  */
 public class Login extends Activity {
-	/**
-	 * A dummy authentication store containing known user names and passwords.
-	 * TODO: remove after connecting to a real authentication system.
-	 */
-	private static final String[] DUMMY_CREDENTIALS = new String[] {
-		"foo@example.com:hello", "bar@example.com:world" };
+	
+	private final String HOST = "http://localhost/LoginServlet";
+	private final int PORT = 80;
 
 	/**
 	 * The default email to populate the email field with.
 	 */
-	public static final String EXTRA_EMAIL = "com.example.android.authenticatordemo.extra.EMAIL";
+	// public static final String EXTRA_EMAIL = "com.example.android.authenticatordemo.extra.EMAIL";
 
 	/**
 	 * Keep track of the login task to ensure we can cancel it if requested.
@@ -60,9 +76,9 @@ public class Login extends Activity {
 		setContentView(R.layout.activity_login);
 
 		// Set up the login form.
-		mUsername = getIntent().getStringExtra(EXTRA_EMAIL);
+		// mUsername = getIntent().getStringExtra(EXTRA_EMAIL);
 		mUsernameView = (EditText) findViewById(R.id.username);
-		mUsernameView.setText(mUsername);
+		// mUsernameView.setText(mUsername);
 
 		mPasswordView = (EditText) findViewById(R.id.password);
 		mPasswordView
@@ -212,15 +228,49 @@ public class Login extends Activity {
 				return false;
 			}
 
-			for (String credential : DUMMY_CREDENTIALS) {
-				String[] pieces = credential.split(":");
-				if (pieces[0].equals(mUsername)) {
-					// Account exists, return true if the password matches.
-					return pieces[1].equals(mPassword);
-				}
-			}
+			
+			
+			// Encrypt the password
+			StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+			String encryptedPassword = passwordEncryptor.encryptPassword(mPassword);
+			
+			Object[] args = new Object[2];
+			args[0] = mUsername;
+			args[1] = encryptedPassword;
+			
+			
+			// TODO: Is this the correct RequestType?
+			LoginServerResponseListener listener = new LoginServerResponseListener();
+			SendRequest loginRequest = new SendRequest(RequestType.GET_LOGIN, listener, args);
+			loginRequest.execute(null);
+			
+			// Send username & password to server via HttpPost
+			// Set up http post
+			/*
+			HttpClient http_client = new DefaultHttpClient();
+		    HttpPost http_post = new HttpPost(HOST);
+		    
+		    // Send mUsername and mPassword
+		    try{
+		    	// Name-Value Pairs
+		    	List<NameValuePair> loginParameters = new ArrayList<NameValuePair>();
+				loginParameters.add(new BasicNameValuePair("username", mUsername));
+				loginParameters.add(new BasicNameValuePair("password", mPassword));
+				http_post.setEntity(new UrlEncodedFormEntity(loginParameters));
+				
+				// POST Request and the response from server
+				HttpResponse http_response = http_client.execute(http_post);
+				// TODO: Process the http_response
+				
+		    } catch(ClientProtocolException e) {
+		    	
+		    } catch(IOException e) {
+		    	
+		    }
+			*/
 
 			// TODO: register the new account here.
+			// TODO: Do we want to wait for a few seconds here?
 			return true;
 		}
 
@@ -245,6 +295,19 @@ public class Login extends Activity {
 		protected void onCancelled() {
 			mAuthTask = null;
 			showProgress(false);
+		}
+		
+		private class LoginServerResponseListener implements ServerResponseListener
+		{
+
+			
+			
+			@Override
+			public boolean onResponse(Request r) {
+				// TODO Do stuff upon response from server for logging in?
+				return false;
+			}
+			
 		}
 	}
 }
