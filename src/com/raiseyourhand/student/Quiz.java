@@ -283,12 +283,7 @@ public class Quiz extends FragmentActivity implements ActionBar.TabListener {
 					public void onClick(View v) {
 						if(selected != null){
 							// Submit the answer to server
-							Object args[] = new Object[2];
-							// args[0] = username?
-							// args[1] = quiz answer?
-							SendQuizAnswerServerResponseListener listener = new SendQuizAnswerServerResponseListener();
-							SendRequest sendQuizAnswerRequest = new SendRequest(new Request(RequestType.SEND_QUIZ_ANSWER, args), listener);
-							sendQuizAnswerRequest.execute((Void)null);
+							
 							dialog_submit.dismiss();
 							
 							// Go back to the previous activity
@@ -315,6 +310,18 @@ public class Quiz extends FragmentActivity implements ActionBar.TabListener {
 				dialog_submit.show();
 			}
 
+			/**
+			 * 
+			 */
+			private void sendQuizAnswerToServer() {
+				Object args[] = new Object[2];
+				args[0] = RaiseYourHandApp.getUsername();
+				// args[1] = quiz type
+				SendQuizAnswerServerResponseListener listener = new SendQuizAnswerServerResponseListener();
+				SendRequest sendQuizAnswerRequest = new SendRequest(new Request(RequestType.SEND_QUIZ_ANSWER, args), listener);
+				sendQuizAnswerRequest.execute((Void)null);
+			}
+			
 			/**
 			 * Private sub-class to respond to server's response when telling the server to start lecture 
 			 */
