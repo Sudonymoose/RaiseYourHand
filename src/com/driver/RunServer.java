@@ -6,7 +6,7 @@ import com.ws.remote.RaiseYourHandServer;
 
 public class RunServer {
 	public static void main(String[] args){
-		int port = 4240;
+		int port = 16976;
 	
 		// Start the server.
 		try {
