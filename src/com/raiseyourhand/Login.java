@@ -4,6 +4,8 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,12 +16,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.entities.User;
-import com.ws.Request;
-import com.ws.RequestType;
-import com.ws.local.SendRequest;
-import com.ws.local.ServerResponseListener;
-
 /**
  * Activity which displays a login screen to the user, offering registration as
  * well.
@@ -29,19 +25,22 @@ import com.ws.local.ServerResponseListener;
  * P9, P67
  */
 public class Login extends Activity {
-
-	private final String HOST = "http://localhost/LoginServlet";
-	private final int PORT = 80;
+	/**
+	 * A dummy authentication store containing known user names and passwords.
+	 * TODO: remove after connecting to a real authentication system.
+	 */
+	private static final String[] DUMMY_CREDENTIALS = new String[] {
+		"foo@example.com:hello", "bar@example.com:world" };
 
 	/**
 	 * The default email to populate the email field with.
 	 */
-	// public static final String EXTRA_EMAIL = "com.example.android.authenticatordemo.extra.EMAIL";
+	public static final String EXTRA_EMAIL = "com.example.android.authenticatordemo.extra.EMAIL";
 
 	/**
 	 * Keep track of the login task to ensure we can cancel it if requested.
 	 */
-	private SendRequest mAuthTask = null;
+	private UserLoginTask mAuthTask = null;
 
 	// Values for email and password at the time of the login attempt.
 	private String mUsername;
@@ -61,9 +60,9 @@ public class Login extends Activity {
 		setContentView(R.layout.activity_login);
 
 		// Set up the login form.
-		// mUsername = getIntent().getStringExtra(EXTRA_EMAIL);
+		mUsername = getIntent().getStringExtra(EXTRA_EMAIL);
 		mUsernameView = (EditText) findViewById(R.id.username);
-		// mUsernameView.setText(mUsername);
+		mUsernameView.setText(mUsername);
 
 		mPasswordView = (EditText) findViewById(R.id.password);
 		mPasswordView
@@ -131,9 +130,13 @@ public class Login extends Activity {
 			cancel = true;
 		}
 
-		// Check for a valid username.
+		// Check for a valid email address.
 		if (TextUtils.isEmpty(mUsername)) {
 			mUsernameView.setError(getString(R.string.error_field_required));
+			focusView = mUsernameView;
+			cancel = true;
+		} else if (!mUsername.contains("@")) {
+			mUsernameView.setError(getString(R.string.error_invalid_email));
 			focusView = mUsernameView;
 			cancel = true;
 		}
@@ -147,14 +150,8 @@ public class Login extends Activity {
 			// perform the user login attempt.
 			mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
 			showProgress(true);
-			Object[] args = new Object[2];
-			args[0] = mUsername;
-			args[1] = mPassword;
-			mAuthTask = 
-					new SendRequest(
-							new Request(RequestType.GET_LOGIN, args), 
-							new LoginServerResponseListener());
-			mAuthTask.execute((Void)null);
+			mAuthTask = new UserLoginTask();
+			mAuthTask.execute((Void) null);
 		}
 	}
 
@@ -199,38 +196,55 @@ public class Login extends Activity {
 		}
 	}
 
-	private class LoginServerResponseListener implements ServerResponseListener
-	{
-
+	/**
+	 * Represents an asynchronous login/registration task used to authenticate
+	 * the user.
+	 */
+	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 		@Override
-		public boolean onResponse(Request r) {
-			// Server gives me a User object
-			mAuthTask = null;
-			showProgress(false);
-
-			Object[] args = r.getArgs();
+		protected Boolean doInBackground(Void... params) {
+			// TODO: attempt authentication against a network service.
 
 			try {
-				if(((String)args[0]).equals(Request.FAILURE))
-				{
-					mPasswordView
-					.setError(getString(R.string.error_incorrect_password));
-					mPasswordView.requestFocus();
-					return false;
-				}
-				else if(((String)args[0]).equals(Request.SUCCESS))
-				{
-					User user = (User)args[1];
-					RaiseYourHandApp.setUsername(user.getUsername());
-					RaiseYourHandApp.setIsStudent(user.getType().equals("student"));
-					return true;
-				}
-			} catch(ClassCastException e) {
+				// Simulate network access.
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
 				return false;
 			}
 
-			return false;
+			for (String credential : DUMMY_CREDENTIALS) {
+				String[] pieces = credential.split(":");
+				if (pieces[0].equals(mUsername)) {
+					// Account exists, return true if the password matches.
+					return pieces[1].equals(mPassword);
+				}
+			}
+
+			// TODO: register the new account here.
+			return true;
 		}
 
+		@Override
+		protected void onPostExecute(final Boolean success) {
+			mAuthTask = null;
+			showProgress(false);
+
+			if (success) {
+				// Get the type of user login, assuming login was successful
+				Intent loginIntent = new Intent(Login.this, LectureList.class);
+				startActivity(loginIntent);
+			} else {
+				mPasswordView
+				.setError(getString(R.string.error_incorrect_password));
+				mPasswordView.requestFocus();
+			}
+			finish();
+		}
+
+		@Override
+		protected void onCancelled() {
+			mAuthTask = null;
+			showProgress(false);
+		}
 	}
 }

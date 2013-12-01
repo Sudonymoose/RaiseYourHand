@@ -11,8 +11,8 @@
         android:id="@+id/instructor_quiz_result_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:text="@string/instructor_dialog_quiz_result"
         android:textStyle="bold" >
     </TextView>
@@ -21,13 +21,15 @@
         android:id="@+id/instrucotr_quiz_result_imageView"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
+        android:layout_above="@+id/instrucotr_quiz_result_button"
+        android:layout_below="@+id/instructor_quiz_result_textview"
         android:contentDescription="@string/instructor_dialog_quiz_result_imageView"
         android:src="@drawable/ic_launcher" />
 
     <Button
         android:id="@+id/instrucotr_quiz_result_button"
         style="?android:attr/buttonBarButtonStyle"
-        android:layout_width="0dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"

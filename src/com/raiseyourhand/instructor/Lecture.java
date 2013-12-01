@@ -3,7 +3,6 @@ package com.raiseyourhand.instructor;
 import java.util.Locale;
 
 import android.app.ActionBar;
-import android.app.Dialog;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,12 +18,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-import com.raiseyourhand.Login;
 import com.raiseyourhand.R;
-import com.raiseyourhand.RaiseYourHandApp;
-import com.raiseyourhand.fragment.InstructorSharedFragment;
+import com.raiseyourhand.fragment.InstructorInstructorSharedFragment;
+import com.raiseyourhand.fragment.InstructorStudentSharedFragment;
 import com.raiseyourhand.fragment.QuestionFragment;
-import com.raiseyourhand.fragment.StudentSharedFragment;
 
 /**
  * General framework for Q&A, Instructor Shared, Student Shared
@@ -51,34 +48,16 @@ ActionBar.TabListener {
 	private Button attendanceButton;
 	private Button quizButton;
 
-	private String lectureName;
-	private boolean result_dismiss;
-	private int course_num;
-	private static final int TAKE_ATTENDANCE = 0;
-	private static final int START_QUIZ = 1;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_instructor_lecture);
-
-		// Check for logged in users.
-		if (RaiseYourHandApp.getUsername() == null) {
-			RaiseYourHandApp.logout();
-			Intent login = new Intent(this, Login.class);
-			startActivity(login);
-		}
 
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		// Show the Up button in the action bar.
 		actionBar.setDisplayHomeAsUpEnabled(true);
-
-		// Get the lecture string from the InfoActivity that started this LectureActivity
-		Bundle extras = getIntent().getExtras();
-		lectureName = extras.getString("Lecture Information"); // TODO: huh?
-		course_num = (int) extras.getLong("COURSE_NUM");
 
 		// Setup buttons
 		attendanceButton = (Button) findViewById(R.id.instructor_lecture_attendance_button);
@@ -176,9 +155,9 @@ ActionBar.TabListener {
 			case 0:
 				fragment = (Fragment) new QuestionFragment();
 			case 1:
-				fragment = (Fragment) new InstructorSharedFragment();
+				fragment = (Fragment) new InstructorInstructorSharedFragment();
 			case 2:
-				fragment = (Fragment) new StudentSharedFragment();
+				fragment = (Fragment) new InstructorStudentSharedFragment();
 			}			
 
 			return fragment;
@@ -204,44 +183,27 @@ ActionBar.TabListener {
 			return null;
 		}
 	}
-
+	
 	public class AttendanceOnClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
-
+			
 			// Create an Intent to launch the Attendance Activity
-			// Pass it the course number too
 			Intent lecture = new Intent(Lecture.this, Attendance.class);
-			lecture.putExtra("COURSE_NUM", course_num);
-			startActivityForResult(lecture, TAKE_ATTENDANCE);
+			startActivity(lecture);
+			
+			// TODO: Need a way to return here after attendance is done?
 		}
 	}
 	public class QuizOnClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
 			// create an Intent to launch the Quiz Activity
-			Intent quiz = new Intent(Lecture.this, SetupQuiz.class);
-			startActivityForResult(quiz, START_QUIZ);
-		}
-	}
-
-	@Override
-	public void onActivityResult(final int requestCode,
-			int resultCode, final Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-
-		if(requestCode == TAKE_ATTENDANCE){
-			if(resultCode == RESULT_OK){
-				
-			}
-		}
-		if(requestCode == START_QUIZ){
-			if(resultCode == RESULT_OK){
-				final Dialog result = new Dialog(this);
-				result.setContentView(R.layout.dialog_instructor_quiz_result);
-				result_dismiss = true;
-				result.show();
-			}
+			Intent quiz = new Intent(Lecture.this, Quiz.class);
+			startActivity(quiz);
+			
+			// QuizActivity should return here automatically after it ends
+			
 		}
 	}
 }
