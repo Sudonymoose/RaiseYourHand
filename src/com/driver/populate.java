@@ -18,9 +18,9 @@ public class populate {
 			md.addToUserDB("tom", "Tom", "Sullivan", "instructor", "tom_18100", 
 					"tom@ece.cmu.edu", "ECE", "Pittsburgh");
 			
-			md.addToCourseDB(18641, 80, 0, "ECE", "cis4lab@gmail.com",
+			md.addToCourseDB(18641, 80, "bsingh", "ECE", "cis4lab@gmail.com",
 					"MW", "10:30 AM", "HH", "1307");
-			md.addToCourseDB(18100, 120, 0, "ECE", "18100-staff@ece.cmu.edu",
+			md.addToCourseDB(18100, 120, "tom", "ECE", "18100-staff@ece.cmu.edu",
 					"TR", "1:30 PM", "PH", "100");
 			
 			md.addToRosterDB("hanruiz", 18641, "student");
