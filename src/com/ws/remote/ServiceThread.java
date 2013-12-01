@@ -161,19 +161,16 @@ public class ServiceThread extends Thread {
 				case SEND_START_ATTENDANCE:
 					args = request.getArgs();
 					break;
-				case GET_ATTENDANCE:
-					args = request.getArgs();
-					break;
 				case SEND_END_ATTENDANCE:
 					args = request.getArgs();
 					break;
 				case SEND_START_QUIZ:
 					args = request.getArgs();
 					break;
-				case GET_QUIZ:
+				case SEND_END_QUIZ:
 					args = request.getArgs();
 					break;
-				case SEND_END_QUIZ:
+				case SEND_HIDE_QUIZ:
 					args = request.getArgs();
 					break;
 				case SEND_INSTRUCTOR_NOTE:
