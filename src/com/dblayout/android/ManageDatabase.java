@@ -125,7 +125,7 @@ public class ManageDatabase {
 	}
 
 	// Functions for managing CourseDatabase
-	public void addToCourseDB(int courseNum, int rosterCount, int instructorID, String department,
+	public void addToCourseDB(int courseNum, int rosterCount, String instructorID, String department,
 			String email, String dates, String times, String building, String room) {
 		// Check that the class doesn't exists.
 		if (exists(queryCourseDB(courseNum))) {
