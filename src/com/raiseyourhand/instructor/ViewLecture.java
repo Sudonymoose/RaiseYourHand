@@ -59,7 +59,7 @@ public class ViewLecture extends Activity {
 		Object[] args = new Object[1];
 		args[0] = lecture_id; // supposed to be course_num; is it the same as lecture_id?
 		GetRosterServerResponseListener listener = new GetRosterServerResponseListener();
-		SendRequest getRosterRequest = new SendRequest(RequestType.GET_ROSTER, listener, args);
+		SendRequest getRosterRequest = new SendRequest(new Request(RequestType.GET_ROSTER, args), listener);
 		getRosterRequest.execute((Void)null);
 		
 		// Set up lecture roster
@@ -116,11 +116,13 @@ public class ViewLecture extends Activity {
 			Object[] args = new Object[1];
 			args[0] = lecture_id; // TODO: Do we want to send the lecture_id?
 			SendStartLectureServerResponseListener listener = new SendStartLectureServerResponseListener();
-			SendRequest SendStartLectureRequest = new SendRequest(RequestType.SEND_START_LECTURE, listener, args);
+			SendRequest SendStartLectureRequest = new SendRequest(new Request(RequestType.SEND_START_LECTURE, args), listener);
 			SendStartLectureRequest.execute((Void)null);
 			
 			// Create an Intent to launch the Lecture Activity
+			// Also put the lecture_id (TODO: Need to check if it's same as course number?)
 			Intent lecture = new Intent(ViewLecture.this, Lecture.class);
+			lecture.putExtra("LECTURE_ID", lecture_id);
 			startActivity(lecture);
 		}
 	}

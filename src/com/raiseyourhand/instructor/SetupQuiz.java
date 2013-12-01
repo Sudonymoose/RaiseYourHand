@@ -159,7 +159,7 @@ public class SetupQuiz extends Activity {
 			// Tell server that this quiz has started
 			Object[] args = new Object[1]; // TODO: probably lecture id?
 			SendStartQuizServerResponseListener listener = new SendStartQuizServerResponseListener();
-			SendRequest sendStartQuizRequest = new SendRequest(RequestType.SEND_START_QUIZ, listener, args);
+			SendRequest sendStartQuizRequest = new SendRequest(new Request(RequestType.SEND_START_QUIZ, args), listener);
 			sendStartQuizRequest.execute((Void)null);
 			
 			

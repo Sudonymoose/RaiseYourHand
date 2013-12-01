@@ -277,7 +277,7 @@ public class Quiz extends FragmentActivity implements ActionBar.TabListener {
 							// args[0] = username?
 							// args[1] = quiz answer?
 							SendQuizAnswerServerResponseListener listener = new SendQuizAnswerServerResponseListener();
-							SendRequest sendQuizAnswerRequest = new SendRequest(RequestType.SEND_QUIZ_ANSWER, listener, args);
+							SendRequest sendQuizAnswerRequest = new SendRequest(new Request(RequestType.SEND_QUIZ_ANSWER, args), listener);
 							sendQuizAnswerRequest.execute((Void)null);
 							dialog_submit.dismiss();
 							

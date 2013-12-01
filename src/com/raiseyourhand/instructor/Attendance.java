@@ -3,6 +3,7 @@ package com.raiseyourhand.instructor;
 import android.app.Activity;
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.NavUtils;
@@ -19,6 +20,7 @@ import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
 
+import com.entities.Course;
 import com.raiseyourhand.R;
 import com.ws.Request;
 import com.ws.RequestType;
@@ -44,6 +46,8 @@ public class Attendance extends Activity {
 	private boolean time_set;
 	private CountDownTimer timer;
 	
+	private int course_num;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -62,6 +66,11 @@ public class Attendance extends Activity {
 		searchView = (SearchView)findViewById(R.id.instructor_attendance_search);
 		searchView.setOnQueryTextListener(new AttendanceOnQueryListener());
 
+		// Get course number
+		Intent i = getIntent();
+		Bundle extras = i.getExtras();
+		course_num = extras.getInt("COURSE_NUM");
+		
 		// Set up lecture roster
 		rosterListView = (ListView)findViewById(R.id.instructor_attendance_listview);     
 		rosterAdapter = new ArrayAdapter<String>(this, R.layout.roster_item, students);
@@ -206,9 +215,10 @@ public class Attendance extends Activity {
 							startButton.setText(R.string.instructor_lecture_attendance_timer_end);
 
 							// TODO: is this the right place to tell the server to start attendance?
-							Object[] start_args = new Object[1]; // TODO: probably lecture id?
+							Object[] start_args = new Object[1];
+							start_args[0] = course_num;
 							SendStartAttendanceServerResponseListener start_listener = new SendStartAttendanceServerResponseListener();
-							SendRequest sendStartAttendanceRequest = new SendRequest(RequestType.SEND_START_ATTENDANCE, start_listener, start_args);
+							SendRequest sendStartAttendanceRequest = new SendRequest(new Request(RequestType.SEND_START_ATTENDANCE, start_args), start_listener);
 							sendStartAttendanceRequest.execute((Void)null);
 							
 							//the countdownTimer uses background thread
@@ -221,8 +231,9 @@ public class Attendance extends Activity {
 									
 									// TODO: also is this the right place to tell the server to end attendance?
 									Object[] end_args = new Object[1]; // TODO: probably lecture id?
+									end_args[0] = course_num;
 									SendEndAttendanceServerResponseListener end_listener = new SendEndAttendanceServerResponseListener();
-									SendRequest sendEndAttendanceRequest = new SendRequest(RequestType.SEND_END_ATTENDANCE, end_listener, end_args);
+									SendRequest sendEndAttendanceRequest = new SendRequest(new Request(RequestType.SEND_END_ATTENDANCE, end_args), end_listener);
 									sendEndAttendanceRequest.execute((Void)null);
 								}
 							};
@@ -235,7 +246,6 @@ public class Attendance extends Activity {
 				cancel.setOnClickListener(new OnClickListener(){
 					@Override
 					public void onClick(View arg0) {
-						// TODO Auto-generated method stub
 						set_time.dismiss();
 						time_set = false;
 					}
@@ -261,7 +271,21 @@ public class Attendance extends Activity {
 
 		@Override
 		public boolean onResponse(Request r) {
-			// TODO USe confirmation that server received?
+			Object[] args = r.getArgs();
+			
+			// Just make sure server got the message correctly
+			try{
+				if(((String)args[0]).equals(Request.FAILURE))
+				{
+					return false;
+				}
+				else if(((String)args[0]).equals(Request.SUCCESS))
+				{
+					return true;
+				}
+			} catch(ClassCastException e) {
+				return false;
+			}
 			return false;
 		}
 	}
@@ -273,7 +297,22 @@ public class Attendance extends Activity {
 
 		@Override
 		public boolean onResponse(Request r) {
-			// TODO USe confirmation that server received?
+			
+			Object[] args = r.getArgs();
+			
+			// Just make sure server got the message correctly
+			try{
+				if(((String)args[0]).equals(Request.FAILURE))
+				{
+					return false;
+				}
+				else if(((String)args[0]).equals(Request.SUCCESS))
+				{
+					return true;
+				}
+			} catch(ClassCastException e) {
+				return false;
+			}
 			return false;
 		}
 	}
