@@ -11,7 +11,6 @@ import android.R.integer;
 public class Lecture implements Serializable{
 	private static final long serialVersionUID = 2110167116581440442L;
 	private static final String quizQuestion = "quizQuestion";
-	private static final int numQuizAnswers = 5;
 
 	private final int courseNum;
 

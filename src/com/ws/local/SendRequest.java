@@ -47,11 +47,12 @@ public class SendRequest extends AsyncTask<Void, Void, Void> implements SocketIn
 	 * @param listener ServerResponseListener that deals with the response from the server
 	 * @param args Arguments to send to server along with the RequestType; could be empty if not sending anything
 	 */
-	public SendRequest(RequestType type, ServerResponseListener listener, Object[] args)
+	public SendRequest(Request r, ServerResponseListener listener)
 	{
-		_type = type;
+		
+		_type = r.getType();
 		_listener = listener;
-		_raw_obj = args;
+		_raw_obj = r.getArgs();
 	}
 	
 
@@ -92,7 +93,6 @@ public class SendRequest extends AsyncTask<Void, Void, Void> implements SocketIn
 		
 		int failCount = 0;
 		
-		Object[] args = getObjects();
 		Request request = new Request(_type, _raw_obj); // do we need to add anything more?
 		Request response = null;
 		
@@ -122,96 +122,4 @@ public class SendRequest extends AsyncTask<Void, Void, Void> implements SocketIn
 			// TODO: Print error?
 		}
 	}
-	
-	/**
-	 * Helper method, basically just a huge switch statement for each RequestType
-	 * 
-	 * TODO: Fill each case as appropriate. I'm sure not all of them need to be filled.
-	 */
-	private Object[] getObjects()
-	{
-		switch(_type) {
-		
-			// Username and encrypted password already passed in
-			case GET_LOGIN:
-			
-			break;
-			
-			
-			case GET_LECTURES:
-				
-			break;
-			
-			case GET_ROSTER:
-				
-			break;
-			
-			case SEND_START_LECTURE:
-				
-			break;
-			
-			case SEND_START_ATTENDANCE:
-				
-			break;
-			
-			case GET_ATTENDANCE:
-				
-			break;
-			
-			case SEND_END_ATTENDANCE:
-				
-			break;
-			
-			case SEND_START_QUIZ:
-				
-			break;
-			
-			case GET_QUIZ:
-				
-			break;
-			
-			case SEND_END_QUIZ:
-				
-			break;
-			
-			case SEND_INSTRUCTOR_NOTE:
-				
-			break;
-			
-			case SEND_END_LECTURE:
-				
-			break;
-			
-			case GET_LECTURE:
-				
-			break;
-			
-			case SEND_JOIN_LECTURE:
-				
-			break;
-			
-			case UPDATE_STUDENT:
-				
-			break;
-			
-			case SEND_QUESTION:
-				
-			break;
-			
-			case SEND_STUDENT_NOTE:
-				
-			break;
-			
-			case SEND_QUIZ_ANSWER:
-				
-			break;
-			
-			case SEND_LEAVE_LECTURE:
-				
-			break;
-		
-		}
-		return null;
-	}
-	
 }

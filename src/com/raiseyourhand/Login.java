@@ -237,7 +237,7 @@ public class Login extends Activity {
 			
 			// TODO: Is this the correct RequestType?
 			LoginServerResponseListener listener = new LoginServerResponseListener();
-			SendRequest loginRequest = new SendRequest(RequestType.GET_LOGIN, listener, args);
+			SendRequest loginRequest = new SendRequest(new Request(RequestType.GET_LOGIN, args), listener);
 			loginRequest.execute((Void)null);
 			
 			// Set up http post
@@ -298,7 +298,6 @@ public class Login extends Activity {
 		private class LoginServerResponseListener implements ServerResponseListener
 		{
 
-			
 			
 			@Override
 			public boolean onResponse(Request r) {

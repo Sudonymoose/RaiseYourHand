@@ -159,13 +159,15 @@ public class SetupQuiz extends Activity {
 					beginQuizIntent.putExtra("Quiz Time", time_set.getText().toString());
 
 					//TODO in what form do we send those options for quiz
+					
 					// Tell server that this quiz has started
 					Object[] args = new Object[1]; // TODO: probably lecture id?
 					SendStartQuizServerResponseListener listener = new SendStartQuizServerResponseListener();
-					SendRequest sendStartQuizRequest = new SendRequest(RequestType.SEND_START_QUIZ, listener, args);
+					SendRequest sendStartQuizRequest = new SendRequest(new Request(RequestType.SEND_START_QUIZ, args), listener);
 					sendStartQuizRequest.execute((Void)null);
+					
 
-					// TODO Send image to server (in bytearray), and the time/options for the quiz
+					//Send image to server (in bytearray), and the time/options for the quiz
 					startActivityForResult(beginQuizIntent, START_QUIZ);
 				}else{
 					Toast.makeText(SetupQuiz.this.getBaseContext(), "No quiz image available",
@@ -212,6 +214,9 @@ public class SetupQuiz extends Activity {
 
 				set_time.show();
 			}
+
+
+			
 		}
 	}
 
@@ -223,10 +228,7 @@ public class SetupQuiz extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			// TODO Go to an activity that chooses an image or use the camera?
-
-			// TODO Change quiz_image to the screenshot taken, if it's been taken
-
+			//Code on my local copy, migrate here later
 		}
 
 	}

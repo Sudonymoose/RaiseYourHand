@@ -49,6 +49,7 @@ ActionBar.TabListener {
 	private Button quizButton;
 	
 	private String lectureName;
+	private int course_num;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +64,8 @@ ActionBar.TabListener {
 
 		// Get the lecture string from the InfoActivity that started this LectureActivity
 		Bundle extras = getIntent().getExtras();
-		lectureName = extras.getString("Lecture Information");
+		lectureName = extras.getString("Lecture Information"); // TODO: huh?
+		course_num = (int) extras.getLong("COURSE_NUM");
 		
 		// Setup buttons
 		attendanceButton = (Button) findViewById(R.id.instructor_lecture_attendance_button);
@@ -195,7 +197,9 @@ ActionBar.TabListener {
 		public void onClick(View v) {
 			
 			// Create an Intent to launch the Attendance Activity
+			// Pass it the course number too
 			Intent lecture = new Intent(Lecture.this, Attendance.class);
+			lecture.putExtra("COURSE_NUM", course_num);
 			startActivity(lecture);
 			
 			// TODO: Need a way to return here after attendance is done?

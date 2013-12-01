@@ -57,7 +57,7 @@ public class ViewLecture extends Activity {
 		Object[] args = new Object[1];
 		args[0] = lecture_id;
 		GetLectureServerResponseListener listener = new GetLectureServerResponseListener();
-		SendRequest getLectureRequest = new SendRequest(RequestType.GET_LECTURE, listener, args);
+		SendRequest getLectureRequest = new SendRequest(new Request(RequestType.GET_LECTURE, args), listener);
 		getLectureRequest.execute((Void)null);
 		
 		// Get lecture info view
@@ -67,11 +67,13 @@ public class ViewLecture extends Activity {
 		buildingView = (TextView)findViewById(R.id.student_view_lecture_building);
 		roomView = (TextView)findViewById(R.id.student_view_lecture_room);
 
+		/*
 		instructorView.setText("");
 		dateView.setText("");
 		timeView.setText("");
 		buildingView.setText("");
 		roomView.setText("");
+		*/
 		
 		// Set up Join button
 		joinButton = (Button)findViewById(R.id.student_view_lecture_button);
@@ -143,7 +145,7 @@ public class JoinLectureOnClickListener implements OnClickListener {
 		// args[0] = username?
 		// args[1] = lecture_id?
 		SendJoinLectureServerResponseListener listener = new SendJoinLectureServerResponseListener();
-		SendRequest sendJoinLectureRequest = new SendRequest(RequestType.SEND_JOIN_LECTURE, listener, args);
+		SendRequest sendJoinLectureRequest = new SendRequest(new Request(RequestType.SEND_JOIN_LECTURE, args), listener);
 		sendJoinLectureRequest.execute((Void) null);
 		
 		// Create an Intent to launch the Lecture Activity
@@ -172,10 +174,15 @@ private class GetLectureServerResponseListener implements ServerResponseListener
 			{
 				Course c = (Course)args[1];
 				
-				// TODO: Populate appropriate views with the course information
-				
+				// Populate TextViews with the course information
+				instructorView.setText(c.getInstructor());;
+				dateView.setText(c.getDates());
+				timeView.setText(c.getTimes());;
+				buildingView.setText(c.getBuilding());
+				roomView.setText(c.getRoom());;
 				
 				// TODO: refresh?
+				
 				
 				return true;
 			}

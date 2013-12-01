@@ -144,7 +144,7 @@ public class OngoingQuiz extends Activity {
 					// Tell server to end the quiz
 					Object[] args = new Object[1]; // TODO: PRobably lecture id?
 					SendEndQuizServerResponseListener listener = new SendEndQuizServerResponseListener();
-					SendRequest sendEndQuizRequest = new SendRequest(RequestType.SEND_END_QUIZ, listener, args);
+					SendRequest sendEndQuizRequest = new SendRequest(new Request(RequestType.SEND_END_QUIZ, args), listener);
 					sendEndQuizRequest.execute((Void) null);
 					
 					end.dismiss();					

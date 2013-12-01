@@ -5,38 +5,52 @@ import android.app.Application;
 import com.entities.Lecture;
 
 public class RaiseYourHandApp extends Application {
-	private Lecture lecture;
-	private String username;
-	private int courseNum;
+	private static Lecture lecture;
+	private static String username;
+	private static boolean isStudent;
+	private static int courseNum;
 	
 	public RaiseYourHandApp() {
-		lecture = null;
-		username = null;
-		courseNum = -1;
+		logout();
 	}
 	
-	public void setLecture(Lecture lecture) {
-		this.lecture = lecture;
+	public static void setLecture(Lecture l) {
+		lecture = l;
 	}
 	
-	public void setUsername(String username) {
-		this.username = username;
+	public static void setUsername(String u) {
+		username = u;
 	}
 	
-	public void setCourseNum(int courseNum) {
-		this.courseNum = courseNum;
+	public static void setIsStudent(boolean i) {
+		isStudent = i;
 	}
 	
-	public Lecture getLecture() {
+	public static void setCourseNum(int c) {
+		courseNum = c;
+	}
+	
+	public static Lecture getLecture() {
 		return lecture;
 	}
 	
-	public String getUsername() {
+	public static String getUsername() {
 		return username;
 	}
 	
-	public int getCourseNum() {
+	public static boolean getIsStudent() {
+		return isStudent;
+	}
+	
+	public static int getCourseNum() {
 		return courseNum;
+	}
+	
+	public static void logout() {
+		isStudent = true;
+		username = null;
+		lecture = null;
+		courseNum = -1;
 	}
 
 }
