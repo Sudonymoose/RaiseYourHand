@@ -78,8 +78,8 @@ public class SetupQuiz extends Activity {
 
 		// Set up the ImageView
 		quiz_image = (ImageView) findViewById(R.id.instructor_quiz_imageView);
-
-
+		time_set = (TextView) findViewById(R.id.instructor_quiz_timerTextView);
+		
 		if(savedInstanceState != null){
 			count = savedInstanceState.getInt("Image#");
 			imageUri = Uri.parse(savedInstanceState.getString("URI"));

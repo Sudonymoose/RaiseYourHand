@@ -21,7 +21,7 @@
         android:id="@+id/instrucotr_receive_question_imageView"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:contentDescription="@string/instrucotr_receive_question_imageView"
+        android:contentDescription="@string/instructor_receive_question_imageView"
         android:src="@drawable/ic_launcher" />
 
     <LinearLayout
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="#f0f0f0"
-            android:text="@string/instrucotr_dialog_revoke" />
+            android:text="@string/instructor_dialog_revoke" />
     </LinearLayout>
 
 </LinearLayout>
