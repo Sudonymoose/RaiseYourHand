@@ -31,7 +31,7 @@ public class LectureList extends Activity {
 	private SearchView searchView;
 	private ListView lectureListView;
 	private ArrayAdapter<String> lectureAdapter;
-	private String[] lectures = null; // = {"Class 1, Lecture 2"};//new String[0];
+	private String[] lectures = {"Class 1, Lecture 2"};//new String[0];
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,12 @@ public class LectureList extends Activity {
 		// Set up list of lectures
 		lectureListView = (ListView)findViewById(R.id.lecture_list_listview);
 		lectureListView.setOnItemClickListener(new ViewLectureOnClickListener());      
+		lectureAdapter = new ArrayAdapter<String>(LectureList.this, R.layout.lecture_item, lectures);
+		lectureListView.setAdapter(lectureAdapter);
 
+	}
+
+	private void getLecturesFromWS() {
 		// Get list of lectures from server
 		Object[] args = new Object[] {RaiseYourHandApp.getUsername()};
 		SendRequest GetLecturesRequest = 
@@ -63,10 +68,8 @@ public class LectureList extends Activity {
 						new Request(RequestType.GET_LECTURES, args), 
 						new GetLectureServerResponseListener());
 		GetLecturesRequest.execute((Void)null);
-		
-
 	}
-
+	
 	/**
 	 * Set up the {@link android.app.ActionBar}.
 	 */

@@ -31,7 +31,7 @@ public class ViewLecture extends Activity {
 	private Button startButton;
 	private ListView rosterListView;
 	private ArrayAdapter<String> rosterAdapter;
-	private String[] students = null;
+	private String[] students = {"Alex Yoo","Arthur Chang", "Hanrui Zhang"};
 	private long lecture_id = 0;
 
 	@Override
@@ -57,13 +57,6 @@ public class ViewLecture extends Activity {
 		Intent i = getIntent();
 		Bundle extras = i.getExtras();
 		lecture_id = extras.getLong("lecture_id");
-
-		// Call to server to get roster
-		Object[] args = new Object[1];
-		args[0] = lecture_id; // supposed to be course_num; is it the same as lecture_id?
-		GetRosterServerResponseListener listener = new GetRosterServerResponseListener();
-		SendRequest getRosterRequest = new SendRequest(new Request(RequestType.GET_ROSTER, args), listener);
-		getRosterRequest.execute((Void)null);
 
 		// Set up lecture roster
 		rosterListView = (ListView)findViewById(R.id.instructor_view_lecture_listview);     

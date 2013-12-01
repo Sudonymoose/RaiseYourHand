@@ -22,7 +22,7 @@ import com.ws.local.ServerResponseListener;
  */
 public class SendRequest extends AsyncTask<Void, Void, Void> implements SocketInterface {
 
-	private final String HOST = "blueshark.ics.cs.cmu.edu";
+	private final String HOST = "angelshark.ics.cs.cmu.edu";
 	private final int PORT = 16976;
 	private final int MAX_FAIL_COUNT = 5;
 	

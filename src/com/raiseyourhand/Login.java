@@ -154,6 +154,7 @@ public class Login extends Activity {
 			showProgress(true);
 			mAuthTask = new UserLoginTask();
 			mAuthTask.execute((Void) null);
+			//loginToServerUsingWS();
 		}
 	}
 
@@ -206,12 +207,6 @@ public class Login extends Activity {
 		@Override
 		protected Boolean doInBackground(Void... params) {
 
-			try {
-				// Simulate network access.
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				return false;
-			}
 
 			for (String credential : DUMMY_CREDENTIALS) {
 				String[] pieces = credential.split(":");
@@ -270,7 +265,9 @@ public class Login extends Activity {
 			// Server gives me a User object
 			mAuthTask = null;
 			showProgress(false);
-
+			if (r == null) {
+				return false;
+			}
 			Object[] args = r.getArgs();
 
 			try {

@@ -54,13 +54,6 @@ public class ViewLecture extends Activity {
 		Bundle extras = i.getExtras();
 		lecture_id = extras.getLong("lecture_id");
 
-		// Call to server to get roster
-		Object[] args = new Object[1];
-		args[0] = lecture_id;
-		GetLectureServerResponseListener listener = new GetLectureServerResponseListener();
-		SendRequest getLectureRequest = new SendRequest(new Request(RequestType.GET_LECTURE, args), listener);
-		getLectureRequest.execute((Void)null);
-
 		// Get lecture info view
 		instructorView = (TextView)findViewById(R.id.student_view_lecture_instructor);
 		dateView = (TextView)findViewById(R.id.student_view_lecture_date);
@@ -68,13 +61,11 @@ public class ViewLecture extends Activity {
 		buildingView = (TextView)findViewById(R.id.student_view_lecture_building);
 		roomView = (TextView)findViewById(R.id.student_view_lecture_room);
 
-		/*
-		instructorView.setText("");
-		dateView.setText("");
-		timeView.setText("");
-		buildingView.setText("");
-		roomView.setText("");
-		 */
+		instructorView.setText("Bob Singh");
+		dateView.setText("M W F");
+		timeView.setText("10:30 to 11:20");
+		buildingView.setText("HH");
+		roomView.setText("1207");
 
 		// Set up Join button
 		joinButton = (Button)findViewById(R.id.student_view_lecture_button);
