@@ -32,20 +32,18 @@ public class LectureList extends Activity {
 	private ListView lectureListView;
 	private ArrayAdapter<String> lectureAdapter;
 	private String[] lectures = null; // = {"Class 1, Lecture 2"};//new String[0];
-	private boolean isStudent = false;
-	private String username = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lecture_list);
 
-		// TODO: Check the user information
-		// Is the user logged in?
-		// Redirect to LOGIN
-		// If the user is logged in,
-		// set isStudent = false if user is instructor.
-		// store lecture names in the "lectures" array.
+		// Check for logged in users.
+		if (RaiseYourHandApp.getUsername() == null) {
+			RaiseYourHandApp.logout();
+			Intent login = new Intent(LectureList.this, Login.class);
+			startActivity(login);
+		}
 
 		// Show the Up button in the action bar.
 		setupActionBar();
@@ -53,24 +51,20 @@ public class LectureList extends Activity {
 		// Set up Search Bar
 		searchView = (SearchView)findViewById(R.id.lecture_list_search);
 		searchView.setOnQueryTextListener(new LectureListOnQueryListener());
-
-		// Get the username from the Login Intent that called this?
-		Intent i = getIntent();
-		Bundle extras = i.getExtras();
-		username = extras.getString("Username");
-		
-		// Get list of lectures from server
-		Object[] args = new Object[1];
-		args[0] = username;
-		GetLectureServerResponseListener listener = new GetLectureServerResponseListener();
-		SendRequest GetLecturesRequest = new SendRequest(RequestType.GET_LECTURES, listener, args);
-		GetLecturesRequest.execute((Void)null);
 		
 		// Set up list of lectures
 		lectureListView = (ListView)findViewById(R.id.lecture_list_listview);
 		lectureListView.setOnItemClickListener(new ViewLectureOnClickListener());      
-		lectureAdapter = new ArrayAdapter<String>(this, R.layout.lecture_item, lectures);
-		lectureListView.setAdapter(lectureAdapter);
+
+		// Get list of lectures from server
+		Object[] args = new Object[] {RaiseYourHandApp.getUsername()};
+		SendRequest GetLecturesRequest = 
+				new SendRequest(
+						new Request(RequestType.GET_LECTURES, args), 
+						new GetLectureServerResponseListener());
+		GetLecturesRequest.execute((Void)null);
+		
+
 	}
 
 	/**
@@ -101,6 +95,7 @@ public class LectureList extends Activity {
 			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
 			//
 			// TODO: Replace this with Logout Dialog. That logs out a user when confirmed.
+			RaiseYourHandApp.logout();
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
 		}
@@ -126,7 +121,7 @@ public class LectureList extends Activity {
 			Intent viewLecture;
 
 			// create an Intent to launch the ViewLecture Activity
-			if (isStudent) {
+			if (RaiseYourHandApp.getIsStudent()) {
 				// If student, set up intent for student's ViewLecture
 				viewLecture = new Intent(LectureList.this, com.raiseyourhand.student.ViewLecture.class);
 			} else {
@@ -182,6 +177,10 @@ public class LectureList extends Activity {
 					{
 						lectures[i] = String.valueOf((Integer)args[i]);
 					}
+					
+					// Set up list of lectures
+					lectureAdapter = new ArrayAdapter<String>(LectureList.this, R.layout.lecture_item, lectures);
+					lectureListView.setAdapter(lectureAdapter);
 					return true;
 				}
 			} catch(ClassCastException e) {
