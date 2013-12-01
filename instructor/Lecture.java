@@ -1,10 +1,15 @@
 package com.raiseyourhand.instructor;
 
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import android.app.ActionBar;
+import android.app.Dialog;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -17,11 +22,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
-import com.raiseyourhand.Login;
 import com.raiseyourhand.R;
-import com.raiseyourhand.RaiseYourHandApp;
 import com.raiseyourhand.fragment.InstructorSharedFragment;
+import com.raiseyourhand.fragment.InstructorSharedFragment.SharedItemSelectedListener;
 import com.raiseyourhand.fragment.QuestionFragment;
 import com.raiseyourhand.fragment.StudentSharedFragment;
 
@@ -31,7 +37,7 @@ import com.raiseyourhand.fragment.StudentSharedFragment;
  *
  */
 public class Lecture extends FragmentActivity implements
-ActionBar.TabListener {
+ActionBar.TabListener, SharedItemSelectedListener{
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -51,20 +57,15 @@ ActionBar.TabListener {
 	private Button quizButton;
 	
 	private String lectureName;
-	private int course_num;
-
+	protected static final int TAKE_ATTENDANCE = 0;
+	protected static final int START_QUIZ = 1;
+	private ArrayList<String> items_for_students;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_instructor_lecture);
 
-		// Check for logged in users.
-		if (RaiseYourHandApp.getUsername() == null) {
-			RaiseYourHandApp.logout();
-			Intent login = new Intent(this, Login.class);
-			startActivity(login);
-		}
-		
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -72,9 +73,8 @@ ActionBar.TabListener {
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		// Get the lecture string from the InfoActivity that started this LectureActivity
-		Bundle extras = getIntent().getExtras();
-		lectureName = extras.getString("Lecture Information"); // TODO: huh?
-		course_num = (int) extras.getLong("COURSE_NUM");
+		//Bundle extras = getIntent().getExtras();
+		//lectureName = extras.getString("Lecture Information");
 		
 		// Setup buttons
 		attendanceButton = (Button) findViewById(R.id.instructor_lecture_attendance_button);
@@ -171,10 +171,13 @@ ActionBar.TabListener {
 			switch (position) {
 			case 0:
 				fragment = (Fragment) new QuestionFragment();
+				break;
 			case 1:
 				fragment = (Fragment) new InstructorSharedFragment();
+				break;
 			case 2:
 				fragment = (Fragment) new StudentSharedFragment();
+				break;
 			}			
 
 			return fragment;
@@ -204,66 +207,58 @@ ActionBar.TabListener {
 	public class AttendanceOnClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
-			
-			// Create an Intent to launch the Attendance Activity
-			// Pass it the course number too
-			Intent lecture = new Intent(Lecture.this, Attendance.class);
-			lecture.putExtra("COURSE_NUM", course_num);
-			startActivity(lecture);
-			
-			// TODO: Need a way to return here after attendance is done?
-		}
-	}
-	public class QuizOnClickListener implements OnClickListener {
-		@Override
-		public void onClick(View v) {
-			// create an Intent to launch the Quiz Activity
-			Intent quiz = new Intent(Lecture.this, SetupQuiz.class);
-			startActivity(quiz);
-			
-			// QuizActivity should return here automatically after it ends
-			
+			Intent attendance = new Intent(Lecture.this, Attendance.class);
+			startActivityForResult(attendance, TAKE_ATTENDANCE);
 		}
 	}
 	
-	/**
-	 * Old code from Lecture Activity
-
-	public static class QuestionFragment extends ListFragment {
-		public QuestionFragment() {
-		}
-
+	public class QuizOnClickListener implements OnClickListener {
 		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.instructor_question_item,
-					container, false);
-			return rootView;
+		public void onClick(View v) {
+			Intent quiz = new Intent(Lecture.this, SetupQuiz.class);
+			startActivityForResult(quiz, START_QUIZ);	
 		}
 	}
-	public static class InstructorSharedFragment extends ListFragment {
-		public InstructorSharedFragment() {
+	
+	@Override
+	public void onActivityResult(final int requestCode,
+			int resultCode, final Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if(requestCode == TAKE_ATTENDANCE){
+			if(resultCode == RESULT_OK){
+				Toast.makeText(getBaseContext(), "Attendance Taken", Toast.LENGTH_LONG).show();
+			}
 		}
+		if(requestCode == START_QUIZ){
+			if(resultCode == RESULT_OK){
+				// only when students submit the quiz answer, maybe use bundle
+				final Dialog quiz_result = new Dialog(Lecture.this);
+				quiz_result.setContentView(R.layout.dialog_instructor_quiz_result);
 
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.instructor_shared_item,
-					container, false);
-			return rootView;
+				ImageView result = (ImageView) quiz_result.findViewById(R.id.instructor_quiz_result_imageView);
+				Button dismiss = (Button) quiz_result.findViewById(R.id.instructor_quiz_result_button);
+				
+				//temp fake result pic
+				InputStream is = this.getResources().openRawResource(R.drawable.ic_launcher);
+				//use decodeFath in real case
+				Bitmap bmImg = BitmapFactory.decodeStream(is);
+				result.setImageBitmap(bmImg);
+
+				dismiss.setOnClickListener(new OnClickListener(){
+					@Override
+					public void onClick(View v) {
+						quiz_result.dismiss();
+					}
+				});
+				
+				quiz_result.show();
+			}
 		}
 	}
-	public static class StudentSharedFragment extends ListFragment {
-		public StudentSharedFragment() {
-		}
 
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.student_shared_item,
-					container, false);
-			return rootView;
-		}
+	@Override
+	public void passData(ArrayList<String> all_items) {
+		// TODO Auto-generated method stub
+		this.items_for_students = all_items;
 	}
-	*/
 }

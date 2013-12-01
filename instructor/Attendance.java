@@ -3,7 +3,6 @@ package com.raiseyourhand.instructor;
 import android.app.Activity;
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.NavUtils;
@@ -19,14 +18,9 @@ import android.widget.NumberPicker;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.raiseyourhand.Login;
 import com.raiseyourhand.R;
-import com.raiseyourhand.RaiseYourHandApp;
-import com.ws.Request;
-import com.ws.RequestType;
-import com.ws.local.SendRequest;
-import com.ws.local.ServerResponseListener;
 
 /**
  * @author Hanrui Zhang
@@ -44,23 +38,13 @@ public class Attendance extends Activity {
 	private String[] students = new String[0];
 
 	private TextView time_left;
-	private boolean time_set;
 	private CountDownTimer timer;
-	
-	private int course_num;
+	private int option_flag;//0--Timer set, 1--Start Timer, 2--End Timer
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_instructor_attendance);
-
-		// Check for logged in users.
-		if (RaiseYourHandApp.getUsername() == null) {
-			RaiseYourHandApp.logout();
-			Intent login = new Intent(this, Login.class);
-			startActivity(login);
-		}
-
 		// Show the Up button in the action bar.
 		setupActionBar();
 
@@ -68,11 +52,6 @@ public class Attendance extends Activity {
 		searchView = (SearchView)findViewById(R.id.instructor_attendance_search);
 		searchView.setOnQueryTextListener(new AttendanceOnQueryListener());
 
-		// Get course number
-		Intent i = getIntent();
-		Bundle extras = i.getExtras();
-		course_num = extras.getInt("COURSE_NUM");
-		
 		// Set up lecture roster
 		rosterListView = (ListView)findViewById(R.id.instructor_attendance_listview);     
 		rosterAdapter = new ArrayAdapter<String>(this, R.layout.roster_item, students);
@@ -81,7 +60,7 @@ public class Attendance extends Activity {
 		// Setup Start button
 		startButton = (Button)findViewById(R.id.instructor_attendance_button);
 		startButton.setOnClickListener(new StartAttendanceOnClickListener());
-		
+
 		time_left = (TextView) findViewById(R.id.instructor_attendance_time);
 	}
 
@@ -189,7 +168,7 @@ public class Attendance extends Activity {
 
 		@Override
 		public void onClick(View arg0) {
-			if(!time_set){
+			if(option_flag == 0){
 				final Dialog set_time = new Dialog(Attendance.this);
 				set_time.setContentView(R.layout.dialog_set_time);
 
@@ -198,49 +177,25 @@ public class Attendance extends Activity {
 				final NumberPicker minutes = (NumberPicker) set_time.findViewById(R.id.NumberPicker_minute);
 				final NumberPicker seconds = (NumberPicker) set_time.findViewById(R.id.NumberPicker_second);
 
-				minutes.setMaxValue(60);
+				minutes.setMaxValue(59);
 				minutes.setMinValue(0);
 
-				seconds.setMaxValue(60);
+				seconds.setMaxValue(59);
 				seconds.setMinValue(0);
 
 				set.setOnClickListener(new OnClickListener(){
 					@Override
 					public void onClick(View arg0) {
-
 						int set_min = minutes.getValue();
 						int set_sec = seconds.getValue();
-						time_left.setText(String.format("%02d", set_min) + ":" + String.format("%02d", set_sec));
-						set_time.dismiss();
-						if(set_min != 0 && set_sec != 0){
-							time_set = true;
-							startButton.setText(R.string.instructor_lecture_attendance_timer_end);
-
-							// TODO: is this the right place to tell the server to start attendance?
-							Object[] start_args = new Object[1];
-							start_args[0] = course_num;
-							SendStartAttendanceServerResponseListener start_listener = new SendStartAttendanceServerResponseListener();
-							SendRequest sendStartAttendanceRequest = new SendRequest(new Request(RequestType.SEND_START_ATTENDANCE, start_args), start_listener);
-							sendStartAttendanceRequest.execute((Void)null);
-							
-							//the countdownTimer uses background thread
-							timer = new CountDownTimer(set_min * 1000 * 60 + set_sec * 1000, 1000){
-								public void onTick(long millisUntilFinished){
-									time_left.setText("seconds remaining: " + millisUntilFinished / 1000);
-								}
-								public void onFinish(){
-									time_left.setText("Time's Up");
-									
-									// TODO: also is this the right place to tell the server to end attendance?
-									Object[] end_args = new Object[1]; // TODO: probably lecture id?
-									end_args[0] = course_num;
-									SendEndAttendanceServerResponseListener end_listener = new SendEndAttendanceServerResponseListener();
-									SendRequest sendEndAttendanceRequest = new SendRequest(new Request(RequestType.SEND_END_ATTENDANCE, end_args), end_listener);
-									sendEndAttendanceRequest.execute((Void)null);
-								}
-							};
-							timer.start();
+						if(set_min + set_sec != 0){
+							time_left.setText(String.format("%02d", set_min) + ":" + String.format("%02d", set_sec));
+							option_flag = 1;
+							startButton.setText(R.string.instructor_lecture_attendance_timer_start);
+						}else{
+							time_left.setText("Please set time again");
 						}
+						set_time.dismiss();		
 					}
 
 				});
@@ -248,74 +203,45 @@ public class Attendance extends Activity {
 				cancel.setOnClickListener(new OnClickListener(){
 					@Override
 					public void onClick(View arg0) {
-						set_time.dismiss();
-						time_set = false;
+						option_flag = 0;
+						set_time.dismiss();				
 					}
 
 				});
 				set_time.show();
-			}else{
+			}else if(option_flag == 1){
+				String time = time_left.getText().toString();
+				int set_min = Integer.parseInt(time.substring(0, 2));
+				int set_sec = Integer.parseInt(time.substring(3));
+
+				option_flag = 2;
+				startButton.setText(R.string.instructor_lecture_attendance_timer_end);
+				Toast.makeText(getBaseContext(), time + "/" + set_min + "/" + set_sec, Toast.LENGTH_LONG).show();
+				//the countdownTimer uses background thread
+				timer = new CountDownTimer(set_min * 1000 * 60 + set_sec * 1000, 1000){
+					public void onTick(long millisUntilFinished){
+						time_left.setText("seconds remaining: " + millisUntilFinished / 1000);
+					}
+					public void onFinish(){
+						time_left.setText("Time's Up");
+						option_flag = 0;
+						startButton.setText(R.string.instructor_lecture_attendance_timer_set);
+						setResult(RESULT_OK);
+						finish();
+					}
+				};
+				timer.start();
+				
+				//TODO-Send the attendance notice to students, update checked-in list 
+
+			}else if(option_flag == 2){
 				if(timer != null)
 					timer.onFinish();
-				time_set = false;
-				startButton.setText(R.string.instructor_lecture_attendance_timer_start);
-				//TODO: Go back to Lecture
+				option_flag = 0;
+				startButton.setText(R.string.instructor_lecture_attendance_timer_set);
+				setResult(RESULT_OK);
 				finish();
 			}
-		}
-	}
-
-	
-	/**
-	 * Private sub-class to respond to server's response when telling it to start attendance
-	 */
-	private class SendStartAttendanceServerResponseListener implements ServerResponseListener {
-
-		@Override
-		public boolean onResponse(Request r) {
-			Object[] args = r.getArgs();
-			
-			// Just make sure server got the message correctly
-			try{
-				if(((String)args[0]).equals(Request.FAILURE))
-				{
-					return false;
-				}
-				else if(((String)args[0]).equals(Request.SUCCESS))
-				{
-					return true;
-				}
-			} catch(ClassCastException e) {
-				return false;
-			}
-			return false;
-		}
-	}
-	
-	/**
-	 * Private sub-class to respond to server's response when telling it to start attendance
-	 */
-	private class SendEndAttendanceServerResponseListener implements ServerResponseListener {
-
-		@Override
-		public boolean onResponse(Request r) {
-			
-			Object[] args = r.getArgs();
-			
-			// Just make sure server got the message correctly
-			try{
-				if(((String)args[0]).equals(Request.FAILURE))
-				{
-					return false;
-				}
-				else if(((String)args[0]).equals(Request.SUCCESS))
-				{
-					return true;
-				}
-			} catch(ClassCastException e) {
-				return false;
-			}
-			return false;
 		}
 	}
 }

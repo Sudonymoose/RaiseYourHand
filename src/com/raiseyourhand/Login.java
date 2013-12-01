@@ -1,32 +1,9 @@
 package com.raiseyourhand;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.jasypt.util.password.StrongPasswordEncryptor;
-
-import com.entities.User;
-import com.raiseyourhand.LectureList.GetLectureServerResponseListener;
-import com.ws.Request;
-import com.ws.RequestType;
-import com.ws.local.SendRequest;
-import com.ws.local.ServerResponseListener;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -36,6 +13,12 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.entities.User;
+import com.ws.Request;
+import com.ws.RequestType;
+import com.ws.local.SendRequest;
+import com.ws.local.ServerResponseListener;
 
 /**
  * Activity which displays a login screen to the user, offering registration as

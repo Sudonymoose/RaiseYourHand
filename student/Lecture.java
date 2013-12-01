@@ -1,10 +1,16 @@
-package com.raiseyourhand.instructor;
+package com.raiseyourhand.student;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import android.app.ActionBar;
+import android.app.Dialog;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -12,26 +18,26 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
+import android.util.FloatMath;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
-import com.raiseyourhand.Login;
 import com.raiseyourhand.R;
-import com.raiseyourhand.RaiseYourHandApp;
 import com.raiseyourhand.fragment.InstructorSharedFragment;
-import com.raiseyourhand.fragment.QuestionFragment;
 import com.raiseyourhand.fragment.StudentSharedFragment;
-
 /**
- * General framework for Q&A, Instructor Shared, Student Shared
+ * General Framework for Instructor Shared and Student Shared
  * @author Hanrui Zhang
- *
+ * Everything from P68 - 80 is done, not backend stuff
  */
-public class Lecture extends FragmentActivity implements
-ActionBar.TabListener {
+public class Lecture extends FragmentActivity implements ActionBar.TabListener,
+SensorEventListener {
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -46,48 +52,43 @@ ActionBar.TabListener {
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
-	ViewPager mViewPager;
-	private Button attendanceButton;
-	private Button quizButton;
-	
-	private String lectureName;
-	private int course_num;
+	private ViewPager mViewPager;
+	private Button downloadButton;
+	private Button questionButton;
+	private SensorManager sensorManager;
+	private Sensor accelerometer;
+
+	private float[] mGravity;
+	private float mAccel;
+	private float mAccelCurrent;
+	private float mAccelLast;
+	private boolean shaking;
+	private ArrayList<String> all_items;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_instructor_lecture);
+		setContentView(R.layout.activity_student_lecture);
 
-		// Check for logged in users.
-		if (RaiseYourHandApp.getUsername() == null) {
-			RaiseYourHandApp.logout();
-			Intent login = new Intent(this, Login.class);
-			startActivity(login);
-		}
-		
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		// Show the Up button in the action bar.
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
-		// Get the lecture string from the InfoActivity that started this LectureActivity
-		Bundle extras = getIntent().getExtras();
-		lectureName = extras.getString("Lecture Information"); // TODO: huh?
-		course_num = (int) extras.getLong("COURSE_NUM");
-		
 		// Setup buttons
-		attendanceButton = (Button) findViewById(R.id.instructor_lecture_attendance_button);
-		attendanceButton.setOnClickListener(new AttendanceOnClickListener());
-		quizButton = (Button) findViewById(R.id.instructor_lecture_quiz_button);
-		quizButton.setOnClickListener(new QuizOnClickListener());
+		downloadButton = (Button) findViewById(R.id.student_lecture_download_button);
+		downloadButton.setOnClickListener(new DownloadOnClickListener());
+		questionButton = (Button) findViewById(R.id.student_lecture_ask_button);
+		questionButton.setOnLongClickListener(new QuestionOnClickListener());
+		questionButton.setEnabled(true);
 
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.
 		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
 		// Set up the ViewPager with the sections adapter.
-		mViewPager = (ViewPager) findViewById(R.id.instructor_lecture_pager);
+		mViewPager = (ViewPager) findViewById(R.id.student_lecture_pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
 		// When swiping between different sections, select the corresponding
@@ -110,12 +111,19 @@ ActionBar.TabListener {
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
+
+		//initializing the motion sensors
+		sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+		accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+		mAccel = 0.00f;
+		mAccelCurrent = SensorManager.GRAVITY_EARTH;
+		mAccelLast = SensorManager.GRAVITY_EARTH;
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.instructor_lecture, menu);
+		getMenuInflater().inflate(R.menu.student_lecture, menu);
 		return true;
 	}
 
@@ -131,6 +139,28 @@ ActionBar.TabListener {
 			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
 			//
 			NavUtils.navigateUpFromSameTask(this);
+			return true;
+		case R.id.action_back:
+			final Dialog leave = new Dialog(this);
+			leave.setContentView(R.layout.dialog_student_end_lecture);
+
+			Button yes = (Button) leave.findViewById(R.id.student_end_lecture_btn_yes);
+			Button no = (Button) leave.findViewById(R.id.student_end_lecture_btn_no);
+
+			yes.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View arg0) {
+					finishActivity(0);
+				}
+			});
+
+			no.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View arg0) {
+					leave.dismiss();
+				}
+			});
+			//super.onBackPressed();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -167,14 +197,13 @@ ActionBar.TabListener {
 		@Override
 		public Fragment getItem(int position) {
 			Fragment fragment = null;
-
 			switch (position) {
 			case 0:
-				fragment = (Fragment) new QuestionFragment();
+				fragment = new InstructorSharedFragment();
+				break;
 			case 1:
-				fragment = (Fragment) new InstructorSharedFragment();
-			case 2:
-				fragment = (Fragment) new StudentSharedFragment();
+				fragment = new StudentSharedFragment();
+				break;
 			}			
 
 			return fragment;
@@ -182,8 +211,8 @@ ActionBar.TabListener {
 
 		@Override
 		public int getCount() {
-			// Show 3 total pages.
-			return 3;
+			// Show 2 total pages.
+			return 2;
 		}
 
 		@Override
@@ -191,79 +220,84 @@ ActionBar.TabListener {
 			Locale l = Locale.getDefault();
 			switch (position) {
 			case 0:
-				return getString(R.string.title_question_and_answer).toUpperCase(l);
-			case 1:
 				return getString(R.string.title_instructor_shared).toUpperCase(l);
-			case 2:
+			case 1:
 				return getString(R.string.title_student_shared).toUpperCase(l);
 			}
 			return null;
 		}
 	}
-	
-	public class AttendanceOnClickListener implements OnClickListener {
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		sensorManager.registerListener(this, accelerometer,
+				SensorManager.SENSOR_DELAY_UI);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		sensorManager.unregisterListener(this);
+	}
+
+
+	@Override
+	public void onAccuracyChanged(Sensor arg0, int arg1) {
+
+	}
+
+	@Override
+	public void onSensorChanged(SensorEvent event) {
+		if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
+			mGravity = event.values.clone();
+			// Shake detection
+			float x = mGravity[0];
+			float y = mGravity[1];
+			float z = mGravity[2];
+			mAccelLast = mAccelCurrent;
+			mAccelCurrent = FloatMath.sqrt(x*x + y*y + z*z);
+			float delta = mAccelCurrent - mAccelLast;
+			mAccel = mAccel * 0.9f + delta;
+			//threshold
+			if(mAccel > 0.1){ 
+				shaking = true;
+			}else{
+				shaking = false;
+			}
+		}
+
+	}
+
+	private class DownloadOnClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
-			
-			// Create an Intent to launch the Attendance Activity
-			// Pass it the course number too
-			Intent lecture = new Intent(Lecture.this, Attendance.class);
-			lecture.putExtra("COURSE_NUM", course_num);
-			startActivity(lecture);
-			
-			// TODO: Need a way to return here after attendance is done?
+			// TODO: DOWNLOAD DIALOG / CONTENT PROVIDER DOWNLOAD ETC.
+			/*Get data names from fragments*/
+			ArrayList<String> selected = all_items;
+			if(selected != null){
+				for(String s : selected){
+					//TODO-go search in the database and download
+					Toast.makeText(Lecture.this, s, Toast.LENGTH_SHORT).show();
+				}
+			}
 		}
 	}
-	public class QuizOnClickListener implements OnClickListener {
-		@Override
-		public void onClick(View v) {
-			// create an Intent to launch the Quiz Activity
-			Intent quiz = new Intent(Lecture.this, SetupQuiz.class);
-			startActivity(quiz);
-			
-			// QuizActivity should return here automatically after it ends
-			
-		}
-	}
-	
-	/**
-	 * Old code from Lecture Activity
 
-	public static class QuestionFragment extends ListFragment {
-		public QuestionFragment() {
-		}
-
+	private class QuestionOnClickListener implements OnLongClickListener {
 		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.instructor_question_item,
-					container, false);
-			return rootView;
+		public boolean onLongClick(View arg0) {
+			Log.i("Shaking", mAccelCurrent + ", " + mAccel );
+			if(shaking){
+				Intent ask_question = new Intent(com.raiseyourhand.student.Lecture.this, 
+						Ask.class);
+				startActivity(ask_question);
+			}
+			return true;
 		}
 	}
-	public static class InstructorSharedFragment extends ListFragment {
-		public InstructorSharedFragment() {
-		}
 
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.instructor_shared_item,
-					container, false);
-			return rootView;
-		}
-	}
-	public static class StudentSharedFragment extends ListFragment {
-		public StudentSharedFragment() {
-		}
 
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.student_shared_item,
-					container, false);
-			return rootView;
-		}
-	}
-	*/
+
+
 }
