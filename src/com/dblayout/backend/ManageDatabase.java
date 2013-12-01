@@ -18,7 +18,7 @@ public class ManageDatabase {
 
 	public ManageDatabase() throws RaiseYourHandException	{
 		db = new DatabaseHelper();
-		db.onCreate();
+		db.onUpgrade();
 	}
 
 	// Functions for managing UserDatabase
@@ -28,15 +28,16 @@ public class ManageDatabase {
 		if (exists(queryUserDB(username))) {
 			return;
 		}
+
 		String sql = UserEntry.SQL_INSERT_RECORD + 
-				username + DatabaseContract.COMMA_SEP +
-				firstName + DatabaseContract.COMMA_SEP +
-				lastName + DatabaseContract.COMMA_SEP +
-				userType + DatabaseContract.COMMA_SEP +
-				password + DatabaseContract.COMMA_SEP +
-				email + DatabaseContract.COMMA_SEP +
-				department + DatabaseContract.COMMA_SEP +
-				campus + " ); ";
+				"'" + username + "'" + DatabaseContract.COMMA_SEP +
+				"'" + firstName + "'" + DatabaseContract.COMMA_SEP +
+				"'" + lastName + "'" + DatabaseContract.COMMA_SEP +
+				"'" + userType + "'" + DatabaseContract.COMMA_SEP +
+				"'" + password + "'" + DatabaseContract.COMMA_SEP +
+				"'" + email + "'" + DatabaseContract.COMMA_SEP +
+				"'" + department + "'" + DatabaseContract.COMMA_SEP +
+				"'" + campus + "'" + " ); ";
 		db.executeUpdate(sql);
 	}
 
@@ -46,13 +47,13 @@ public class ManageDatabase {
 			return;
 		}
 		String sql = UserEntry.SQL_DELETE_RECORD + " WHERE " + 
-				UserEntry.COLUMN_NAME_USERNAME + "=" + username + ";";
+				UserEntry.COLUMN_NAME_USERNAME + "=" + "'" + username + "'" + ";";
 		db.executeUpdate(sql);
 	}
 
 	public ResultSet queryUserDB(String username) {
 		String sql = UserEntry.SQL_SELECT_RECORD + " WHERE " + 
-				UserEntry.COLUMN_NAME_USERNAME + "=" + username + ";";
+				UserEntry.COLUMN_NAME_USERNAME + "=" + "'" + username + "'" + ";";
 		return db.executeQuery(sql);
 	}
 
@@ -73,9 +74,9 @@ public class ManageDatabase {
 
 		// Insert into the roster.
 		String sql = RosterEntry.SQL_INSERT_RECORD +
-				username + DatabaseContract.COMMA_SEP +
+				"'" + username + "'" + DatabaseContract.COMMA_SEP +
 				courseNum + DatabaseContract.COMMA_SEP +
-				userType + " );";
+				"'" + userType + "'" + " );";
 		db.executeUpdate(sql);
 	}
 
@@ -95,26 +96,26 @@ public class ManageDatabase {
 			return;
 		}
 		String sql = RosterEntry.SQL_DELETE_RECORD + " WHERE " + 
-				RosterEntry.COLUMN_NAME_USERNAME + "=" + username + ";";
+				RosterEntry.COLUMN_NAME_USERNAME + "=" + "'" + username + "'" + ";";
 		db.executeUpdate(sql);
 	}
 
 	public ResultSet queryRosterDB(String username) {
 		String sql = RosterEntry.SQL_SELECT_RECORD + " WHERE " + 
-				RosterEntry.COLUMN_NAME_USERNAME + "=" + username + ";";
+				RosterEntry.COLUMN_NAME_USERNAME + "=" + "'" + username + "'" + ";";
 		return db.executeQuery(sql);
 	}
 
 	public ResultSet queryRosterDB(int courseNum) {
 		String sql = RosterEntry.SQL_SELECT_RECORD + " WHERE " + 
 				RosterEntry.COLUMN_NAME_COURSE_NUM + "=" + courseNum + " AND " +
-				RosterEntry.COLUMN_NAME_USERTYPE + "=student;";
+				RosterEntry.COLUMN_NAME_USERTYPE + "='student';";
 		return db.executeQuery(sql);
 	}
 
 	public ResultSet queryRosterDB(String username, int courseNum) {
 		String sql = RosterEntry.SQL_SELECT_RECORD + " WHERE " + 
-				RosterEntry.COLUMN_NAME_USERNAME + "=" + username + " AND " +
+				RosterEntry.COLUMN_NAME_USERNAME + "=" + "'" + username + "'" + " AND " +
 				RosterEntry.COLUMN_NAME_COURSE_NUM + "=" + courseNum + ";";
 		return db.executeQuery(sql);
 	}
@@ -129,13 +130,13 @@ public class ManageDatabase {
 		String sql = CourseEntry.SQL_INSERT_RECORD +
 				courseNum + DatabaseContract.COMMA_SEP +
 				rosterCount + DatabaseContract.COMMA_SEP +
-				instructorID + DatabaseContract.COMMA_SEP +
-				department + DatabaseContract.COMMA_SEP +
-				email + DatabaseContract.COMMA_SEP +
-				dates + DatabaseContract.COMMA_SEP +
-				times + DatabaseContract.COMMA_SEP +
-				building + DatabaseContract.COMMA_SEP +
-				room + " );";
+				"'" + instructorID + "'" + DatabaseContract.COMMA_SEP +
+				"'" + department + "'" + DatabaseContract.COMMA_SEP +
+				"'" + email + "'" + DatabaseContract.COMMA_SEP +
+				"'" + dates + "'" + DatabaseContract.COMMA_SEP +
+				"'" + times + "'" + DatabaseContract.COMMA_SEP +
+				"'" + building + "'" + DatabaseContract.COMMA_SEP +
+				"'" + room + "'" + " );";
 		db.executeUpdate(sql);
 	}
 

@@ -16,7 +16,7 @@ public class RaiseYourHandServer extends Thread implements SocketInterface {
 	private ServerSocket servSock = null;
 	private ManageDatabase db;
 
-	public RaiseYourHandServer() throws RaiseYourHandException {
+	public RaiseYourHandServer(int port) throws RaiseYourHandException {
 		setPort(port);
 		try {
 			db = new ManageDatabase();

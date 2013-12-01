@@ -85,7 +85,6 @@ public final class DatabaseContract {
 
 		// Insert command for RosterEntry
 		public static final String SQL_INSERT_RECORD = INSERT_RECORD + RosterEntry.TABLE_NAME + " ( " + 
-				RosterEntry.COLUMN_NAME_ROSTER_ID + COMMA_SEP +
 				RosterEntry.COLUMN_NAME_USERNAME + COMMA_SEP + 
 				RosterEntry.COLUMN_NAME_COURSE_NUM + COMMA_SEP + 
 				RosterEntry.COLUMN_NAME_USERTYPE + " ) VALUES ( ";

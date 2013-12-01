@@ -63,6 +63,7 @@ public class DatabaseHelper {
 		try {
 			stmt.executeUpdate(sql);
 			c.commit();
+			System.out.println("Executed " + sql);
 		} catch (SQLException e) {
 			new RaiseYourHandException(RaiseYourHandError.SQL_FAILURE, e.getMessage());
 		}

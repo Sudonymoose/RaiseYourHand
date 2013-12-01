@@ -154,6 +154,30 @@ public class ServiceThread extends Thread {
 					break;
 				case SEND_START_LECTURE:
 					args = request.getArgs();
+					if (args.length != 1 || !(args[0] instanceof Integer)) {
+						response = failure;
+						break;
+					}
+					courseNum = ((Integer)args[0]).intValue();
+					rs = db.queryRosterDB(courseNum);
+					try {
+						if (rs == null) {
+							response = failure;
+							break;
+						}
+						ArrayList<Roster> list = new ArrayList<Roster>();
+						while(rs.next()) {
+							Roster roster = new Roster(rs.getInt(RosterEntry.COLUMN_NAME_ROSTER_ID),
+									rs.getString(RosterEntry.COLUMN_NAME_USERNAME),
+									rs.getInt(RosterEntry.COLUMN_NAME_COURSE_NUM),
+									rs.getString(RosterEntry.COLUMN_NAME_USERTYPE));
+							list.add(roster);
+						}
+						response = new Request(RequestType.SEND_RESPONSE, 
+								new Object[] {Request.SUCCESS, list});
+					} catch (Exception e) {
+						response = failure;
+					}
 					break;
 				case UPDATE_INSTRUCTOR:
 					args = request.getArgs();
