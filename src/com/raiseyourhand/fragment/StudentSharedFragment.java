@@ -28,6 +28,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.raiseyourhand.R;
+import com.raiseyourhand.RaiseYourHandApp;
 import com.raiseyourhand.util.FileDialog;
 
 /**
@@ -66,7 +67,7 @@ public class StudentSharedFragment extends Fragment {
 		shared_item.setAdapter(itemAdapter);
 
 		add_note = (ImageButton) rootView.findViewById(R.id.student_share_button);
-		if(getActivity().equals(com.raiseyourhand.student.Lecture.class)){
+		if(RaiseYourHandApp.getIsStudent()){
 			add_note.setOnClickListener(new AddItemListener());
 		}else{
 			add_note.setEnabled(false);

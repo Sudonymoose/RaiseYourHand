@@ -66,7 +66,7 @@ public class InstructorSharedFragment extends Fragment{
 		shared_item.setOnItemLongClickListener(new DeletionListener());
 
 		share_button = (ImageButton) rootView.findViewById(R.id.instructor_share_button);
-		if(getActivity().equals(com.raiseyourhand.instructor.Lecture.class)){
+		if(!RaiseYourHandApp.getIsStudent()){
 			share_button.setOnClickListener(new AddItemListener());
 		}else{
 			share_button.setEnabled(false);

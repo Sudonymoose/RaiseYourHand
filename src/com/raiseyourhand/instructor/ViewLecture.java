@@ -32,7 +32,6 @@ public class ViewLecture extends Activity {
 	private ListView rosterListView;
 	private ArrayAdapter<String> rosterAdapter;
 	private String[] students = {"Alex Yoo","Arthur Chang", "Hanrui Zhang"};
-	private long lecture_id = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +52,6 @@ public class ViewLecture extends Activity {
 		searchView = (SearchView)findViewById(R.id.instructor_view_lecture_search);
 		searchView.setOnQueryTextListener(new ViewLectureOnQueryListener());
 
-		// Get lecture ID
-		Intent i = getIntent();
-		Bundle extras = i.getExtras();
-		lecture_id = extras.getLong("lecture_id");
 
 		// Set up lecture roster
 		rosterListView = (ListView)findViewById(R.id.instructor_view_lecture_listview);     
@@ -105,16 +100,14 @@ public class ViewLecture extends Activity {
 		@Override
 		public void onClick(View v) {
 			// Send SEND_START_LECTURE to server
-			Object[] args = new Object[1];
-			args[0] = lecture_id; // TODO: Do we want to send the lecture_id?
-			SendStartLectureServerResponseListener listener = new SendStartLectureServerResponseListener();
-			SendRequest SendStartLectureRequest = new SendRequest(new Request(RequestType.SEND_START_LECTURE, args), listener);
-			SendStartLectureRequest.execute((Void)null);
+			//Object[] args = new Object[1];
+			//args[0] = RaiseYourHandApp.getCourseNum();
+			//SendStartLectureServerResponseListener listener = new SendStartLectureServerResponseListener();
+			//SendRequest SendStartLectureRequest = new SendRequest(new Request(RequestType.SEND_START_LECTURE, args), listener);
+			//SendStartLectureRequest.execute((Void)null);
 
 			// Create an Intent to launch the Lecture Activity
-			// Also put the lecture_id (TODO: Need to check if it's same as course number?)
 			Intent lecture = new Intent(ViewLecture.this, Lecture.class);
-			lecture.putExtra("LECTURE_ID", lecture_id);
 			startActivity(lecture);
 		}
 	}

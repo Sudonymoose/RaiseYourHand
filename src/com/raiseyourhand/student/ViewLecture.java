@@ -29,9 +29,6 @@ public class ViewLecture extends Activity {
 	private TextView buildingView;
 	private TextView roomView;
 
-	// private LectureInfo info; 
-	private long lecture_id;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -50,9 +47,6 @@ public class ViewLecture extends Activity {
 		setupActionBar();
 
 		// Get lecture ID
-		Intent i = getIntent();
-		Bundle extras = i.getExtras();
-		lecture_id = extras.getLong("lecture_id");
 
 		// Get lecture info view
 		instructorView = (TextView)findViewById(R.id.student_view_lecture_instructor);
@@ -130,15 +124,13 @@ public class ViewLecture extends Activity {
 	public class JoinLectureOnClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
-			// TODO: Check if lecture is currently started
-
 			// Tell server that this student is going to join the lecture
-			Object[] args = new Object[2];
+			//Object[] args = new Object[2];
 			// args[0] = username?
 			// args[1] = lecture_id?
-			SendJoinLectureServerResponseListener listener = new SendJoinLectureServerResponseListener();
-			SendRequest sendJoinLectureRequest = new SendRequest(new Request(RequestType.SEND_JOIN_LECTURE, args), listener);
-			sendJoinLectureRequest.execute((Void) null);
+			//SendJoinLectureServerResponseListener listener = new SendJoinLectureServerResponseListener();
+			//SendRequest sendJoinLectureRequest = new SendRequest(new Request(RequestType.SEND_JOIN_LECTURE, args), listener);
+			//sendJoinLectureRequest.execute((Void) null);
 
 			// Create an Intent to launch the Lecture Activity
 			Intent lecture = new Intent(ViewLecture.this, Lecture.class);
