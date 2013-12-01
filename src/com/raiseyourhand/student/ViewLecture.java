@@ -1,7 +1,5 @@
 package com.raiseyourhand.student;
 
-import java.util.ArrayList;
-
 import com.entities.Course;
 import com.raiseyourhand.Login;
 import com.raiseyourhand.R;
@@ -55,14 +53,14 @@ public class ViewLecture extends Activity {
 		Intent i = getIntent();
 		Bundle extras = i.getExtras();
 		lecture_id = extras.getLong("lecture_id");
-		
+
 		// Call to server to get roster
 		Object[] args = new Object[1];
 		args[0] = lecture_id;
 		GetLectureServerResponseListener listener = new GetLectureServerResponseListener();
 		SendRequest getLectureRequest = new SendRequest(new Request(RequestType.GET_LECTURE, args), listener);
 		getLectureRequest.execute((Void)null);
-		
+
 		// Get lecture info view
 		instructorView = (TextView)findViewById(R.id.student_view_lecture_instructor);
 		dateView = (TextView)findViewById(R.id.student_view_lecture_date);
@@ -76,8 +74,8 @@ public class ViewLecture extends Activity {
 		timeView.setText("");
 		buildingView.setText("");
 		roomView.setText("");
-		*/
-		
+		 */
+
 		// Set up Join button
 		joinButton = (Button)findViewById(R.id.student_view_lecture_button);
 		joinButton.setOnClickListener(new JoinLectureOnClickListener());
@@ -135,77 +133,117 @@ public class ViewLecture extends Activity {
 			//super.onBackPressed();
 			return true;
 		}
-	return super.onOptionsItemSelected(item);
-}
+		return super.onOptionsItemSelected(item);
+	}
 
-public class JoinLectureOnClickListener implements OnClickListener {
-	@Override
-	public void onClick(View v) {
-		// TODO: Check if lecture is currently started
-		
-		// Tell server that this student is going to join the lecture
+	public class JoinLectureOnClickListener implements OnClickListener {
+		@Override
+		public void onClick(View v) {
+			// TODO: Check if lecture is currently started
+
+			// Tell server that this student is going to join the lecture
+			Object[] args = new Object[2];
+			// args[0] = username?
+			// args[1] = lecture_id?
+			SendJoinLectureServerResponseListener listener = new SendJoinLectureServerResponseListener();
+			SendRequest sendJoinLectureRequest = new SendRequest(new Request(RequestType.SEND_JOIN_LECTURE, args), listener);
+			sendJoinLectureRequest.execute((Void) null);
+
+			// Create an Intent to launch the Lecture Activity
+			Intent lecture = new Intent(ViewLecture.this, Lecture.class);
+			startActivity(lecture);
+		}
+	}
+
+	/**
+	 * Private method to tell server to get lecture
+	 */
+	private void getLectureFromServer() {
+		Object[] args = new Object[]{RaiseYourHandApp.getCourseNum()};
+		GetLectureServerResponseListener listener = new GetLectureServerResponseListener();
+		SendRequest getLectureRequest = new SendRequest(new Request(RequestType.GET_LECTURE, args), listener);
+		getLectureRequest.execute((Void)null);
+	}
+
+	/**
+	 * Private method to tell server that student is joining lecture
+	 */
+	private void sendJoinLectureToServer() {
 		Object[] args = new Object[2];
-		// args[0] = username?
-		// args[1] = lecture_id?
+		args[0] = RaiseYourHandApp.getUsername();
+		args[1] = RaiseYourHandApp.getCourseNum();
 		SendJoinLectureServerResponseListener listener = new SendJoinLectureServerResponseListener();
 		SendRequest sendJoinLectureRequest = new SendRequest(new Request(RequestType.SEND_JOIN_LECTURE, args), listener);
 		sendJoinLectureRequest.execute((Void) null);
-		
-		// Create an Intent to launch the Lecture Activity
-		Intent lecture = new Intent(ViewLecture.this, Lecture.class);
-		startActivity(lecture);
 	}
-}
 
-/**
- * Private sub-class to respond to server's response when requesting for the roster list for this lecture
- */
-private class GetLectureServerResponseListener implements ServerResponseListener {
+	/**
+	 * Private sub-class to respond to server's response when requesting for the roster list for this lecture
+	 */
+	private class GetLectureServerResponseListener implements ServerResponseListener {
 
-	@Override
-	public boolean onResponse(Request r) {
+		@Override
+		public boolean onResponse(Request r) {
 
-		Object[] args = r.getArgs();
-		
-		// Get the Course object returned by the server
-		try{
-			if(((String)args[0]).equals(Request.FAILURE))
-			{
+			Object[] args = r.getArgs();
+
+			// Get the Course object returned by the server
+			try{
+				if(((String)args[0]).equals(Request.FAILURE))
+				{
+					return false;
+				}
+				else if(((String)args[0]).equals(Request.SUCCESS))
+				{
+					Course c = (Course)args[1];
+
+					// Get lecture info view
+					instructorView = (TextView)findViewById(R.id.student_view_lecture_instructor);
+					dateView = (TextView)findViewById(R.id.student_view_lecture_date);
+					timeView = (TextView)findViewById(R.id.student_view_lecture_time);
+					buildingView = (TextView)findViewById(R.id.student_view_lecture_building);
+					roomView = (TextView)findViewById(R.id.student_view_lecture_room);
+
+					// Populate TextViews with the course information
+					instructorView.setText(c.getInstructor());;
+					dateView.setText(c.getDates());
+					timeView.setText(c.getTimes());;
+					buildingView.setText(c.getBuilding());
+					roomView.setText(c.getRoom());;
+
+					return true;
+				}
+			} catch(ClassCastException e) {
 				return false;
 			}
-			else if(((String)args[0]).equals(Request.SUCCESS))
-			{
-				Course c = (Course)args[1];
-				
-				// Populate TextViews with the course information
-				instructorView.setText(c.getInstructor());;
-				dateView.setText(c.getDates());
-				timeView.setText(c.getTimes());;
-				buildingView.setText(c.getBuilding());
-				roomView.setText(c.getRoom());;
-				
-				// TODO: refresh?
-				
-				
-				return true;
-			}
-		} catch(ClassCastException e) {
 			return false;
 		}
-		return false;
 	}
-}
 
-/**
- * Private sub-class to respond to server's response when telling server that this student is joining this lecture
- */
-private class SendJoinLectureServerResponseListener implements ServerResponseListener {
+	/**
+	 * Private sub-class to respond to server's response when telling server that this student is joining this lecture
+	 */
+	private class SendJoinLectureServerResponseListener implements ServerResponseListener {
 
-	@Override
-	public boolean onResponse(Request r) {
-		// TODO Know if message sending was successful
-		return false;
+		@Override
+		public boolean onResponse(Request r) {
+			Object[] args = r.getArgs();
+
+			// Just make sure server got the message correctly
+			try{
+				if(((String)args[0]).equals(Request.FAILURE))
+				{
+					return false;
+				}
+				else if(((String)args[0]).equals(Request.SUCCESS))
+				{
+					return true;
+				}
+			} catch(ClassCastException e) {
+				return false;
+			}
+			return false;
+		}
 	}
-}
 
 }

@@ -16,6 +16,12 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.entities.User;
+import com.ws.Request;
+import com.ws.RequestType;
+import com.ws.local.SendRequest;
+import com.ws.local.ServerResponseListener;
+
 /**
  * Activity which displays a login screen to the user, offering registration as
  * well.
@@ -241,5 +247,53 @@ public class Login extends Activity {
 			mAuthTask = null;
 			showProgress(false);
 		}
+	}
+
+	/**
+	 * Private method that uses SendRequest to log into the server
+	 */
+	private void loginToServerUsingWS() {
+
+		Object[] args = new Object[2];
+		args[0] = mUsername;
+		args[1] = mPassword;
+		SendRequest loginRequest = new SendRequest(new Request(RequestType.GET_LOGIN, args), new LoginServerResponseListener());
+		loginRequest.execute((Void)null);
+
+	}
+
+	private class LoginServerResponseListener implements ServerResponseListener
+	{
+
+		@Override
+		public boolean onResponse(Request r) {
+			// Server gives me a User object
+			mAuthTask = null;
+			showProgress(false);
+
+			Object[] args = r.getArgs();
+
+			try {
+				if(((String)args[0]).equals(Request.FAILURE))
+				{
+					mPasswordView
+					.setError(getString(R.string.error_incorrect_password));
+					mPasswordView.requestFocus();
+					return false;
+				}
+				else if(((String)args[0]).equals(Request.SUCCESS))
+				{
+					User user = (User)args[1];
+					RaiseYourHandApp.setUsername(user.getUsername());
+					RaiseYourHandApp.setIsStudent(user.getType().equals("student"));
+					return true;
+				}
+			} catch(ClassCastException e) {
+				return false;
+			}
+
+			return false;
+		}
+
 	}
 }

@@ -143,13 +143,33 @@ public class ViewLecture extends Activity {
 	}
 
 	/**
+	 * Private method to tell server to fetch the roster
+	 */
+	private void getRosterFromServer() {
+		Object[] args = new Object[]{RaiseYourHandApp.getCourseNum()};
+		GetRosterServerResponseListener listener = new GetRosterServerResponseListener();
+		SendRequest getRosterRequest = new SendRequest(new Request(RequestType.GET_ROSTER, args), listener);
+		getRosterRequest.execute((Void)null);
+	}
+
+	/**
+	 * Private method to tell server to start lecture
+	 */
+	private void startLectureToServer() {
+		Object[] args = new Object[1];
+		args[0] = RaiseYourHandApp.getCourseNum();
+		SendStartLectureServerResponseListener listener = new SendStartLectureServerResponseListener();
+		SendRequest SendStartLectureRequest = new SendRequest(new Request(RequestType.SEND_START_LECTURE, args), listener);
+		SendStartLectureRequest.execute((Void)null);
+	}
+
+	/**
 	 * Private sub-class to respond to server's response when requesting for the roster list for this lecture
 	 */
 	private class GetRosterServerResponseListener implements ServerResponseListener {
 
 		@Override
 		public boolean onResponse(Request r) {
-			// TODO Probably take server's request and fill up the roster?
 
 			Object[] args = r.getArgs();
 
@@ -169,6 +189,10 @@ public class ViewLecture extends Activity {
 						students[i] = server_roster_list.get(i).getUsername();
 					}
 
+					rosterListView = (ListView)findViewById(R.id.instructor_view_lecture_listview);     
+					rosterAdapter = new ArrayAdapter<String>(com.raiseyourhand.instructor.ViewLecture.this, R.layout.roster_item, students);
+					rosterListView.setAdapter(rosterAdapter);
+
 					return true;
 				}
 			} catch(ClassCastException e) {
@@ -186,7 +210,21 @@ public class ViewLecture extends Activity {
 
 		@Override
 		public boolean onResponse(Request r) {
-			// TODO Tell us that the message was received?
+			Object[] args = r.getArgs();
+
+			// Just make sure server got the message correctly
+			try{
+				if(((String)args[0]).equals(Request.FAILURE))
+				{
+					return false;
+				}
+				else if(((String)args[0]).equals(Request.SUCCESS))
+				{
+					return true;
+				}
+			} catch(ClassCastException e) {
+				return false;
+			}
 			return false;
 		}
 	}

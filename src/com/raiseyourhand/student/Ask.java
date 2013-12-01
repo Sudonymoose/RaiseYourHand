@@ -49,7 +49,7 @@ public class Ask extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_student_ask);
-		
+
 		// Check for logged in users.
 		if (RaiseYourHandApp.getUsername() == null) {
 			RaiseYourHandApp.logout();
@@ -59,7 +59,7 @@ public class Ask extends Activity {
 
 		type_question = (EditText) findViewById(R.id.student_ask_type_question);
 		type_question.setOnClickListener(new TypeQuestionOnClickListener());
-		
+
 		record_question_button = (ImageButton) findViewById(R.id.student_ask_record_button);
 		record_question_button.setOnClickListener(new RecordQuestionOnClickListener());
 
@@ -74,15 +74,15 @@ public class Ask extends Activity {
 		return true;
 	}
 
-	
+
 	private class TypeQuestionOnClickListener implements OnClickListener{
 		@Override
 		public void onClick(View v) {
 			option_flag = 1;
 		}
 	}
-	
-	
+
+
 	private class RecordQuestionOnClickListener implements OnClickListener{
 		@Override
 		public void onClick(View v) {
@@ -177,18 +177,43 @@ public class Ask extends Activity {
 		}
 	};
 
+
+	/**
+	 * Private method to send student's question to server
+	 */
+	private void sendQuestionToServer() {
+
+		Object[] args = new Object[2];
+		args[0] = RaiseYourHandApp.getCourseNum();
+		args[1] = null; // format of question
+		SendQuestionServerResponseListener listener = new SendQuestionServerResponseListener();
+
+	}
+
 	/**
 	 * Private sub-class to respond to server's response when sending the student's question to the server
-	 * 
-	 * TODO: Where do we put this?
 	 */
 	private class SendQuestionServerResponseListener implements ServerResponseListener {
 
 		@Override
 		public boolean onResponse(Request r) {
-			// TODO Know if message sending was successful?
+			Object[] args = r.getArgs();
+
+			// Just make sure server got the message correctly
+			try{
+				if(((String)args[0]).equals(Request.FAILURE))
+				{
+					return false;
+				}
+				else if(((String)args[0]).equals(Request.SUCCESS))
+				{
+					return true;
+				}
+			} catch(ClassCastException e) {
+				return false;
+			}
 			return false;
 		}
 	}
-	
+
 }

@@ -33,6 +33,10 @@ import com.raiseyourhand.RaiseYourHandApp;
 import com.raiseyourhand.fragment.InstructorSharedFragment;
 import com.raiseyourhand.fragment.InstructorSharedFragment.PassItemListener;
 import com.raiseyourhand.fragment.StudentSharedFragment;
+import com.ws.Request;
+import com.ws.RequestType;
+import com.ws.local.SendRequest;
+import com.ws.local.ServerResponseListener;
 /**
  * General Framework for Instructor Shared and Student Shared
  * @author Hanrui Zhang
@@ -76,7 +80,7 @@ public class Lecture extends FragmentActivity implements ActionBar.TabListener, 
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		// Show the Up button in the action bar.
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		
+
 		// Check for logged in users.
 		if (RaiseYourHandApp.getUsername() == null) {
 			RaiseYourHandApp.logout();
@@ -314,6 +318,43 @@ public class Lecture extends FragmentActivity implements ActionBar.TabListener, 
 	}
 
 
+	/**
+	 * Private method to tell server that student is leaving lecture
+	 */
+	private void sendLeaveLectureToServer() {
+		Object[] args = new Object[2];
+		args[0] = RaiseYourHandApp.getUsername();
+		args[1] = RaiseYourHandApp.getCourseNum();
+		SendLeaveLectureServerResponseListener listener = new SendLeaveLectureServerResponseListener();
+		SendRequest leaveLectureServerRequest = new SendRequest(new Request(RequestType.SEND_LEAVE_LECTURE, args), listener);
+		leaveLectureServerRequest.execute((Void)null);
+	}
 
+	/**
+	 * Private sub-class to respond to server's response when telling server that student is leaving
+	 */
+	private class SendLeaveLectureServerResponseListener implements ServerResponseListener {
+
+		@Override
+		public boolean onResponse(Request r) {
+			Object[] args = r.getArgs();
+
+			// Just make sure server got the message correctly
+			try{
+				if(((String)args[0]).equals(Request.FAILURE))
+				{
+					return false;
+				}
+				else if(((String)args[0]).equals(Request.SUCCESS))
+				{
+					return true;
+				}
+			} catch(ClassCastException e) {
+				return false;
+			}
+			return false;
+		}
+
+	}
 
 }

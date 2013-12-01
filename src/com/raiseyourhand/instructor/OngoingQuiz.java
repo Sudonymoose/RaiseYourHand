@@ -176,6 +176,15 @@ public class OngoingQuiz extends Activity {
 		}
 	}
 	
+	/**
+	 * Private method to tells erver to end quiz
+	 */
+	private void endQuizToServer() {
+		Object[] args = new Object[]{RaiseYourHandApp.getCourseNum()};
+		SendEndQuizServerResponseListener listener = new SendEndQuizServerResponseListener();
+		SendRequest sendEndQuizRequest = new SendRequest(new Request(RequestType.SEND_END_QUIZ, args), listener);
+		sendEndQuizRequest.execute((Void) null);
+	}
 	
 	/**
 	 * Private sub-class to respond to server's response when telling server to end quiz
@@ -184,7 +193,21 @@ public class OngoingQuiz extends Activity {
 
 		@Override
 		public boolean onResponse(Request r) {
-			// TODO Make sure server got message correctly?
+			Object[] args = r.getArgs();
+			
+			// Just make sure server got the message correctly
+			try{
+				if(((String)args[0]).equals(Request.FAILURE))
+				{
+					return false;
+				}
+				else if(((String)args[0]).equals(Request.SUCCESS))
+				{
+					return true;
+				}
+			} catch(ClassCastException e) {
+				return false;
+			}
 			return false;
 		}
 	}
