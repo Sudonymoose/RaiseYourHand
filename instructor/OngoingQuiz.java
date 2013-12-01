@@ -20,10 +20,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.raiseyourhand.R;
-import com.ws.Request;
-import com.ws.RequestType;
-import com.ws.local.SendRequest;
-import com.ws.local.ServerResponseListener;
 
 
 /**
@@ -45,46 +41,46 @@ public class OngoingQuiz extends Activity {
 		setupActionBar();
 		
 		// Get bundle from Quiz that passed stuff into this QuizActivity
-				Bundle extras = getIntent().getExtras();
-				
-				// Get byteArray, convert to bitmap, and set ImageView question's image accordingly
-				Uri imageUri = (Uri) extras.get("Quiz ImageUri");
-				String time_given = extras.getString("Quiz Time");
-				
-				question = (ImageView) findViewById(R.id.instructor_quiz_ongoing_imageView);
-				try {
-					Bitmap b = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-					question.setImageBitmap(Bitmap.createScaledBitmap(b, 120, 120, false));
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				
-				// Set image path from the server
-				end_quiz = (Button) findViewById(R.id.instructor_quiz_ongoing_button);
-				end_quiz.setOnClickListener(new EndQuizOnClickListener());
-				
-				time_left = (TextView) findViewById(R.id.instructor_quiz_ongoing_timerTextView);
-				time_left.setText(time_given);
-				
-				int set_min = Integer.parseInt(time_given.substring(0, 2));
-				int set_sec = Integer.parseInt(time_given.substring(3));
-				
-				CountDownTimer timer = new CountDownTimer(set_min * 1000 * 60 + set_sec * 1000, 1000){
-					public void onTick(long millisUntilFinished){
-						time_left.setText("seconds remaining: " + millisUntilFinished / 1000);
-					}
-					public void onFinish(){
-						time_left.setText("Time's Up");
-						setResult(RESULT_OK);
-						finish();
-					}
-				};
-				timer.start();
+		Bundle extras = getIntent().getExtras();
+		
+		// Get byteArray, convert to bitmap, and set ImageView question's image accordingly
+		Uri imageUri = (Uri) extras.get("Quiz ImageUri");
+		String time_given = extras.getString("Quiz Time");
+		
+		question = (ImageView) findViewById(R.id.instructor_quiz_ongoing_imageView);
+		try {
+			Bitmap b = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+			question.setImageBitmap(Bitmap.createScaledBitmap(b, 120, 120, false));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		// Set image path from the server
+		end_quiz = (Button) findViewById(R.id.instructor_quiz_ongoing_button);
+		end_quiz.setOnClickListener(new EndQuizOnClickListener());
+		
+		time_left = (TextView) findViewById(R.id.instructor_quiz_ongoing_timerTextView);
+		time_left.setText(time_given);
+		
+		int set_min = Integer.parseInt(time_given.substring(0, 2));
+		int set_sec = Integer.parseInt(time_given.substring(3));
+		
+		CountDownTimer timer = new CountDownTimer(set_min * 1000 * 60 + set_sec * 1000, 1000){
+			public void onTick(long millisUntilFinished){
+				time_left.setText("seconds remaining: " + millisUntilFinished / 1000);
+			}
+			public void onFinish(){
+				time_left.setText("Time's Up");
+				setResult(RESULT_OK);
+				finish();
+			}
+		};
+		timer.start();
 	}
 
 	/**
@@ -130,32 +126,23 @@ public class OngoingQuiz extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			final Dialog end = new Dialog(com.raiseyourhand.instructor.OngoingQuiz.this);
+			final Dialog end = new Dialog(OngoingQuiz.this);
 			end.setContentView(R.layout.dialog_instructor_end_quiz);
 			
 			Button yes = (Button) end.findViewById(R.id.instructor_end_quiz_btn_yes);
 			Button no = (Button) end.findViewById(R.id.instructor_end_quiz_btn_no);
 			
-			// Yes, end quiz
 			yes.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					
-					// Tell server to end the quiz
-					Object[] args = new Object[1]; // TODO: PRobably lecture id?
-					SendEndQuizServerResponseListener listener = new SendEndQuizServerResponseListener();
-					SendRequest sendEndQuizRequest = new SendRequest(RequestType.SEND_END_QUIZ, listener, args);
-					sendEndQuizRequest.execute((Void) null);
-					
-					end.dismiss();					
+					// TODO: Send a message to all student devices that quiz is done.
+					end.dismiss();
 					setResult(RESULT_OK);
-					// Go back to LectureActivity
-					(OngoingQuiz.this).finish();
+					finish();
 				}
 
 			});
 
-			// No, do not end quiz
 			no.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -163,19 +150,6 @@ public class OngoingQuiz extends Activity {
 				}
 			});
 			end.show();
-		}
-	}
-	
-	
-	/**
-	 * Private sub-class to respond to server's response when telling server to end quiz
-	 */
-	private class SendEndQuizServerResponseListener implements ServerResponseListener {
-
-		@Override
-		public boolean onResponse(Request r) {
-			// TODO Make sure server got message correctly?
-			return false;
 		}
 	}
 }
