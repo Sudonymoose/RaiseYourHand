@@ -30,12 +30,12 @@ public class Login extends Activity {
 	 * TODO: remove after connecting to a real authentication system.
 	 */
 	private static final String[] DUMMY_CREDENTIALS = new String[] {
-		"foo@example.com:hello", "bar@example.com:world" };
+		"student:hello", "instructor:world" };
 
 	/**
 	 * The default email to populate the email field with.
 	 */
-	public static final String EXTRA_EMAIL = "com.example.android.authenticatordemo.extra.EMAIL";
+	public static final String EXTRA_EMAIL = "username";
 
 	/**
 	 * Keep track of the login task to ensure we can cancel it if requested.
@@ -135,10 +135,6 @@ public class Login extends Activity {
 			mUsernameView.setError(getString(R.string.error_field_required));
 			focusView = mUsernameView;
 			cancel = true;
-		} else if (!mUsername.contains("@")) {
-			mUsernameView.setError(getString(R.string.error_invalid_email));
-			focusView = mUsernameView;
-			cancel = true;
 		}
 
 		if (cancel) {
@@ -203,7 +199,6 @@ public class Login extends Activity {
 	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			// TODO: attempt authentication against a network service.
 
 			try {
 				// Simulate network access.
@@ -219,8 +214,6 @@ public class Login extends Activity {
 					return pieces[1].equals(mPassword);
 				}
 			}
-
-			// TODO: register the new account here.
 			return true;
 		}
 
@@ -232,6 +225,8 @@ public class Login extends Activity {
 			if (success) {
 				// Get the type of user login, assuming login was successful
 				Intent loginIntent = new Intent(Login.this, LectureList.class);
+				RaiseYourHandApp.setUsername(mUsername);
+				RaiseYourHandApp.setIsStudent(mUsername.equals("student"));
 				startActivity(loginIntent);
 			} else {
 				mPasswordView
