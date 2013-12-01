@@ -6,14 +6,10 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
-import android.R.integer;
-
 public class Lecture implements Serializable{
 	private static final long serialVersionUID = 2110167116581440442L;
-	private static final String quizQuestion = "quizQuestion";
 
 	private final int courseNum;
-
 	private String activeQuestion;
 	private AttendanceState attendanceState;
 	private QuizState quizState;
@@ -109,6 +105,22 @@ public class Lecture implements Serializable{
 		return false;
 	}
 	
+	public synchronized LinkedHashMap<String, Integer> getQuizResults() {
+		if (quizState == QuizState.TAKEN ||
+			quizState == QuizState.HIDDEN) {
+			return quizResults;
+		}
+		return null;
+	}
+	
+	public synchronized LinkedHashMap<String, String> getQuizAnswers() {
+		if (quizState == QuizState.TAKEN ||
+			quizState == QuizState.HIDDEN) {
+			return quizAnswers;
+		}
+		return null;
+	}
+	
 	public synchronized QuizState getQuizState() {
 		return quizState;
 	}
@@ -118,5 +130,61 @@ public class Lecture implements Serializable{
 			quizAnswers.put(username, answer);
 		}
 	}
-
-}
+	
+	public synchronized void requestQuestion(String username) {
+		if (!questions.contains(username)) {
+			questions.add(username);
+		}
+	}
+	
+	public synchronized void dismissQuestion(String username) {
+		if (questions.contains(username)) {
+			questions.remove(username);
+		}
+	}
+	
+	public synchronized void answerQuestion(String username) {
+		if (questions.contains(username)) {
+			activeQuestion = username;
+			dismissQuestion(username);
+		}
+	}
+	
+	public synchronized void endQuestion() {
+		activeQuestion = null;
+	}
+	
+	public synchronized String getActiveQuestion() {
+		return activeQuestion;
+	}
+	
+	public synchronized LinkedHashSet<String> getAttendance() {
+		if (attendanceState == AttendanceState.TAKEN) {
+			return attendance;
+		}
+		return null;
+	}
+	
+	public synchronized ArrayList<String> getInstructorShared() {
+		return instructorShared;
+	}
+	
+	public synchronized ArrayList<String> getStudentShared() {
+		return studentShared;
+	}
+	
+	public synchronized ArrayList<String> getPendingStudentShared() {
+		return pendingStudentShared;
+	}
+	
+	public synchronized void deleteStudentShared(String note) {
+		if (studentShared.contains(note)) {
+			studentShared.remove(note);
+		}
+	}
+	
+	public synchronized void denyStudentShared(String note) {
+		if (pendingStudentShared.contains(note)) {
+			pendingStudentShared.remove(note);
+		}
+	}}
