@@ -15,6 +15,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 
 import com.entities.User;
+import com.raiseyourhand.LectureList.GetLectureServerResponseListener;
 import com.ws.Request;
 import com.ws.RequestType;
 import com.ws.local.SendRequest;
@@ -45,7 +46,7 @@ import android.widget.TextView;
  * P9, P67
  */
 public class Login extends Activity {
-	
+
 	private final String HOST = "http://localhost/LoginServlet";
 	private final int PORT = 80;
 
@@ -57,7 +58,7 @@ public class Login extends Activity {
 	/**
 	 * Keep track of the login task to ensure we can cancel it if requested.
 	 */
-	private UserLoginTask mAuthTask = null;
+	private SendRequest mAuthTask = null;
 
 	// Values for email and password at the time of the login attempt.
 	private String mUsername;
@@ -147,13 +148,9 @@ public class Login extends Activity {
 			cancel = true;
 		}
 
-		// Check for a valid email address.
+		// Check for a valid username.
 		if (TextUtils.isEmpty(mUsername)) {
 			mUsernameView.setError(getString(R.string.error_field_required));
-			focusView = mUsernameView;
-			cancel = true;
-		} else if (!mUsername.contains("@")) {
-			mUsernameView.setError(getString(R.string.error_invalid_email));
 			focusView = mUsernameView;
 			cancel = true;
 		}
@@ -167,8 +164,14 @@ public class Login extends Activity {
 			// perform the user login attempt.
 			mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
 			showProgress(true);
-			mAuthTask = new UserLoginTask();
-			mAuthTask.execute((Void) null);
+			Object[] args = new Object[2];
+			args[0] = mUsername;
+			args[1] = mPassword;
+			mAuthTask = 
+					new SendRequest(
+							new Request(RequestType.GET_LOGIN, args), 
+							new LoginServerResponseListener());
+			mAuthTask.execute((Void)null);
 		}
 	}
 
@@ -213,118 +216,38 @@ public class Login extends Activity {
 		}
 	}
 
-	/**
-	 * Represents an asynchronous login/registration task used to authenticate
-	 * the user.
-	 */
-	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+	private class LoginServerResponseListener implements ServerResponseListener
+	{
+
 		@Override
-		protected Boolean doInBackground(Void... params) {
-			// TODO: attempt authentication against a network service.
+		public boolean onResponse(Request r) {
+			// Server gives me a User object
+			mAuthTask = null;
+			showProgress(false);
+
+			Object[] args = r.getArgs();
 
 			try {
-				// Simulate network access.
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				return false;
-			}
-
-
-			
-			Object[] args = new Object[2];
-			args[0] = mUsername;
-			args[1] = mPassword;
-			
-			// TODO: Is this the correct RequestType?
-			LoginServerResponseListener listener = new LoginServerResponseListener();
-			SendRequest loginRequest = new SendRequest(RequestType.GET_LOGIN, listener, args);
-			loginRequest.execute((Void)null);
-			
-			// Set up http post
-			/*
-			HttpClient http_client = new DefaultHttpClient();
-		    HttpPost http_post = new HttpPost(HOST);
-		    
-		    // Send mUsername and mPassword
-		    try{
-		    	// Name-Value Pairs
-		    	List<NameValuePair> loginParameters = new ArrayList<NameValuePair>();
-				loginParameters.add(new BasicNameValuePair("username", mUsername));
-				loginParameters.add(new BasicNameValuePair("password", mPassword));
-				http_post.setEntity(new UrlEncodedFormEntity(loginParameters));
-				
-				// POST Request and the response from server
-				HttpResponse http_response = http_client.execute(http_post);
-				// TODO: Process the http_response
-				
-		    } catch(ClientProtocolException e) {
-		    	
-		    } catch(IOException e) {
-		    	
-		    }
-			*/
-
-			// TODO: register the new account here.
-			// TODO: Do we want to wait for a few seconds here?
-			return true;
-		}
-
-		@Override
-		protected void onPostExecute(final Boolean success) {
-			mAuthTask = null;
-			showProgress(false);
-
-			if (success) {
-				
-				// Get the type of user login, assuming login was successful
-				// Also send the username
-				Intent loginIntent = new Intent(Login.this, LectureList.class);
-				loginIntent.putExtra("Username", mUsername);
-				startActivity(loginIntent);
-			} else {
-				mPasswordView
-				.setError(getString(R.string.error_incorrect_password));
-				mPasswordView.requestFocus();
-			}
-			finish();
-		}
-
-		@Override
-		protected void onCancelled() {
-			mAuthTask = null;
-			showProgress(false);
-		}
-		
-		private class LoginServerResponseListener implements ServerResponseListener
-		{
-
-			
-			
-			@Override
-			public boolean onResponse(Request r) {
-				// TODO Do stuff upon response from server for logging in?
-				// Server gives me a User object
-				
-				Object[] args = r.getArgs();
-				
-				try {
-					if(((String)args[0]).equals(Request.FAILURE))
-					{
-						return false;
-					}
-					else if(((String)args[0]).equals(Request.SUCCESS))
-					{
-						User user = (User)args[1];
-						// TODO: Make database or something like that?
-						return true;
-					}
-				} catch(ClassCastException e) {
+				if(((String)args[0]).equals(Request.FAILURE))
+				{
+					mPasswordView
+					.setError(getString(R.string.error_incorrect_password));
+					mPasswordView.requestFocus();
 					return false;
 				}
-				
+				else if(((String)args[0]).equals(Request.SUCCESS))
+				{
+					User user = (User)args[1];
+					RaiseYourHandApp.setUsername(user.getUsername());
+					RaiseYourHandApp.setIsStudent(user.getType().equals("student"));
+					return true;
+				}
+			} catch(ClassCastException e) {
 				return false;
 			}
-			
+
+			return false;
 		}
+
 	}
 }

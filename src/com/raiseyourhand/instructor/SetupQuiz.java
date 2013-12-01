@@ -18,7 +18,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.raiseyourhand.Login;
 import com.raiseyourhand.R;
+import com.raiseyourhand.RaiseYourHandApp;
 import com.ws.Request;
 import com.ws.RequestType;
 import com.ws.local.SendRequest;
@@ -43,6 +45,13 @@ public class SetupQuiz extends Activity {
 		// Show the Up button in the action bar.
 		setupActionBar();
 	
+		// Check for logged in users.
+		if (RaiseYourHandApp.getUsername() == null) {
+			RaiseYourHandApp.logout();
+			Intent login = new Intent(this, Login.class);
+			startActivity(login);
+		}
+		
 		// Set up the start_quiz_button
 		begin_quiz_button = (Button) findViewById(R.id.instructor_quiz_button_begin);
 		begin_quiz_button.setOnClickListener(new BeginQuizOnClickListener());

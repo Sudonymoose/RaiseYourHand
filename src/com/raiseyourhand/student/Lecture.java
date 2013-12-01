@@ -27,7 +27,9 @@ import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.widget.Button;
 
+import com.raiseyourhand.Login;
 import com.raiseyourhand.R;
+import com.raiseyourhand.RaiseYourHandApp;
 import com.raiseyourhand.fragment.InstructorSharedFragment;
 import com.raiseyourhand.fragment.InstructorSharedFragment.SharedItemSelectedListener;
 import com.raiseyourhand.fragment.StudentSharedFragment;
@@ -74,6 +76,13 @@ public class Lecture extends FragmentActivity implements ActionBar.TabListener, 
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		// Show the Up button in the action bar.
 		actionBar.setDisplayHomeAsUpEnabled(true);
+		
+		// Check for logged in users.
+		if (RaiseYourHandApp.getUsername() == null) {
+			RaiseYourHandApp.logout();
+			Intent login = new Intent(this, Login.class);
+			startActivity(login);
+		}
 
 		// Setup buttons
 		downloadButton = (Button) findViewById(R.id.student_lecture_download_button);

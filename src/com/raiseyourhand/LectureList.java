@@ -41,7 +41,7 @@ public class LectureList extends Activity {
 		// Check for logged in users.
 		if (RaiseYourHandApp.getUsername() == null) {
 			RaiseYourHandApp.logout();
-			Intent login = new Intent(LectureList.this, Login.class);
+			Intent login = new Intent(this, Login.class);
 			startActivity(login);
 		}
 
@@ -130,7 +130,7 @@ public class LectureList extends Activity {
 			}
 
 			// pass the selected lecture's row ID as an extra with the Intent.
-			viewLecture.putExtra(LECTURE_ID, id);
+			RaiseYourHandApp.setCourseNum((int)id);
 			startActivity(viewLecture);
 		}
 	}

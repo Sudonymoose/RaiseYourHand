@@ -2,6 +2,7 @@ package com.raiseyourhand.instructor;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -13,7 +14,9 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.raiseyourhand.Login;
 import com.raiseyourhand.R;
+import com.raiseyourhand.RaiseYourHandApp;
 import com.ws.Request;
 import com.ws.RequestType;
 import com.ws.local.SendRequest;
@@ -37,6 +40,13 @@ public class OngoingQuiz extends Activity {
 		setContentView(R.layout.activity_instructor_quiz_ongoing);
 		// Show the Up button in the action bar.
 		setupActionBar();
+		
+		// Check for logged in users.
+		if (RaiseYourHandApp.getUsername() == null) {
+			RaiseYourHandApp.logout();
+			Intent login = new Intent(this, Login.class);
+			startActivity(login);
+		}
 		
 		// Get bundle from Quiz that passed stuff into this QuizActivity
 		Bundle extras = getIntent().getExtras();

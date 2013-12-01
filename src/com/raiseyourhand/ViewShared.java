@@ -1,6 +1,7 @@
 package com.raiseyourhand;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 /**
@@ -14,6 +15,13 @@ public class ViewShared extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_shared);
+		
+		// Check for logged in users.
+		if (RaiseYourHandApp.getUsername() == null) {
+			RaiseYourHandApp.logout();
+			Intent login = new Intent(this, Login.class);
+			startActivity(login);
+		}
 	}
 
 	@Override

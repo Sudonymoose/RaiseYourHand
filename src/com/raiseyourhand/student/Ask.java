@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
@@ -15,7 +16,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.raiseyourhand.Login;
 import com.raiseyourhand.R;
+import com.raiseyourhand.RaiseYourHandApp;
 import com.ws.Request;
 import com.ws.local.ServerResponseListener;
 /**
@@ -46,6 +49,13 @@ public class Ask extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_student_ask);
+		
+		// Check for logged in users.
+		if (RaiseYourHandApp.getUsername() == null) {
+			RaiseYourHandApp.logout();
+			Intent login = new Intent(this, Login.class);
+			startActivity(login);
+		}
 
 		type_question = (EditText) findViewById(R.id.student_ask_type_question);
 		type_question.setOnClickListener(new TypeQuestionOnClickListener());

@@ -5,6 +5,7 @@ import java.util.Locale;
 import android.app.ActionBar;
 import android.app.Dialog;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -25,7 +26,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.raiseyourhand.Login;
 import com.raiseyourhand.R;
+import com.raiseyourhand.RaiseYourHandApp;
 import com.ws.Request;
 import com.ws.RequestType;
 import com.ws.local.SendRequest;
@@ -65,6 +68,13 @@ public class Quiz extends FragmentActivity implements ActionBar.TabListener {
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
+		// Check for logged in users.
+		if (RaiseYourHandApp.getUsername() == null) {
+			RaiseYourHandApp.logout();
+			Intent login = new Intent(this, Login.class);
+			startActivity(login);
+		}
+		
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.
 		mSectionsPagerAdapter = new SectionsPagerAdapter(

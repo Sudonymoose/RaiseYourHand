@@ -3,6 +3,7 @@ package com.raiseyourhand.instructor;
 import android.app.Activity;
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.NavUtils;
@@ -19,7 +20,9 @@ import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
 
+import com.raiseyourhand.Login;
 import com.raiseyourhand.R;
+import com.raiseyourhand.RaiseYourHandApp;
 import com.ws.Request;
 import com.ws.RequestType;
 import com.ws.local.SendRequest;
@@ -49,11 +52,12 @@ public class Attendance extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_instructor_attendance);
 
-		// TODO: Check the user information
-		// Is the user logged in?
-		// Redirect to LOGIN
-		// If the user is logged in,
-		// store student names in the "students" array.
+		// Check for logged in users.
+		if (RaiseYourHandApp.getUsername() == null) {
+			RaiseYourHandApp.logout();
+			Intent login = new Intent(this, Login.class);
+			startActivity(login);
+		}
 
 		// Show the Up button in the action bar.
 		setupActionBar();

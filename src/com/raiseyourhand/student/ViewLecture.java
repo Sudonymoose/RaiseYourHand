@@ -3,7 +3,9 @@ package com.raiseyourhand.student;
 import java.util.ArrayList;
 
 import com.entities.Course;
+import com.raiseyourhand.Login;
 import com.raiseyourhand.R;
+import com.raiseyourhand.RaiseYourHandApp;
 import com.ws.Request;
 import com.ws.RequestType;
 import com.ws.local.SendRequest;
@@ -39,11 +41,12 @@ public class ViewLecture extends Activity {
 		// Show the Up button in the action bar.
 		setupActionBar();
 
-		// TODO: Check the user information
-		// Is the user logged in?
-		// Redirect to LOGIN
-		// If the user is logged in,
-		// Get lecture info 
+		// Check for logged in users.
+		if (RaiseYourHandApp.getUsername() == null) {
+			RaiseYourHandApp.logout();
+			Intent login = new Intent(this, Login.class);
+			startActivity(login);
+		}
 
 		// Show the Up button in the action bar.
 		setupActionBar();

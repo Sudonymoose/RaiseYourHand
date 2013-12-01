@@ -18,7 +18,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import com.raiseyourhand.Login;
 import com.raiseyourhand.R;
+import com.raiseyourhand.RaiseYourHandApp;
 import com.raiseyourhand.fragment.InstructorSharedFragment;
 import com.raiseyourhand.fragment.QuestionFragment;
 import com.raiseyourhand.fragment.StudentSharedFragment;
@@ -55,6 +57,13 @@ ActionBar.TabListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_instructor_lecture);
 
+		// Check for logged in users.
+		if (RaiseYourHandApp.getUsername() == null) {
+			RaiseYourHandApp.logout();
+			Intent login = new Intent(this, Login.class);
+			startActivity(login);
+		}
+		
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
