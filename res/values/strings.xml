@@ -39,15 +39,13 @@
     <string name="instructor_dialog_ignore">Ignore Student?</string>
     <string name="instructor_dialog_delete_note">Delete Note?</string>
     <string name="instructor_dialog_share_item">Share with Class?</string>
-
-    <String name="instructor_dialog_share_item_imageView">Share with Class</String>
-
-    <string name="instrucotr_dialog_quiz_result_imageView">Quiz Result</string>
+    <string name="instructor_dialog_share_item_imageView">Share with Class</string>
+    <string name="instructor_dialog_quiz_result_imageView">Quiz Result</string>
     <string name="instructor_dialog_quiz_result">Quiz Result</string>
-    <string name="instrucotr_dialog_quiz_result_dismiss">Dismiss</string>
+    <string name="instructor_dialog_quiz_result_dismiss">Dismiss</string>
     <string name="instructor_dialog_receive_question">Student #:</string>
-    <string name="instrucotr_dialog_revoke">Revoke Student Privileges</string>
-    <string name="instrucotr_receive_question_imageView">Receiving Question</string>
+    <string name="instructor_dialog_revoke">Revoke Student Privileges</string>
+    <string name="instructor_receive_question_imageView">Receiving Question</string>
     <string name="dialog_item_share_imageView">Shared Note</string>
     <string name="student_lecture_list_search">Search Lectures</string>
     <string name="student_info_button">Attend Lecture</string>
@@ -79,6 +77,7 @@
     <string name="student_info_textview_building_b">D</string>
     <string name="student_info_textview_room">Room</string>
     <string name="student_info_textview_room_b">E</string>
+    <string name="student_dialog_share_item_imageView">Share Preview</string>
     <string name="share_file_select">Select</string>
     <string name="share_file_cancel">Cancel</string>
     <string name="set_timer">Set</string>

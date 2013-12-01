@@ -9,39 +9,39 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".instructor.QuizActivity" >
 
-        <!-- P33-34 -->
+    <!-- P33-34 -->
 
-        <Button
-            android:id="@+id/instructor_quiz_button_upload"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/instructor_quiz_upload_button" />
+    <Button
+        android:id="@+id/instructor_quiz_button_upload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/instructor_quiz_upload_button" />
 
-        <ImageView
-            android:id="@+id/instructor_quiz_imageView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/instructor_quiz_timerTextView"
-            android:layout_alignLeft="@+id/instructor_quiz_button_upload"
-            android:layout_below="@+id/instructor_quiz_button_upload"
-            android:contentDescription="@string/instructor_quiz_imageView"
-            android:src="@drawable/ic_launcher" />
+    <ImageView
+        android:id="@+id/instructor_quiz_imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/instructor_quiz_timerTextView"
+        android:layout_alignLeft="@+id/instructor_quiz_button_upload"
+        android:layout_below="@+id/instructor_quiz_button_upload"
+        android:contentDescription="@string/instructor_quiz_imageView"
+        android:src="@drawable/ic_launcher" />
 
-        <TextView
-            android:id="@+id/instructor_quiz_timerTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/instructor_quiz_button_begin"
-            android:layout_alignLeft="@+id/instructor_quiz_button_begin"
-            android:gravity="center"
-            android:text="@string/instructor_quiz_time_set" />
+    <TextView
+        android:id="@+id/instructor_quiz_timerTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/instructor_quiz_button_begin"
+        android:layout_alignLeft="@+id/instructor_quiz_button_begin"
+        android:gravity="center"
+        android:text="@string/instructor_quiz_time_set" />
 
-        <Button
-            android:id="@+id/instructor_quiz_button_begin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/instructor_quiz_imageView"
-            android:layout_alignParentBottom="true"
-            android:text="@string/instructor_quiz_set_time_button" />
+    <Button
+        android:id="@+id/instructor_quiz_button_begin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/instructor_quiz_imageView"
+        android:layout_alignParentBottom="true"
+        android:text="@string/instructor_quiz_set_time_button" />
 
 </RelativeLayout>

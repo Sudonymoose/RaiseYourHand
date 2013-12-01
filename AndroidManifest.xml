@@ -86,6 +86,14 @@
                 android:value="com.raiseyourhand.instructor.Lecture" />
         </activity>
         <activity
+            android:name="com.raiseyourhand.instructor.OngoingQuiz"
+            android:label="@string/title_quiz"
+            android:parentActivityName="com.raiseyourhand.instructor.SetupQuiz" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.raiseyourhand.instructor.SetupQuiz" />
+        </activity>
+        <activity
             android:name="com.raiseyourhand.student.ViewLecture"
             android:label="@string/title_view_lecture"
             android:parentActivityName="com.raiseyourhand.LectureList" >
@@ -116,10 +124,6 @@
         <activity
             android:name="com.raiseyourhand.util.FileDialog"
             android:label="@string/title_file_dialog" >
-        </activity>
-        <activity
-            android:name="com.raiseyourhand.CountDown"
-            android:label="@string/title_activity_count_down" >
         </activity>
     </application>
 

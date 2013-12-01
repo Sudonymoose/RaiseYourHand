@@ -78,8 +78,8 @@ public class SetupQuiz extends Activity {
 
 		// Set up the ImageView
 		quiz_image = (ImageView) findViewById(R.id.instructor_quiz_imageView);
-
-
+		time_set = (TextView) findViewById(R.id.instructor_quiz_timerTextView);
+		
 		if(savedInstanceState != null){
 			count = savedInstanceState.getInt("Image#");
 			imageUri = Uri.parse(savedInstanceState.getString("URI"));
@@ -125,8 +125,6 @@ public class SetupQuiz extends Activity {
 			Button mic_set = (Button) mic_setting.findViewById(R.id.instructor_set_mic_btn);
 			TextView bluetooth = (TextView) mic_setting.findViewById(R.id.instructor_set_mic_bluetooth_text);
 			TextView builtin = (TextView) mic_setting.findViewById(R.id.instructor_set_mic_builtin_text);
-
-
 
 			bluetooth.setOnClickListener(new OnClickListener(){
 				@Override
@@ -237,9 +235,6 @@ public class SetupQuiz extends Activity {
 
 				set_time.show();
 			}
-
-
-
 		}
 	}
 
