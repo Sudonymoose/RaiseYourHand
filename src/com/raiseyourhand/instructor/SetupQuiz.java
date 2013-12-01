@@ -312,6 +312,7 @@ public class SetupQuiz extends Activity {
 		startActivityForResult(intent, SHARE_PICTURE_REQUEST);
 	}
 
+	@Override
 	public void onActivityResult(final int requestCode,
 			int resultCode, final Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);

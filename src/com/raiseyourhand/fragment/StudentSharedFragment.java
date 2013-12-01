@@ -1,6 +1,7 @@
 package com.raiseyourhand.fragment;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -18,6 +19,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -37,10 +39,12 @@ public class StudentSharedFragment extends Fragment {
 	private ListView shared_item;
 	private ImageButton add_note;
 	private Uri imageUri;
+	private String selectedFromList;
 	protected static final int REQUEST_SAVE = 0;
 	protected static final int REQUEST_LOAD = 1;
 	protected static final int SHARE_PICTURE_REQUEST = 2;
 	private ArrayAdapter<String> itemAdapter;
+	private ArrayList<String> all_items = new ArrayList<String>();
 	private int count;
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,25 +61,18 @@ public class StudentSharedFragment extends Fragment {
 
 		shared_item = (ListView) rootView.findViewById(R.id.student_share_listview);
 		shared_item.setOnItemClickListener(new SharedItemSelectedListener());
+		shared_item.setOnItemLongClickListener(new DeletionListener());
 		itemAdapter.notifyDataSetChanged();
 		shared_item.setAdapter(itemAdapter);
 
 		add_note = (ImageButton) rootView.findViewById(R.id.student_share_button);
-		add_note.setOnClickListener(new AddNoteListener());
+		if(getActivity().equals(com.raiseyourhand.student.Lecture.class)){
+			add_note.setOnClickListener(new AddItemListener());
+		}else{
+			add_note.setEnabled(false);
+			add_note.setVisibility(View.GONE);
+		}
 
-		/* 
-		// only when students submit the quiz answer, maybe use bundle
-		final Dialog quiz_result = new Dialog(getActivity());
-		quiz_result.setContentView(R.layout.dialog_student_quiz_result);
-
-		ImageView result = (ImageView) quiz_result.findViewById(R.id.student_quiz_result_imageView);
-
-		//update path here
-		Bitmap bmImg = BitmapFactory.decodeFile("path of your img1");
-		result.setImageBitmap(bmImg);
-
-		quiz_result.show();
-		 */
 		return rootView;
 	}
 
@@ -114,7 +111,7 @@ public class StudentSharedFragment extends Fragment {
 					imageUri = Uri.parse(Environment.getExternalStorageDirectory() + "/" + item_name);
 				else
 					imageUri = Uri.parse(item_name);
-				
+
 				try {
 					shared_pic.setImageURI(imageUri);
 				} catch (Exception e) {
@@ -129,9 +126,48 @@ public class StudentSharedFragment extends Fragment {
 			 */
 		}
 	}
+	
+	private class DeletionListener implements OnItemLongClickListener{
+		@Override
+		public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+				int arg2, long arg3) {
+			selectedFromList = (String) (shared_item.getItemAtPosition(arg2));
+			/**
+			 * So how does the Delete Dialog pops up. 
+			 * Right now looks like if you click the item it will just ask for deletion
+			 * What if u actually want to open it?
+			 */
+			final Dialog deletion = new Dialog(getActivity());
+			deletion.setContentView(R.layout.dialog_instructor_delete_note);
 
+			Button yes = (Button) deletion.findViewById(R.id.instructor_delete_note_btn_yes);
+			Button no = (Button) deletion.findViewById(R.id.instructor_delete_note_btn_no);
 
-	private class AddNoteListener implements OnClickListener{
+			yes.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					all_items.remove(selectedFromList);
+					itemAdapter.notifyDataSetChanged();
+					//delete that on the server as well
+				}
+
+			});
+
+			no.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					deletion.dismiss();
+				}
+
+			});
+
+			deletion.show();
+			return true;
+		}
+
+	}
+
+	private class AddItemListener implements OnClickListener{
 		private String selected; 
 
 		@Override

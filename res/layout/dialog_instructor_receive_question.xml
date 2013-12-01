@@ -17,12 +17,10 @@
         android:textStyle="bold" >
     </TextView>
 
-    <ImageView
-        android:id="@+id/instrucotr_receive_question_imageView"
+    <TextView
+        android:id="@+id/instrucotr_receive_question_content_textView"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:contentDescription="@string/instructor_receive_question_imageView"
-        android:src="@drawable/ic_launcher" />
+        android:layout_height="fill_parent"/>
 
     <LinearLayout
         style="?android:attr/buttonBarStyle"

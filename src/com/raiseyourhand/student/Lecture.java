@@ -31,14 +31,14 @@ import com.raiseyourhand.Login;
 import com.raiseyourhand.R;
 import com.raiseyourhand.RaiseYourHandApp;
 import com.raiseyourhand.fragment.InstructorSharedFragment;
-import com.raiseyourhand.fragment.InstructorSharedFragment.SharedItemSelectedListener;
+import com.raiseyourhand.fragment.InstructorSharedFragment.PassItemListener;
 import com.raiseyourhand.fragment.StudentSharedFragment;
 /**
  * General Framework for Instructor Shared and Student Shared
  * @author Hanrui Zhang
  * Everything from P68 - 80 is done, not backend stuff
  */
-public class Lecture extends FragmentActivity implements ActionBar.TabListener, SharedItemSelectedListener, SensorEventListener {
+public class Lecture extends FragmentActivity implements ActionBar.TabListener, PassItemListener, SensorEventListener {
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide

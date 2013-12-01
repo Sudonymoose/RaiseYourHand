@@ -1,10 +1,15 @@
 package com.raiseyourhand.instructor;
 
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import android.app.ActionBar;
+import android.app.Dialog;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -17,11 +22,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.raiseyourhand.R;
-import com.raiseyourhand.fragment.InstructorInstructorSharedFragment;
-import com.raiseyourhand.fragment.InstructorStudentSharedFragment;
+import com.raiseyourhand.fragment.InstructorSharedFragment;
+import com.raiseyourhand.fragment.InstructorSharedFragment.PassItemListener;
 import com.raiseyourhand.fragment.QuestionFragment;
+import com.raiseyourhand.fragment.StudentSharedFragment;
 
 /**
  * General framework for Q&A, Instructor Shared, Student Shared
@@ -29,7 +37,7 @@ import com.raiseyourhand.fragment.QuestionFragment;
  *
  */
 public class Lecture extends FragmentActivity implements
-ActionBar.TabListener {
+ActionBar.TabListener, PassItemListener{
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -47,7 +55,12 @@ ActionBar.TabListener {
 	ViewPager mViewPager;
 	private Button attendanceButton;
 	private Button quizButton;
-
+	
+	private String lectureName;
+	protected static final int TAKE_ATTENDANCE = 0;
+	protected static final int START_QUIZ = 1;
+	private ArrayList<String> items_for_students;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -59,6 +72,10 @@ ActionBar.TabListener {
 		// Show the Up button in the action bar.
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
+		// Get the lecture string from the InfoActivity that started this LectureActivity
+		//Bundle extras = getIntent().getExtras();
+		//lectureName = extras.getString("Lecture Information");
+		
 		// Setup buttons
 		attendanceButton = (Button) findViewById(R.id.instructor_lecture_attendance_button);
 		attendanceButton.setOnClickListener(new AttendanceOnClickListener());
@@ -154,10 +171,13 @@ ActionBar.TabListener {
 			switch (position) {
 			case 0:
 				fragment = (Fragment) new QuestionFragment();
+				break;
 			case 1:
-				fragment = (Fragment) new InstructorInstructorSharedFragment();
+				fragment = (Fragment) new InstructorSharedFragment();
+				break;
 			case 2:
-				fragment = (Fragment) new InstructorStudentSharedFragment();
+				fragment = (Fragment) new StudentSharedFragment();
+				break;
 			}			
 
 			return fragment;
@@ -187,23 +207,57 @@ ActionBar.TabListener {
 	public class AttendanceOnClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
-			
-			// Create an Intent to launch the Attendance Activity
-			Intent lecture = new Intent(Lecture.this, Attendance.class);
-			startActivity(lecture);
-			
-			// TODO: Need a way to return here after attendance is done?
+			Intent attendance = new Intent(Lecture.this, Attendance.class);
+			startActivityForResult(attendance, TAKE_ATTENDANCE);
 		}
 	}
+	
 	public class QuizOnClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
-			// create an Intent to launch the Quiz Activity
-			Intent quiz = new Intent(Lecture.this, Quiz.class);
-			startActivity(quiz);
-			
-			// QuizActivity should return here automatically after it ends
-			
+			Intent quiz = new Intent(Lecture.this, SetupQuiz.class);
+			startActivityForResult(quiz, START_QUIZ);	
 		}
+	}
+	
+	@Override
+	public void onActivityResult(final int requestCode,
+			int resultCode, final Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if(requestCode == TAKE_ATTENDANCE){
+			if(resultCode == RESULT_OK){
+				Toast.makeText(getBaseContext(), "Attendance Taken", Toast.LENGTH_LONG).show();
+			}
+		}
+		if(requestCode == START_QUIZ){
+			if(resultCode == RESULT_OK){
+				// only when students submit the quiz answer, maybe use bundle
+				final Dialog quiz_result = new Dialog(Lecture.this);
+				quiz_result.setContentView(R.layout.dialog_instructor_quiz_result);
+
+				ImageView result = (ImageView) quiz_result.findViewById(R.id.instrucotr_quiz_result_imageView);
+				Button dismiss = (Button) quiz_result.findViewById(R.id.instrucotr_quiz_result_button);
+				
+				//temp fake result pic
+				InputStream is = this.getResources().openRawResource(R.drawable.ic_launcher);
+				//use decodeFath in real case
+				Bitmap bmImg = BitmapFactory.decodeStream(is);
+				result.setImageBitmap(bmImg);
+
+				dismiss.setOnClickListener(new OnClickListener(){
+					@Override
+					public void onClick(View v) {
+						quiz_result.dismiss();
+					}
+				});
+				
+				quiz_result.show();
+			}
+		}
+	}
+
+	@Override
+	public void passData(ArrayList<String> all_items) {
+		this.items_for_students = all_items;
 	}
 }

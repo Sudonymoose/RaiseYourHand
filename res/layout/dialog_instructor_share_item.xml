@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="#f0f0f0"
@@ -7,21 +7,22 @@
 
     <!-- P49, 50 -->
 
-    <TextView
-        android:id="@+id/instructor_share_item_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:text="@string/instructor_dialog_share_item"
-        android:textStyle="bold" >
-    </TextView>
+    <ImageView
+        android:id="@+id/instructor_share_item_imageview"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/instructor_share_button_linearlayout"
+        android:layout_below="@+id/instructor_share_item_textview"
+        android:contentDescription="@string/instructor_dialog_share_item_imageView"
+        android:src="@drawable/ic_launcher" />
 
     <LinearLayout
+        android:id="@+id/instructor_share_button_linearlayout"
         style="?android:attr/buttonBarStyle"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
         android:background="#3E80B4"
         android:orientation="horizontal" >
 
@@ -50,4 +51,13 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/instructor_share_item_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/instructor_dialog_share_item"
+        android:textStyle="bold" />
+
+</RelativeLayout>
