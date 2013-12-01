@@ -126,8 +126,6 @@ public class SetupQuiz extends Activity {
 			TextView bluetooth = (TextView) mic_setting.findViewById(R.id.instructor_set_mic_bluetooth_text);
 			TextView builtin = (TextView) mic_setting.findViewById(R.id.instructor_set_mic_builtin_text);
 
-
-
 			bluetooth.setOnClickListener(new OnClickListener(){
 				@Override
 				public void onClick(View v) {
@@ -237,9 +235,6 @@ public class SetupQuiz extends Activity {
 
 				set_time.show();
 			}
-
-
-
 		}
 	}
 
