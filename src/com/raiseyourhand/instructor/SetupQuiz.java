@@ -181,12 +181,6 @@ public class SetupQuiz extends Activity {
 
 					//TODO in what form do we send those options for quiz
 
-					// Tell server that this quiz has started
-					Object[] args = new Object[1]; // TODO: probably lecture id?
-					SendStartQuizServerResponseListener listener = new SendStartQuizServerResponseListener();
-					SendRequest sendStartQuizRequest = new SendRequest(new Request(RequestType.SEND_START_QUIZ, args), listener);
-					sendStartQuizRequest.execute((Void)null);
-
 
 					//Send image to server (in bytearray), and the time/options for the quiz
 					startActivityForResult(beginQuizIntent, START_QUIZ);
