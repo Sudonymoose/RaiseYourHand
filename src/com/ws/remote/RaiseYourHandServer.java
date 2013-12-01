@@ -5,19 +5,23 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.LinkedHashMap;
 
 import com.Exception.RaiseYourHandError;
 import com.Exception.RaiseYourHandException;
 import com.dblayout.backend.ManageDatabase;
+import com.entities.Lecture;
 import com.ws.SocketInterface;
 
 public class RaiseYourHandServer extends Thread implements SocketInterface {
 	private int port;
 	private ServerSocket servSock = null;
+	private static LinkedHashMap<Integer, Lecture> lectures;
 	private ManageDatabase db;
 
 	public RaiseYourHandServer(int port) throws RaiseYourHandException {
 		setPort(port);
+		lectures = new LinkedHashMap<Integer, Lecture>();
 		try {
 			db = new ManageDatabase();
 		} catch (Exception e) {
@@ -53,7 +57,7 @@ public class RaiseYourHandServer extends Thread implements SocketInterface {
 				out.flush();
 				ObjectInputStream in = new ObjectInputStream(connection.getInputStream());
 
-				new ServiceThread(connection, in, out, db).start();
+				new ServiceThread(connection, in, out, db, lectures).start();
 			} catch (IOException e) {
 				new RaiseYourHandException(RaiseYourHandError.OTHER, e.getMessage());			
 			}
@@ -69,7 +73,7 @@ public class RaiseYourHandServer extends Thread implements SocketInterface {
 			new RaiseYourHandException(RaiseYourHandError.OTHER, e.getMessage());		
 		}
 	}
-	
+
 	public void setPort(int port) {
 		this.port = port;
 	}
