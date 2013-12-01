@@ -442,3 +442,4 @@ RaiseYourHandException [_errorNum=SQL_FAILURE, message=near ",": syntax error
 RaiseYourHandException [_errorNum=SQL_FAILURE, message=near ",": syntax error
 RaiseYourHandException [_errorNum=SQL_FAILURE, message=near ",": syntax error
 RaiseYourHandException [_errorNum=SQL_FAILURE, message=near ",": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=org.sqlite.JDBC
