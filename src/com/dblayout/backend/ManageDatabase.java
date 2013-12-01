@@ -18,6 +18,7 @@ public class ManageDatabase {
 
 	public ManageDatabase() throws RaiseYourHandException	{
 		db = new DatabaseHelper();
+		db.onCreate();
 	}
 
 	// Functions for managing UserDatabase

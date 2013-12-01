@@ -29,7 +29,7 @@ public final class DatabaseContract {
 		public static final String COLUMN_NAME_LASTNAME = "last_name";
 		public static final String COLUMN_NAME_USERTYPE = "type";
 		public static final String COLUMN_NAME_PASSWORD = "password";
-		public static final String COLUMN_NAME_EMAIL = "e-mail";
+		public static final String COLUMN_NAME_EMAIL = "email";
 		public static final String COLUMN_NAME_DEPARTMENT = "department";
 		public static final String COLUMN_NAME_CAMPUS = "campus";
 
@@ -104,7 +104,7 @@ public final class DatabaseContract {
 		public static final String COLUMN_NAME_ROSTER_COUNT = "roster_count";
 		public static final String COLUMN_NAME_INSTRUCTOR = "instructor";
 		public static final String COLUMN_NAME_DEPARTMENT = "department";
-		public static final String COLUMN_NAME_EMAIL = "e-mail";
+		public static final String COLUMN_NAME_EMAIL = "email";
 		public static final String COLUMN_NAME_DATES = "dates";
 		public static final String COLUMN_NAME_TIMES = "times";
 		public static final String COLUMN_NAME_BUILDING = "building";

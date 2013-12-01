@@ -1,0 +1,121 @@
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: users)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "-": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: users)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "-": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: users)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "-": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: users)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "-": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: users)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "-": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: courses)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "-": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: courses)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "-": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: rosters)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: users)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: rosters)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: users)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: rosters)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: users)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: rosters)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: users)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: rosters)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: users)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "-": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: users)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "-": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: users)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "-": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: users)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "-": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: users)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "-": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: users)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "-": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: courses)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "-": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: courses)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "-": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: rosters)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: users)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: rosters)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: users)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: rosters)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: users)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: rosters)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: users)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: rosters)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: users)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "-": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: users)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "-": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: users)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "-": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: users)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "-": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: users)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "-": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: users)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "-": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: courses)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "-": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: courses)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "-": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: rosters)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: users)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: rosters)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: users)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: rosters)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: users)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: rosters)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: users)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: rosters)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: users)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "-": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such column: hanruiz)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "@andrew": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such column: ayoo)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "@andrew": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such column: arthurc)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "@andrew": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such column: bsingh)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "@andrew": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such column: tom)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "@ece": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: courses)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "-": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such table: courses)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "-": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such column: hanruiz)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such column: hanruiz)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such column: ayoo)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such column: ayoo)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such column: bsingh)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such column: bsingh)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such column: arthurc)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such column: arthurc)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such column: tom)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such column: tom)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such column: hanruiz)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "@andrew": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such column: ayoo)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "@andrew": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such column: arthurc)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "@andrew": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such column: bsingh)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "@andrew": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such column: tom)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "@ece": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "@gmail": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=near "@ece": syntax error
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such column: hanruiz)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such column: hanruiz)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such column: ayoo)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such column: ayoo)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such column: bsingh)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such column: bsingh)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such column: arthurc)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such column: arthurc)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such column: tom)
+RaiseYourHandException [_errorNum=SQL_FAILURE, message=[SQLITE_ERROR] SQL error or missing database (no such column: tom)

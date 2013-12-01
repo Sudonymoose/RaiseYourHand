@@ -18,6 +18,7 @@
     <string name="instructor_info_search">Search</string>
     <string name="instructor_info_button">Start Lecture</string>
     <string name="instructor_lecture_attendance_button">Attendance</string>
+    <string name="instructor_lecture_attendance_timer_set">Set Timer</string>
     <string name="instructor_lecture_attendance_timer_start">Start Timer</string>
     <string name="instructor_lecture_attendance_timer_end">End Timer</string>
     <string name="instructor_lecture_attendance_minute">Min</string>
@@ -28,6 +29,8 @@
     <string name="instructor_attendance_search">Search Students</string>
     <string name="instructor_quiz_upload_button">Upload Quiz Screenshot</string>
     <string name="instructor_quiz_imageView">Quiz Question</string>
+    <string name="instructor_quiz_time_set">00:00</string>
+    <string name="instructor_quiz_set_time_button">Set Time</string>
     <string name="instructor_quiz_begin_button">Begin Quiz</string>
     <string name="instructor_quiz_ongoing_imageView"></string>
     <string name="instructor_quiz_end">End Quiz</string>
@@ -36,12 +39,16 @@
     <string name="instructor_dialog_ignore">Ignore Student?</string>
     <string name="instructor_dialog_delete_note">Delete Note?</string>
     <string name="instructor_dialog_share_item">Share with Class?</string>
+
+    <String name="instructor_dialog_share_item_imageView">Share with Class</String>
+
     <string name="instrucotr_dialog_quiz_result_imageView">Quiz Result</string>
     <string name="instructor_dialog_quiz_result">Quiz Result</string>
     <string name="instrucotr_dialog_quiz_result_dismiss">Dismiss</string>
     <string name="instructor_dialog_receive_question">Student #:</string>
     <string name="instrucotr_dialog_revoke">Revoke Student Privileges</string>
     <string name="instrucotr_receive_question_imageView">Receiving Question</string>
+    <string name="dialog_item_share_imageView">Shared Note</string>
     <string name="student_lecture_list_search">Search Lectures</string>
     <string name="student_info_button">Attend Lecture</string>
     <string name="student_lecture_ask_button">Question</string>
@@ -55,7 +62,6 @@
     <string name="student_dialog_end_lecture">Leave Lecture?</string>
     <string name="student_dialog_submit_quiz">Submit Quiz?</string>
     <string name="student_dialog_share_item">Share with Class?</string>
-    <string name="student_dialog_share_item_imageView">Share with Class</string>
     <string name="student_dialog_share_item_preview">Note</string>
     <string name="student_view_lecture_instructor">Instructor</string>
     <string name="student_view_lecture_date">Dates</string>
