@@ -22,8 +22,8 @@ import com.ws.local.ServerResponseListener;
  */
 public class SendRequest extends AsyncTask<Void, Void, Void> implements SocketInterface {
 
-	private final String HOST = "http://localhost/LoginServlet";
-	private final int PORT = 80;
+	private final String HOST = "blueshark.ics.cs.cmu.edu";
+	private final int PORT = 16976;
 	private final int MAX_FAIL_COUNT = 5;
 	
 	private Socket sock;

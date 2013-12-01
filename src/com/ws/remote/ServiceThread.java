@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import org.jasypt.util.password.StrongPasswordEncryptor;
 
@@ -19,6 +20,7 @@ import com.dblayout.DatabaseContract.RosterEntry;
 import com.dblayout.DatabaseContract.UserEntry;
 import com.dblayout.backend.ManageDatabase;
 import com.entities.Course;
+import com.entities.Lecture;
 import com.entities.Roster;
 import com.entities.User;
 import com.ws.Request;
@@ -33,14 +35,17 @@ public class ServiceThread extends Thread {
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
 	private ManageDatabase db;
+	private LinkedHashMap<Integer, Lecture> lectures;
 	private Request failure;
 	private StrongPasswordEncryptor passwordEncryptor;
 
-	public ServiceThread(Socket conn, ObjectInputStream in, ObjectOutputStream out, ManageDatabase db) {
+	public ServiceThread(Socket conn, ObjectInputStream in, ObjectOutputStream out,
+			ManageDatabase db, LinkedHashMap<Integer, Lecture> lectures) {
 		this.conn = conn;
 		this.in = in;
 		this.out = out;
 		this.db = db;
+		this.lectures = lectures;
 		this.failure = new Request(RequestType.SEND_RESPONSE,new Object[] {Request.FAILURE});
 		this.passwordEncryptor = new StrongPasswordEncryptor();
 	}
@@ -159,48 +164,186 @@ public class ServiceThread extends Thread {
 						break;
 					}
 					courseNum = ((Integer)args[0]).intValue();
-					rs = db.queryRosterDB(courseNum);
-					try {
-						if (rs == null) {
+					synchronized(lectures) {
+						if (lectures.get(courseNum) == null) {
 							response = failure;
-							break;
+						} else {
+							Lecture l = new Lecture(courseNum);
+							lectures.put(courseNum, l);
+							response = new Request(RequestType.SEND_RESPONSE,
+									new Object[] {Request.SUCCESS, l});
 						}
-						ArrayList<Roster> list = new ArrayList<Roster>();
-						while(rs.next()) {
-							Roster roster = new Roster(rs.getInt(RosterEntry.COLUMN_NAME_ROSTER_ID),
-									rs.getString(RosterEntry.COLUMN_NAME_USERNAME),
-									rs.getInt(RosterEntry.COLUMN_NAME_COURSE_NUM),
-									rs.getString(RosterEntry.COLUMN_NAME_USERTYPE));
-							list.add(roster);
-						}
-						response = new Request(RequestType.SEND_RESPONSE, 
-								new Object[] {Request.SUCCESS, list});
-					} catch (Exception e) {
-						response = failure;
 					}
 					break;
 				case UPDATE_INSTRUCTOR:
 					args = request.getArgs();
+					if (args.length != 1 || !(args[0] instanceof Integer)) {
+						response = failure;
+						break;
+					}
+					courseNum = ((Integer)args[0]).intValue();
+					synchronized(lectures) {
+						Lecture l = lectures.get(courseNum);
+						if (l == null) {
+							response = failure;
+						} else {
+							response = new Request(RequestType.SEND_RESPONSE,
+									new Object[] {Request.SUCCESS, l});
+						}
+					}
 					break;
 				case SEND_START_ATTENDANCE:
 					args = request.getArgs();
+					if (args.length != 1 || !(args[0] instanceof Integer)) {
+						response = failure;
+						break;
+					}
+					courseNum = ((Integer)args[0]).intValue();
+					synchronized(lectures) {
+						Lecture l = lectures.get(courseNum);
+						if (l == null) {
+							response = failure;
+						} else {
+							l.startAttendance();
+							lectures.put(courseNum, l);
+							response = new Request(RequestType.SEND_RESPONSE,
+									new Object[] {Request.SUCCESS, l});
+						}
+					}
 					break;
 				case SEND_END_ATTENDANCE:
 					args = request.getArgs();
+					if (args.length != 1 || !(args[0] instanceof Integer)) {
+						response = failure;
+						break;
+					}
+					courseNum = ((Integer)args[0]).intValue();
+					synchronized(lectures) {
+						Lecture l = lectures.get(courseNum);
+						if (l == null) {
+							response = failure;
+						} else {
+							l.stopAttendance();
+							lectures.put(courseNum, l);
+							response = new Request(RequestType.SEND_RESPONSE,
+									new Object[] {Request.SUCCESS, l});
+						}
+					}
 					break;
 				case SEND_START_QUIZ:
 					args = request.getArgs();
+					if (args.length != 2 || !(args[0] instanceof Integer)) {
+						response = failure;
+						break;
+					}
+					courseNum = ((Integer)args[0]).intValue();
+					synchronized(lectures) {
+						Lecture l = lectures.get(courseNum);
+						if (l == null) {
+							response = failure;
+						} else {
+							l.startQuiz();
+							lectures.put(courseNum, l);
+							response = new Request(RequestType.SEND_RESPONSE,
+									new Object[] {Request.SUCCESS, l});
+						}
+					}
 					break;
 				case SEND_END_QUIZ:
 					args = request.getArgs();
+					if (args.length != 1 || !(args[0] instanceof Integer)) {
+						response = failure;
+						break;
+					}
+					courseNum = ((Integer)args[0]).intValue();
+					synchronized(lectures) {
+						Lecture l = lectures.get(courseNum);
+						if (l == null) {
+							response = failure;
+						} else {
+							l.stopQuiz();
+							lectures.put(courseNum, l);
+							response = new Request(RequestType.SEND_RESPONSE,
+									new Object[] {Request.SUCCESS, l});
+						}
+					}
 					break;
 				case SEND_HIDE_QUIZ:
 					args = request.getArgs();
+					if (args.length != 1 || !(args[0] instanceof Integer)) {
+						response = failure;
+						break;
+					}
+					courseNum = ((Integer)args[0]).intValue();
+					synchronized(lectures) {
+						Lecture l = lectures.get(courseNum);
+						if (l == null) {
+							response = failure;
+						} else {
+							l.hideQuiz();
+							lectures.put(courseNum, l);
+							response = new Request(RequestType.SEND_RESPONSE,
+									new Object[] {Request.SUCCESS, l});
+						}
+					}
+					break;
+				case SEND_END_QUESTION:
+					args = request.getArgs();
+					if (args.length != 1 || !(args[0] instanceof Integer)) {
+						response = failure;
+						break;
+					}
+					courseNum = ((Integer)args[0]).intValue();
+					synchronized(lectures) {
+						Lecture l = lectures.get(courseNum);
+						if (l == null) {
+							response = failure;
+						} else {
+							l.endQuestion();
+							lectures.put(courseNum, l);
+							response = new Request(RequestType.SEND_RESPONSE,
+									new Object[] {Request.SUCCESS, l});
+						}
+					}
 					break;
 				case SEND_INSTRUCTOR_NOTE:
 					args = request.getArgs();
 					break;
 				case SEND_END_LECTURE:
+					args = request.getArgs();
+					if (args.length != 1 || !(args[0] instanceof Integer)) {
+						response = failure;
+						break;
+					}
+					courseNum = ((Integer)args[0]).intValue();
+					try {
+						synchronized(lectures) {
+							if (lectures.get(courseNum) == null) {
+								response = failure;
+							} else {
+								Lecture l = lectures.remove(courseNum);
+								if (l == null) {
+									response = failure;
+								} else {
+									response = new Request(RequestType.SEND_RESPONSE,
+											new Object[] {Request.SUCCESS, null});
+								}
+							}
+						}
+					} catch (Exception e) {
+						response = failure;
+					}
+					break;
+				case SEND_DISMISS_QUESTION:
+					args = request.getArgs();
+					break;
+				case SEND_ANSWER_QUESTION:
+					args = request.getArgs();
+					break;
+				case SEND_ACCEPT_STUDENT_NOTE:
+					args = request.getArgs();
+					break;
+				case SEND_DENY_STUDENT_NOTE:
 					args = request.getArgs();
 					break;
 
@@ -234,9 +377,64 @@ public class ServiceThread extends Thread {
 					break;
 				case SEND_JOIN_LECTURE:
 					args = request.getArgs();
+					if (args.length != 2 || 
+							!(args[0] instanceof String) ||
+							!(args[1] instanceof Integer)) {
+						response = failure;
+						break;
+					}
+					username = (String)args[0];
+					courseNum = ((Integer)args[1]).intValue();
+					synchronized(lectures) {
+						Lecture l = lectures.get(courseNum);
+						if (l == null) {
+							response = failure;
+						} else {
+							l.joinLecture(username);
+							lectures.put(courseNum, l);
+							response = new Request(RequestType.SEND_RESPONSE,
+									new Object[] {Request.SUCCESS, l});
+						}
+					}
 					break;
 				case UPDATE_STUDENT:
 					args = request.getArgs();
+					if (args.length != 1 || !(args[0] instanceof Integer)) {
+						response = failure;
+						break;
+					}
+					courseNum = ((Integer)args[0]).intValue();
+					synchronized(lectures) {
+						Lecture l = lectures.get(courseNum);
+						if (l == null) {
+							response = failure;
+						} else {
+							response = new Request(RequestType.SEND_RESPONSE,
+									new Object[] {Request.SUCCESS, l});
+						}
+					}
+					break;
+				case SEND_REQUEST_QUESTION:
+					args = request.getArgs();
+					if (args.length != 2 || 
+							!(args[0] instanceof String) ||
+							!(args[1] instanceof Integer)) {
+						response = failure;
+						break;
+					}
+					username = (String)args[0];
+					courseNum = ((Integer)args[1]).intValue();
+					synchronized(lectures) {
+						Lecture l = lectures.get(courseNum);
+						if (l == null) {
+							response = failure;
+						} else {
+							l.requestQuestion(username);
+							lectures.put(courseNum, l);
+							response = new Request(RequestType.SEND_RESPONSE,
+									new Object[] {Request.SUCCESS, l});
+						}
+					}
 					break;
 				case SEND_QUESTION:
 					args = request.getArgs();
@@ -246,9 +444,49 @@ public class ServiceThread extends Thread {
 					break;
 				case SEND_QUIZ_ANSWER:
 					args = request.getArgs();
+					if (args.length != 3 || 
+							!(args[0] instanceof String) ||
+							!(args[1] instanceof Integer) ||
+							!(args[2] instanceof String)) {
+						response = failure;
+						break;
+					}
+					username = (String)args[0];
+					courseNum = ((Integer)args[1]).intValue();
+					String answer = (String)args[2];
+					synchronized(lectures) {
+						Lecture l = lectures.get(courseNum);
+						if (l == null) {
+							response = failure;
+						} else {
+							l.answerQuiz(username, answer);
+							lectures.put(courseNum, l);
+							response = new Request(RequestType.SEND_RESPONSE,
+									new Object[] {Request.SUCCESS, l});
+						}
+					}
 					break;
 				case SEND_LEAVE_LECTURE:
 					args = request.getArgs();
+					if (args.length != 2 || 
+							!(args[0] instanceof String) ||
+							!(args[1] instanceof Integer)) {
+						response = failure;
+						break;
+					}
+					username = (String)args[0];
+					courseNum = ((Integer)args[1]).intValue();
+					synchronized(lectures) {
+						Lecture l = lectures.get(courseNum);
+						if (l == null) {
+							response = failure;
+						} else {
+							l.leaveLecture(username);
+							lectures.put(courseNum, l);
+							response = new Request(RequestType.SEND_RESPONSE,
+									new Object[] {Request.SUCCESS, l});
+						}
+					}
 					break;
 
 					// Utility Request
