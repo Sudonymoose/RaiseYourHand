@@ -79,7 +79,7 @@ public class SetupQuiz extends Activity {
 		// Set up the ImageView
 		quiz_image = (ImageView) findViewById(R.id.instructor_quiz_imageView);
 		time_set = (TextView) findViewById(R.id.instructor_quiz_timerTextView);
-		
+
 		if(savedInstanceState != null){
 			count = savedInstanceState.getInt("Image#");
 			imageUri = Uri.parse(savedInstanceState.getString("URI"));
@@ -372,13 +372,40 @@ public class SetupQuiz extends Activity {
 	}
 
 	/**
+	 * Private method to tell server to start the quiz
+	 */
+	private void startQuizToServer() {
+		// Tell server that this quiz has started
+		Object[] args = new Object[2];
+		args[0] = RaiseYourHandApp.getCourseNum();
+		args[1] = null; // TODO: needs to be quiz picture
+		SendStartQuizServerResponseListener listener = new SendStartQuizServerResponseListener();
+		SendRequest sendStartQuizRequest = new SendRequest(new Request(RequestType.SEND_START_QUIZ, args), listener);
+		sendStartQuizRequest.execute((Void)null);
+	}
+
+	/**
 	 * Private sub-class to respond to server's response when telling server to start quiz
 	 */
 	private class SendStartQuizServerResponseListener implements ServerResponseListener {
 
 		@Override
 		public boolean onResponse(Request r) {
-			// TODO Make sure server got message correctly?
+			Object[] args = r.getArgs();
+
+			// Just make sure server got the message correctly
+			try{
+				if(((String)args[0]).equals(Request.FAILURE))
+				{
+					return false;
+				}
+				else if(((String)args[0]).equals(Request.SUCCESS))
+				{
+					return true;
+				}
+			} catch(ClassCastException e) {
+				return false;
+			}
 			return false;
 		}
 	}

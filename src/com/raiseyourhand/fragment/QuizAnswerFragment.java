@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,6 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.raiseyourhand.R;
+import com.raiseyourhand.RaiseYourHandApp;
+import com.ws.Request;
+import com.ws.RequestType;
+import com.ws.local.SendRequest;
+import com.ws.local.ServerResponseListener;
 
 /**
  * A student shared fragment representing a section of the app, where
@@ -104,6 +109,43 @@ public class QuizAnswerFragment extends Fragment {
 
 			});
 			dialog_submit.show();
+		}
+
+	}
+
+	private void sendQuizAnswerToServer() {
+		Object args[] = new Object[3];
+		args[0] = RaiseYourHandApp.getUsername();
+		args[1] = RaiseYourHandApp.getCourseNum();
+		args[2] = ""; // TODO: Get Quiz Answer?
+		SendQuizAnswerServerResponseListener listener = new SendQuizAnswerServerResponseListener();
+		SendRequest sendQuizAnswerRequest = new SendRequest(new Request(RequestType.SEND_QUIZ_ANSWER, args), listener);
+		sendQuizAnswerRequest.execute((Void)null);
+	}
+
+	/**
+	 * Private sub-class to respond to server's response when telling the server to start lecture 
+	 */
+	private class SendQuizAnswerServerResponseListener implements ServerResponseListener {
+
+		@Override
+		public boolean onResponse(Request r) {
+			Object[] args = r.getArgs();
+
+			// Just make sure server got the message correctly
+			try{
+				if(((String)args[0]).equals(Request.FAILURE))
+				{
+					return false;
+				}
+				else if(((String)args[0]).equals(Request.SUCCESS))
+				{
+					return true;
+				}
+			} catch(ClassCastException e) {
+				return false;
+			}
+			return false;
 		}
 
 	}

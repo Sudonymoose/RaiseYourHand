@@ -3,9 +3,6 @@ package com.raiseyourhand.fragment;
 import java.io.File;
 import java.util.ArrayList;
 
-import com.raiseyourhand.R;
-import com.raiseyourhand.util.FileDialog;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -27,6 +24,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.raiseyourhand.R;
+import com.raiseyourhand.RaiseYourHandApp;
+import com.raiseyourhand.util.FileDialog;
+import com.ws.Request;
+import com.ws.RequestType;
+import com.ws.local.SendRequest;
+import com.ws.local.ServerResponseListener;
 
 /**
  * A instructor shared fragment representing a section of the app, where
@@ -291,6 +296,41 @@ public class InstructorSharedFragment extends Fragment{
 		}
 	}
 
+	/**
+	 * Private method, call this to send the instructor note to the server
+	 */
+	private void sendNoteToServer() {
+		Object[] args = new Object[3];
+		args[0] = RaiseYourHandApp.getCourseNum();
+		args[1] = null; // Name of note
+		args[2] = null; // note itself
+		SendInstructorNoteServerResponseListener listener = new  SendInstructorNoteServerResponseListener();
+		SendRequest sendInstructorNoteRequest = new SendRequest(new Request(RequestType.SEND_INSTRUCTOR_NOTE, args), listener);
+	}
+
+	/**
+	 * Private sub-class to respond to server's response when sending instructor's note to server
+	 */
+	private class SendInstructorNoteServerResponseListener implements ServerResponseListener {
+
+		@Override
+		public boolean onResponse(Request r) {
+			Object[] args = r.getArgs();
+
+			// Just make sure server got the message correctly
+			try{
+				if(((String)args[0]).equals(Request.FAILURE)){
+					return false;
+				}else if(((String)args[0]).equals(Request.SUCCESS)){
+					return true;
+				}
+			} catch(ClassCastException e) {
+				return false;
+			}
+			return false;
+		}
+
+	}
 
 	/**
 	 * An interface to pass data from the fragments to the activity
