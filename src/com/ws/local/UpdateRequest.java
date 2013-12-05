@@ -1,8 +1,6 @@
 package com.ws.local;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -14,8 +12,12 @@ import com.ws.Request;
 import com.ws.RequestType;
 import com.ws.SocketInterface;
 
+/**
+ * UpdateRequest is a class meant to be used as a IntentService and continuously
+ * used by activities, primarily for the UPDATE_STUDENT and UPDATE_INSTRUCTOR
+ * RequestTypes, when sending that message to the server.
+ */
 public class UpdateRequest extends IntentService implements SocketInterface  {
-
 
 	private final String HOST = "http://localhost/LoginServlet";
 	private final int PORT = 80;
@@ -29,7 +31,7 @@ public class UpdateRequest extends IntentService implements SocketInterface  {
 	
 	public UpdateRequest(String name) {
 		super(name);
-		// TODO Figure out if our RequestType is UpdateInstructor or UpdateStudent
+		// Figure out if our RequestType is UpdateInstructor or UpdateStudent
 	}
 	
     @Override
@@ -47,7 +49,6 @@ public class UpdateRequest extends IntentService implements SocketInterface  {
 			sock = new Socket(HOST, PORT);
 			System.out.println("Config Client has a socket with "+HOST +":" + PORT);
 		} catch (IOException e) {
-			// TODO: Print error?
 			return false;
 		}
 		
@@ -57,7 +58,6 @@ public class UpdateRequest extends IntentService implements SocketInterface  {
 			out.flush();
 			in = new ObjectInputStream(sock.getInputStream());
 		} catch (IOException e) {
-			// TODO: Print error?
 			return false;
 		}
 		return true;
@@ -81,11 +81,10 @@ public class UpdateRequest extends IntentService implements SocketInterface  {
 					out.writeObject(request);
 					response = (Request)in.readObject();
 				} catch (Exception e) {
-					// TODO - error message? Or wait?
 				}
 			}
 			
-			// TODO: Process the response?
+			// Process the response here; was not tested
 		}
 
 	}
@@ -97,7 +96,6 @@ public class UpdateRequest extends IntentService implements SocketInterface  {
 			out.close();
 			sock.close();
 		} catch (IOException e) {
-			// TODO: Print error?
 		}
 	}
 		
