@@ -130,6 +130,8 @@ public class ViewLecture extends Activity {
 
 	/**
 	 * Private method to tell server to fetch the roster
+	 * 
+	 * Not called by the demo, since it makes a connection to the server.
 	 */
 	private void getRosterFromServer() {
 		Object[] args = new Object[]{RaiseYourHandApp.getCourseNum()};
@@ -140,6 +142,8 @@ public class ViewLecture extends Activity {
 
 	/**
 	 * Private method to tell server to start lecture
+	 * 
+	 * Not called by the demo, since it makes a connection to the server.
 	 */
 	private void startLectureToServer() {
 		Object[] args = new Object[1];
@@ -151,6 +155,8 @@ public class ViewLecture extends Activity {
 
 	/**
 	 * Private sub-class to respond to server's response when requesting for the roster list for this lecture
+	 * 
+	 * Not called by the demo, since it makes a connection to the server.
 	 */
 	private class GetRosterServerResponseListener implements ServerResponseListener {
 
@@ -191,6 +197,8 @@ public class ViewLecture extends Activity {
 
 	/**
 	 * Private sub-class to respond to server's response when telling the server to start lecture 
+	 * 
+	 * Not called by the demo, since it makes a connection to the server.
 	 */
 	private class SendStartLectureServerResponseListener implements ServerResponseListener {
 

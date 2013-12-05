@@ -367,6 +367,8 @@ public class SetupQuiz extends Activity {
 
 	/**
 	 * Private method to tell server to start the quiz
+	 * 
+	 * Not called by the demo, since it makes a connection to the server.
 	 */
 	private void startQuizToServer() {
 		// Tell server that this quiz has started
@@ -380,6 +382,8 @@ public class SetupQuiz extends Activity {
 
 	/**
 	 * Private sub-class to respond to server's response when telling server to start quiz
+	 * 
+	 * Not called by the demo, since it makes a connection to the server.
 	 */
 	private class SendStartQuizServerResponseListener implements ServerResponseListener {
 

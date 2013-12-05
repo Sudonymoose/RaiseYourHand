@@ -1,11 +1,11 @@
 /**
- * 
+ * An enum named RequestType that is sent by a client to the server, and tells
+ * the server what kind of request it is.
  */
 package com.ws;
 
 /**
  * @author arthurc
- *
  */
 public enum RequestType {
 	GET_LOGIN,

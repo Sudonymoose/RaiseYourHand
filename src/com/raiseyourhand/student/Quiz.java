@@ -294,7 +294,7 @@ public class Quiz extends FragmentActivity implements ActionBar.TabListener {
 									Toast.LENGTH_SHORT).show();
 							dialog_submit.dismiss();
 						}
-						//TODO: indicate the instructor the student has finished quiz
+						// indicate the instructor the student has finished quiz
 
 					}
 
@@ -311,7 +311,9 @@ public class Quiz extends FragmentActivity implements ActionBar.TabListener {
 			}
 
 			/**
+			 * Private method to send the quiz answer to the server
 			 * 
+			 * Not called by the demo, since it makes a connection to the server.
 			 */
 			private void sendQuizAnswerToServer() {
 				Object args[] = new Object[2];
@@ -323,13 +325,14 @@ public class Quiz extends FragmentActivity implements ActionBar.TabListener {
 			}
 			
 			/**
-			 * Private sub-class to respond to server's response when telling the server to start lecture 
+			 * Private sub-class to respond to server's response when telling the server to start lecture
+			 * 
+			 * Not called by the demo, since it makes a connection to the server.
 			 */
 			private class SendQuizAnswerServerResponseListener implements ServerResponseListener {
 
 				@Override
 				public boolean onResponse(Request r) {
-					// TODO MEssage that answer was received?
 					return false;
 				}
 				

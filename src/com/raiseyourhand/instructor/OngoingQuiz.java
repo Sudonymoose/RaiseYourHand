@@ -173,7 +173,9 @@ public class OngoingQuiz extends Activity {
 	}
 	
 	/**
-	 * Private method to tells erver to end quiz
+	 * Private method to tells server to end quiz
+	 * 
+	 * Not called by the demo, since it makes a connection to the server.
 	 */
 	private void endQuizToServer() {
 		Object[] args = new Object[]{RaiseYourHandApp.getCourseNum()};
@@ -184,6 +186,8 @@ public class OngoingQuiz extends Activity {
 	
 	/**
 	 * Private sub-class to respond to server's response when telling server to end quiz
+	 * 
+	 * Not called by the demo, since it makes a connection to the server.
 	 */
 	private class SendEndQuizServerResponseListener implements ServerResponseListener {
 
