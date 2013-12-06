@@ -298,6 +298,8 @@ public class InstructorSharedFragment extends Fragment{
 
 	/**
 	 * Private method, call this to send the instructor note to the server
+	 * 
+	 * Not called by the demo, since it makes a connection to the server.
 	 */
 	private void sendNoteToServer() {
 		Object[] args = new Object[3];
@@ -310,6 +312,8 @@ public class InstructorSharedFragment extends Fragment{
 
 	/**
 	 * Private sub-class to respond to server's response when sending instructor's note to server
+	 * 
+	 * Not called by the demo, since it makes a connection to the server.
 	 */
 	private class SendInstructorNoteServerResponseListener implements ServerResponseListener {
 
@@ -335,8 +339,8 @@ public class InstructorSharedFragment extends Fragment{
 	/**
 	 * An interface to pass data from the fragments to the activity
 	 * might be unnecessary as I walked through, but a good attempt to use interface though
+	 * 
 	 * @author Hanrui Zhang
-	 *
 	 */
 	public interface PassItemListener {
 		public void passData(ArrayList<String> all_items);

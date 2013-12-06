@@ -167,6 +167,8 @@ public class Attendance extends Activity {
 
 	/*
 	 * Private method to tell server to start attendance
+	 * 
+	 * Not called by the demo, since it makes a connection to the server.
 	 */
 	private void startAttendanceToServer() {
 		Object[] start_args = new Object[]{RaiseYourHandApp.getCourseNum()};
@@ -177,6 +179,8 @@ public class Attendance extends Activity {
 
 	/*
 	 * Private method to tell server to end attendance
+	 * 
+	 * Not called by the demo, since it makes a connection to the server.
 	 */
 	private void endAttendanceToServer() {
 		Object[] end_args = new Object[]{RaiseYourHandApp.getCourseNum()};
@@ -187,6 +191,8 @@ public class Attendance extends Activity {
 
 	/**
 	 * Private sub-class to respond to server's response when telling it to start attendance
+	 * 
+	 * Not called by the demo, since it makes a connection to the server.
 	 */
 	private class SendStartAttendanceServerResponseListener implements ServerResponseListener {
 
@@ -214,6 +220,8 @@ public class Attendance extends Activity {
 
 	/**
 	 * Listener Class for when the timer attendance button is clicked
+	 * 
+	 * Not called by the demo, since it makes a connection to the server.
 	 */
 	private class StartAttendanceOnClickListener implements OnClickListener {
 
@@ -298,6 +306,8 @@ public class Attendance extends Activity {
 
 	/**
 	 * Private sub-class to respond to server's response when telling it to start attendance
+	 * 
+	 * Not called by the demo, since it makes a connection to the server.
 	 */
 	private class SendEndAttendanceServerResponseListener implements ServerResponseListener {
 

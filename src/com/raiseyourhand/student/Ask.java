@@ -25,8 +25,6 @@ import com.ws.local.ServerResponseListener;
  * Activity for a student asking a question, from the student's perspective
  * P76
  * 
- * 
- * 
  * @author Hanrui Zhang
  *
  */
@@ -180,6 +178,8 @@ public class Ask extends Activity {
 
 	/**
 	 * Private method to send student's question to server
+	 * 
+	 * Not called by the demo, since it makes a connection to the server.
 	 */
 	private void sendQuestionToServer() {
 
@@ -192,6 +192,8 @@ public class Ask extends Activity {
 
 	/**
 	 * Private sub-class to respond to server's response when sending the student's question to the server
+	 * 
+	 * Not called by the demo, since it makes a connection to the server.
 	 */
 	private class SendQuestionServerResponseListener implements ServerResponseListener {
 

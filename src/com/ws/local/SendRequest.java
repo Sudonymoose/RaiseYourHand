@@ -12,8 +12,12 @@ import android.os.AsyncTask;
 
 /**
  * Uses Async, used for all requestTypes besides UPDATEINSTRUCTOR, UPDATESTUDENT, CLOSE.
- *
- * TODO: Not sure what the parameters of AsyncTack are...
+ * 
+ * This class is used by a activities to send messages to the server by constructing it and calling the
+ * execute() function inherited by ASyncTask.  The activity that constructs a SendRequest also passes
+ * in its own implementation of the SocketResponseListener interface; the onResponse() method
+ * in SocketResponseListener is called by SendRequest to use the code customized by the corresponding
+ * activity, and this takes in the data response from the server and processes it.
  */
 public class SendRequest extends AsyncTask<Void, Void, Void> implements SocketInterface {
 
@@ -21,10 +25,12 @@ public class SendRequest extends AsyncTask<Void, Void, Void> implements SocketIn
 	private final int PORT = 16976; // TODO: CHANGE ME TO RYH_backend port
 	private final int MAX_FAIL_COUNT = 5;
 	
+	// Parameters to open connections
 	private Socket sock;
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
 	
+	// Parameters for client-server data
 	private RequestType _type;
 	private ServerResponseListener _listener;
 	private Object[] _raw_obj;
@@ -38,13 +44,14 @@ public class SendRequest extends AsyncTask<Void, Void, Void> implements SocketIn
 	}
 	
 	/**
-	 * @param type Type of request to send to server
+	 * Constructor to set parameters of type of request, message to send, and implementation
+	 * of ServerResponseListener.
+	 * 
+	 * @param Request A Request object that defines the type of Request and the arguments to send
 	 * @param listener ServerResponseListener that deals with the response from the server
-	 * @param args Arguments to send to server along with the RequestType; could be empty if not sending anything
 	 */
 	public SendRequest(Request r, ServerResponseListener listener)
 	{
-		
 		_type = r.getType();
 		_listener = listener;
 		_raw_obj = r.getArgs();
@@ -67,17 +74,15 @@ public class SendRequest extends AsyncTask<Void, Void, Void> implements SocketIn
 			sock = new Socket(HOST, PORT);
 			System.out.println("Config Client has a socket with "+HOST +":" + PORT);
 		} catch (IOException e) {
-			// TODO: Print error?
 			return false;
 		}
 		
-		// Set up streams
+		// Set up object streams
 		try {
 			out = new ObjectOutputStream(sock.getOutputStream());
 			out.flush();
 			in = new ObjectInputStream(sock.getInputStream());
 		} catch (IOException e) {
-			// TODO: Print error?
 			return false;
 		}
 		return true;
@@ -88,7 +93,7 @@ public class SendRequest extends AsyncTask<Void, Void, Void> implements SocketIn
 		
 		int failCount = 0;
 		
-		Request request = new Request(_type, _raw_obj); // do we need to add anything more?
+		Request request = new Request(_type, _raw_obj);
 		Request response = null;
 		
 		// Repeat attempts to send; if it succeeds, exit. If not, repeat until MAX_FAIL_COUNT.
@@ -101,7 +106,6 @@ public class SendRequest extends AsyncTask<Void, Void, Void> implements SocketIn
 			} catch (Exception e) {
 				failCount++;
 			}
-			// failCount++; Any way for the code to not catch except yet still not communicate properly?
 		} while(failCount < MAX_FAIL_COUNT && !_listener.onResponse(response));
 		
 		
@@ -114,7 +118,6 @@ public class SendRequest extends AsyncTask<Void, Void, Void> implements SocketIn
 			out.close();
 			sock.close();
 		} catch (IOException e) {
-			// TODO: Print error?
 		}
 	}
 }

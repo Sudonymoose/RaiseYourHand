@@ -320,6 +320,8 @@ public class Lecture extends FragmentActivity implements ActionBar.TabListener, 
 
 	/**
 	 * Private method to tell server that student is leaving lecture
+	 * 
+	 * Not called by the demo, since it makes a connection to the server.
 	 */
 	private void sendLeaveLectureToServer() {
 		Object[] args = new Object[2];
@@ -332,6 +334,8 @@ public class Lecture extends FragmentActivity implements ActionBar.TabListener, 
 
 	/**
 	 * Private sub-class to respond to server's response when telling server that student is leaving
+	 * 
+	 * Not called by the demo, since it makes a connection to the server.
 	 */
 	private class SendLeaveLectureServerResponseListener implements ServerResponseListener {
 
