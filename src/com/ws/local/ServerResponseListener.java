@@ -1,6 +1,6 @@
 package com.ws.local;
 
-import com.ws.Request;
+import ws.Request;
 
 /**
  * ServerResponseListener is an interface to be implemented by a subclass of some Activity.

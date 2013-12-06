@@ -1,14 +1,7 @@
 package com.raiseyourhand.student;
 
-import com.entities.Course;
-import com.raiseyourhand.Login;
-import com.raiseyourhand.R;
-import com.raiseyourhand.RaiseYourHandApp;
-import com.ws.Request;
-import com.ws.RequestType;
-import com.ws.local.SendRequest;
-import com.ws.local.ServerResponseListener;
-
+import ws.Request;
+import ws.RequestType;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
@@ -20,6 +13,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.raiseyourhand.Login;
+import com.raiseyourhand.R;
+import com.raiseyourhand.RaiseYourHandApp;
+import com.ws.local.SendRequest;
+import com.ws.local.ServerResponseListener;
+
+import entities.Course;
 
 public class ViewLecture extends Activity {
 	private Button joinButton;

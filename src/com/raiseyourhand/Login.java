@@ -1,5 +1,7 @@
 package com.raiseyourhand;
 
+import ws.Request;
+import ws.RequestType;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -16,11 +18,10 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.entities.User;
-import com.ws.Request;
-import com.ws.RequestType;
 import com.ws.local.SendRequest;
 import com.ws.local.ServerResponseListener;
+
+import entities.User;
 
 /**
  * Activity which displays a login screen to the user, offering registration as

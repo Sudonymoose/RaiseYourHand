@@ -2,6 +2,8 @@ package com.raiseyourhand.student;
 
 import java.util.Locale;
 
+import ws.Request;
+import ws.RequestType;
 import android.app.ActionBar;
 import android.app.Dialog;
 import android.app.FragmentTransaction;
@@ -29,8 +31,6 @@ import android.widget.Toast;
 import com.raiseyourhand.Login;
 import com.raiseyourhand.R;
 import com.raiseyourhand.RaiseYourHandApp;
-import com.ws.Request;
-import com.ws.RequestType;
 import com.ws.local.SendRequest;
 import com.ws.local.ServerResponseListener;
 

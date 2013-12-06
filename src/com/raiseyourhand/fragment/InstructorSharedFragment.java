@@ -3,6 +3,8 @@ package com.raiseyourhand.fragment;
 import java.io.File;
 import java.util.ArrayList;
 
+import ws.Request;
+import ws.RequestType;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -28,8 +30,6 @@ import android.widget.Toast;
 import com.raiseyourhand.R;
 import com.raiseyourhand.RaiseYourHandApp;
 import com.raiseyourhand.util.FileDialog;
-import com.ws.Request;
-import com.ws.RequestType;
 import com.ws.local.SendRequest;
 import com.ws.local.ServerResponseListener;
 

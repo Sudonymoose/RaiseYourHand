@@ -1,18 +1,15 @@
 package com.ws.local;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import ws.Request;
+import ws.RequestType;
+import ws.SocketInterface;
 import android.app.IntentService;
 import android.content.Intent;
-
-import com.ws.Request;
-import com.ws.RequestType;
-import com.ws.SocketInterface;
 
 public class UpdateRequest extends IntentService implements SocketInterface  {
 

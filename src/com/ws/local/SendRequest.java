@@ -1,19 +1,14 @@
 package com.ws.local;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OptionalDataException;
 import java.net.Socket;
 
+import ws.Request;
+import ws.RequestType;
+import ws.SocketInterface;
 import android.os.AsyncTask;
-
-import com.ws.Request;
-import com.ws.RequestType;
-import com.ws.SocketInterface;
-import com.ws.local.ServerResponseListener;
 
 /**
  * Uses Async, used for all requestTypes besides UPDATEINSTRUCTOR, UPDATESTUDENT, CLOSE.
@@ -22,8 +17,8 @@ import com.ws.local.ServerResponseListener;
  */
 public class SendRequest extends AsyncTask<Void, Void, Void> implements SocketInterface {
 
-	private final String HOST = "angelshark.ics.cs.cmu.edu";
-	private final int PORT = 16976;
+	private final String HOST = "angelshark.ics.cs.cmu.edu"; // TODO: CHANGE ME TO RYH_backend hostname
+	private final int PORT = 16976; // TODO: CHANGE ME TO RYH_backend port
 	private final int MAX_FAIL_COUNT = 5;
 	
 	private Socket sock;

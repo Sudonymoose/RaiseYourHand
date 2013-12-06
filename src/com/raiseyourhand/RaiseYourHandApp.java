@@ -1,8 +1,7 @@
 package com.raiseyourhand;
 
 import android.app.Application;
-
-import com.entities.Lecture;
+import entities.Lecture;
 
 public class RaiseYourHandApp extends Application {
 	private static Lecture lecture;

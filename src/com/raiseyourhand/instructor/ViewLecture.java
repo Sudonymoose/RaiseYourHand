@@ -2,6 +2,8 @@ package com.raiseyourhand.instructor;
 
 import java.util.ArrayList;
 
+import ws.Request;
+import ws.RequestType;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,14 +19,13 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 
-import com.entities.Roster;
 import com.raiseyourhand.Login;
 import com.raiseyourhand.R;
 import com.raiseyourhand.RaiseYourHandApp;
-import com.ws.Request;
-import com.ws.RequestType;
 import com.ws.local.SendRequest;
 import com.ws.local.ServerResponseListener;
+
+import entities.Roster;
 
 public class ViewLecture extends Activity {
 	private SearchView searchView;

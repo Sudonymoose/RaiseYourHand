@@ -3,6 +3,8 @@ package com.raiseyourhand.instructor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import ws.Request;
+import ws.RequestType;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
@@ -23,8 +25,6 @@ import android.widget.TextView;
 import com.raiseyourhand.Login;
 import com.raiseyourhand.R;
 import com.raiseyourhand.RaiseYourHandApp;
-import com.ws.Request;
-import com.ws.RequestType;
 import com.ws.local.SendRequest;
 import com.ws.local.ServerResponseListener;
 

@@ -3,6 +3,8 @@ package com.raiseyourhand.student;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import ws.Request;
+import ws.RequestType;
 import android.app.ActionBar;
 import android.app.Dialog;
 import android.app.FragmentTransaction;
@@ -33,8 +35,6 @@ import com.raiseyourhand.RaiseYourHandApp;
 import com.raiseyourhand.fragment.InstructorSharedFragment;
 import com.raiseyourhand.fragment.InstructorSharedFragment.PassItemListener;
 import com.raiseyourhand.fragment.StudentSharedFragment;
-import com.ws.Request;
-import com.ws.RequestType;
 import com.ws.local.SendRequest;
 import com.ws.local.ServerResponseListener;
 /**

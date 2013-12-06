@@ -1,5 +1,7 @@
 package com.raiseyourhand.fragment;
 
+import ws.Request;
+import ws.RequestType;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,8 +18,6 @@ import android.widget.Toast;
 
 import com.raiseyourhand.R;
 import com.raiseyourhand.RaiseYourHandApp;
-import com.ws.Request;
-import com.ws.RequestType;
 import com.ws.local.SendRequest;
 import com.ws.local.ServerResponseListener;
 

@@ -1,5 +1,7 @@
 package com.raiseyourhand.instructor;
 
+import ws.Request;
+import ws.RequestType;
 import android.app.Activity;
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
@@ -22,8 +24,6 @@ import android.widget.Toast;
 
 import com.raiseyourhand.R;
 import com.raiseyourhand.RaiseYourHandApp;
-import com.ws.Request;
-import com.ws.RequestType;
 import com.ws.local.SendRequest;
 import com.ws.local.ServerResponseListener;
 
