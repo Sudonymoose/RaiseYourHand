@@ -92,6 +92,7 @@ public class Lecture extends FragmentActivity implements ActionBar.TabListener, 
 		downloadButton = (Button) findViewById(R.id.student_lecture_download_button);
 		downloadButton.setOnClickListener(new DownloadOnClickListener());
 		questionButton = (Button) findViewById(R.id.student_lecture_ask_button);
+
 		questionButton.setOnLongClickListener(new QuestionOnClickListener());
 		questionButton.setEnabled(true);
 
@@ -312,8 +313,9 @@ public class Lecture extends FragmentActivity implements ActionBar.TabListener, 
 				Intent ask_question = new Intent(com.raiseyourhand.student.Lecture.this, 
 						Ask.class);
 				startActivity(ask_question);
+				questionButton.setEnabled(false);
 			}
-			return true;
+			return false;
 		}
 	}
 
